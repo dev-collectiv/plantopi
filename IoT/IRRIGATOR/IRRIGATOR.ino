@@ -1,34 +1,31 @@
 #include "mqtt.h"
 
+// Setup function
 void setup()
 {
-  Serial.begin(upload_speed);
-  setup_outputs();
-  setup_wifi();
-  delay(1500);
-  mqttInit();
+  Serial.begin(upload_speed); //Set serial speed
+  setup_outputs();            //Set output pins -> helpers.h
+  setup_wifi();               //Setup wifi -> wifi.h
+  delay(1000);                //Delay between wifi connection and MQTT connection
+  mqttInit();                 //Initializing MQTT connection with Broker -> mqtt.h
 }
 
 void loop()
 {
-  mqttCheckMessages();
-  unsigned long now = millis();
+  mqttCheckMessages();          //Check if message received on any mqtt subscribed topic -> mqtt.h
+  unsigned long now = millis(); //Milliseconds since arduino booted
 
-  if (strcmp(stat, "ON") == 0)
+  if (stat == ON) //If pump is on, stat is an enum tipe defined in helpers.h
   {
-    if (now - started > duration)
+    if (now - started > duration) // check if is time to turn off the pump
     {
-      pumpOff();
+      pumpOff(); // Turn off pump -> helpers.h
     }
   }
 
-  if (now - lastMsg > 5000)
+  if (now - lastMsg > statusInterval) // Check if is time to publish status
   {
-    lastMsg = now;
-
-    snprintf(msg, MSG_BUFFER_SIZE, "Status %s: %s", mqtt_id, stat);
-    Serial.print("Publish message: ");
-    Serial.println(msg);
-    mqttClient.publish(mqtt_outTopic, msg);
+    lastMsg = now;           //Update last status time
+    mqttPublishStatus(stat); //Publish status -> mqtt.h
   }
 }
