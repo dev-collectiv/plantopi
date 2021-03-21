@@ -6,9 +6,9 @@ import { ActionDto } from './dto/action.dto';
 export class ActionController {
   constructor(private readonly actionService: ActionService) {}
 
-  // @Post()
-  // create(@Body() ActionDto: ActionDto) {
-
-  // }
-
+  @Post()
+  create(@Body() ActionDto: ActionDto) {
+    // POST REQ HANDLING GOES HERE (THOUGH MAY NOT BE USED WITH SOCKETS)
+    return 'Post req received in one piece, with topic: ' + ActionDto.topic;
+  }
 }
