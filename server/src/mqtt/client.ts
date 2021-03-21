@@ -1,63 +1,69 @@
 import { connect } from 'mqtt';
 import { startBroker } from './broker';
 
+const MQTT_BROKER_IP = process.env.MQTT_BROKER_IP || 'localhost';
 const MQTT_PORT = process.env.MQTT_PORT || 1883;
 
 function mqttServer() {
   //start the mqtt client and set the route to listen to
-  const mqttClient = connect(`mqtt://localhost:${MQTT_PORT}`);
+  const mqttClient = connect(`mqtt://${MQTT_BROKER_IP}:${MQTT_PORT}`);
 
-  (async function bootstrap() {
-    try {
-      //for mocking purposes, the broker will be started from here
-      await startBroker();
-      await startMqttClient();
-    } catch (error) {
-      console.log('ERROR: ', error);
-      console.log('Will retry to reconnect in 5 seconds');
-      //retry connection in 5s
-      setTimeout(() => {
-        bootstrap();
-      }, 5000);
-    }
-  })();
+  //list of topics client is subscribed to
+  let subscribedTopics: string[] = [];
+
+  //for mocking purposes, the broker will be started from here
+  startBroker();
+  _startMqttClient();
 
   mqttClient.on('message', (topic, message, packet) => {
     console.log('topic: ', topic, 'payload: ', message.toString());
   });
 
-  function subscribeToTopic(topic: string) {
-    mqttClient.subscribe(topic);
-  }
-
-  function unsubscribeToTopic(topic: string) {
-    mqttClient.subscribe(topic);
-  }
+  return { publishToTopic, subscribeToTopic, unsubscribeToTopic, getSubscribedTopics };
 
   function publishToTopic(topic: string, message: string) {
     mqttClient.publish(topic, message, { qos: 1 }, (err) => {
       if (err) {
         console.error(`An error occurred while trying to publish a message. Err: ${err}`);
       } else {
-        // console.log(`Successfully published message: ${message} to topic: ${topic}`);
+        console.log(`Successfully published message: ${message} to topic: ${topic}`);
       }
     });
   }
 
+  function subscribeToTopic(topic: string) {
+    const updatedTopics = [...subscribedTopics, topic];
+    _updateSubscribedTopics(updatedTopics);
+
+    mqttClient.subscribe(topic);
+  }
+
+  function unsubscribeToTopic(topic: string) {
+    const updatedTopics = subscribedTopics.filter((_topic) => topic !== _topic);
+    _updateSubscribedTopics(updatedTopics);
+
+    mqttClient.subscribe(topic);
+  }
+
+  function getSubscribedTopics() {
+    return subscribedTopics;
+  }
+
   //mqtt client on connect
-  async function startMqttClient() {
+  function _startMqttClient() {
     mqttClient.on('connect', () => {
-      console.log('MQTT Client Connected!');
+      console.log('MQTT client connected');
     });
 
     //TODO this is not showing error, it just doesn't start the server
-    mqttClient.on('error', (err) => {
-      console.log(err);
-      return Promise.reject("couldn't connect to mqtt client");
+    mqttClient.on('error', () => {
+      console.log("MQTT client couldn't connect to broker");
     });
   }
 
-  return { publishToTopic, subscribeToTopic };
+  function _updateSubscribedTopics(updatedTopics: string[]) {
+    subscribedTopics = updatedTopics;
+  }
 }
 
 const client = mqttServer();
