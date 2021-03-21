@@ -1,17 +1,15 @@
 import { connect } from 'mqtt';
-import { Server } from 'aedes';
-import { createServer } from 'net';
+import { startBroker } from './broker';
 
-const broker = Server();
-const server = createServer(broker.handle);
-const PORT = 1883;
+const MQTT_PORT = process.env.MQTT_PORT || 1883;
 
 function mqttServer() {
   //start the mqtt client and set the route to listen to
-  const mqttClient = connect(`mqtt://localhost:${PORT}`);
+  const mqttClient = connect(`mqtt://localhost:${MQTT_PORT}`);
 
   (async function bootstrap() {
     try {
+      //for mocking purposes, the broker will be started from here
       await startBroker();
       await startMqttClient();
     } catch (error) {
@@ -46,20 +44,6 @@ function mqttServer() {
     });
   }
 
-  //backlog: alert when new client subscribes
-  broker.on('subscribe', function (subscriptions, client) {
-    if (client) {
-      console.log('subscribe from client', subscriptions, client.id);
-    }
-  });
-
-  //broker listen to server
-  async function startBroker() {
-    return server.listen(PORT, function () {
-      console.log(`MQTT Broker started on port ${PORT}`);
-    });
-  }
-
   //mqtt client on connect
   async function startMqttClient() {
     mqttClient.on('connect', () => {
@@ -73,7 +57,7 @@ function mqttServer() {
     });
   }
 
-  return { publishToTopic, subscribeToTopic, PORT };
+  return { publishToTopic, subscribeToTopic };
 }
 
 const client = mqttServer();
