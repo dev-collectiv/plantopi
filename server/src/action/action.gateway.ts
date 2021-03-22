@@ -26,9 +26,9 @@ export class ActionGateway implements OnGatewayConnection, OnGatewayDisconnect {
     this.logger.log(`Client disconnected: ${client.id}`);
   }
 
-  @SubscribeMessage('testTopic')
+  @SubscribeMessage('action')
   handleMessage(client: Socket, payload: string): void {
-    this.logger.log(payload);
+    this.logger.log('Duration received: ' + payload);
     this.server.emit('msgToClient', 'server received msg');
   }
 }
