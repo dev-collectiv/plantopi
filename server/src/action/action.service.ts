@@ -1,19 +1,23 @@
 import { Injectable } from '@nestjs/common';
-import { ActionDto } from './dto/action.dto';
+import { MqttService } from '../mqtt/mqtt.service';
+import { MqttDto } from './dto/mqtt.dto';
 
 @Injectable()
 export class ActionService {
-  // constructor () {}  WILL INJECT MQTT PROVIDER HERE
 
-  // requestAction(action: ActionDto) {
+  constructor (private mqttService: MqttService) {
+    mqttService.subscribeToTopic('action'); // CURRENTLY SUBSCRIBES TO "ACTION" TOPIC UPON REQUEST FROM FRONT END - LATER ON MAY INCLUDE IN MQTT INIT INSTEAD
+  }
 
-  // PUBLISH MSG TO MQTT VIA PROVIDER
+  publishActionToIOT (message: string) {
+    const action = (message == '0') ? 'off' : 'on';
 
-  // RESPOND TO CLIENT WITH "REQUEST INITIATED", CLOSE CONNECTION, PROVIDE UPDATE VIA WEB SOCKETS || CONTINUE BELOW
+    const messageToSend: MqttDto = {
+      action: action,
+      id: 'pump1',
+      duration: parseInt(message)
+    };
 
-  // START CHECKING EXTERNAL QUEUE W SET INTERVAL (IF SUB IS EVENT BASED, OTHERWISE LISTENING TO PORT??)
-
-  // ONCE DONE MSG (OFF) IS RECEIVED, REPLY TO HTTP REQUEST
-
-  // }
+    this.mqttService.publishToTopic('action', messageToSend);
+  }
 }
