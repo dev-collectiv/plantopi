@@ -1,3 +1,4 @@
+# C useful functions
 ## constrain(x, a, b)
 
 #### Parameters
