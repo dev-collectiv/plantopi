@@ -2,15 +2,18 @@ import {
   SubscribeMessage,
   WebSocketGateway,
   WebSocketServer,
-  OnGatewayInit,
   OnGatewayConnection,
   OnGatewayDisconnect,
 } from '@nestjs/websockets';
 import { Logger } from '@nestjs/common';
 import { Socket, Server } from 'socket.io';
 
+import { ActionService } from './action.service';
+
 @WebSocketGateway(3002)
 export class ActionGateway implements OnGatewayConnection, OnGatewayDisconnect {
+
+  constructor (private readonly actionService: ActionService) {};
 
   // TODO: FIX ANY BY INITIALIZING SERVER FIRST
   @WebSocketServer() server: Server|any;
@@ -26,9 +29,12 @@ export class ActionGateway implements OnGatewayConnection, OnGatewayDisconnect {
     this.logger.log(`Client disconnected: ${client.id}`);
   }
 
-  @SubscribeMessage('testTopic')
-  handleMessage(client: Socket, payload: string): void {
-    this.logger.log(payload);
-    this.server.emit('msgToClient', 'server received msg');
+  @SubscribeMessage('action')
+  handleActionMessage(client: Socket, payload: string): void {
+    this.logger.log('Duration received: ' + payload);
+    client.emit('action', 'Server received duration: ' + payload); // send feedback to front end
+
+    this.actionService.publishActionToIOT(payload);
+    this.actionService.giveStatusUpdatesTo(client);
   }
 }

@@ -1,26 +1,33 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import React, { useEffect, useState } from 'react';
+import io from 'socket.io-client';
+let socket = io('http://localhost:3002');
 
-function App() {
+const App: React.FC = () => {
+  let [duration, setDuration] = useState<string>('');
+
+  useEffect(() => {
+    socket.on('connect', () => console.log('connected to ws'));
+    socket.on('action', (data: string) => console.log('received msg: ' + data));
+  }, []);
+
+  function clickHandler (e: React.FormEvent) {
+    e.preventDefault();
+    socket.emit('action', duration);
+    setDuration('');
+  }
+
+  function inputChangeHandler (e: React.ChangeEvent<HTMLInputElement>) {
+    setDuration(e.target.value);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <form action="" onSubmit={clickHandler}>
+        <input type="text" value={duration} onChange={inputChangeHandler}/>
+        <button type="submit">emit</button>
+      </form>
     </div>
   );
-}
-
+};
 export default App;
