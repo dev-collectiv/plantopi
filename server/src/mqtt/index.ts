@@ -18,15 +18,15 @@ function mqttClient() {
 
   return { publishToTopic, subscribeToTopic, unsubscribeToTopic, getSubscribedTopics };
 
-  function publishToTopic(topic: string, message: string) {
+  function publishToTopic(topic: string, message: object) {
     //buffered json object
     const buffer = Buffer.from(JSON.stringify(message));
 
-    mqttClient.publish(topic, message, { qos: 1 }, (err) => {
+    mqttClient.publish(topic, buffer, { qos: 1 }, (err) => {
       if (err) {
         console.error(`An error occurred while trying to publish a message. Err: ${err}`);
       } else {
-        console.log(`Successfully published message: ${message} to topic: ${topic}`);
+        console.log(`Successfully published message to topic: ${topic}`);
       }
     });
   }
@@ -70,7 +70,11 @@ const client = mqttClient();
 client.subscribeToTopic('status');
 
 setInterval(() => {
-  client.publishToTopic('action', '1');
-}, 2000);
+  client.publishToTopic('action', {
+    action: 'on',
+    duration: 1,
+    id: 'pump1'
+  });
+}, 5000);
 
 export default mqttClient;
