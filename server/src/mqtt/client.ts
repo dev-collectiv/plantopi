@@ -1,10 +1,10 @@
 import { connect } from 'mqtt';
 import { startBroker } from './broker';
 
-const MQTT_BROKER_IP = process.env.MQTT_BROKER_IP || 'localhost';
+const MQTT_BROKER_IP = process.env.MQTT_BROKER_IP || '192.168.1.135';
 const MQTT_PORT = process.env.MQTT_PORT || 1883;
 
-function mqttServer() {
+function mqttClient() {
   //start the mqtt client and set the route to listen to
   const mqttClient = connect(`mqtt://${MQTT_BROKER_IP}:${MQTT_PORT}`);
 
@@ -12,7 +12,7 @@ function mqttServer() {
   let subscribedTopics: string[] = [];
 
   //for mocking purposes, the broker will be started from here
-  startBroker();
+  // startBroker();
   _startMqttClient();
 
   mqttClient.on('message', (topic, message, packet) => {
@@ -55,7 +55,6 @@ function mqttServer() {
       console.log('MQTT client connected');
     });
 
-    //TODO this is not showing error, it just doesn't start the server
     mqttClient.on('error', () => {
       console.log("MQTT client couldn't connect to broker");
     });
@@ -66,7 +65,7 @@ function mqttServer() {
   }
 }
 
-const client = mqttServer();
+const client = mqttClient();
 
 client.subscribeToTopic('status');
 
@@ -74,8 +73,4 @@ setInterval(() => {
   client.publishToTopic('action', '1');
 }, 2000);
 
-//TODO - client manager
-// function clientManager() {}
-
-//TODO - client factory
-// function client() {}
+export default mqttClient;

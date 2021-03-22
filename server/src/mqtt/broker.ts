@@ -7,7 +7,7 @@ const server = createServer(broker.handle);
 const MQTT_PORT = process.env.MQTT_PORT || 1883;
 
 //broker listen to server
-export async function startBroker() {
+export function startBroker() {
   return server.listen(MQTT_PORT, function () {
     console.log(`MQTT Broker started on port ${MQTT_PORT}`);
   });
