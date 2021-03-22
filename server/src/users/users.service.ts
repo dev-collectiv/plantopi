@@ -14,11 +14,11 @@ export class UsersService {
   }
 
   findAll(): Promise<User[]> {
-    return this.userRepository.find();
+    return this.userRepository.find({relations: ['areas']});
   }
 
   findOne(id: number): Promise<User|undefined > {
-    return this.userRepository.findOne(id);
+    return this.userRepository.findOne(id, {relations: ['areas']});
   }
 
   update(id: number, updateUserDto: UpdateUserDto): Promise<User> {

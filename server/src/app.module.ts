@@ -5,7 +5,9 @@ import { ActionModule } from './action/action.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
 import { User } from './users/entities/user.entity';
+import { Area } from './areas/entities/area.entity';
 import { UsersModule } from './users/users.module';
+import { AreasModule } from './areas/areas.module';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
@@ -15,11 +17,12 @@ dotenv.config();
     TypeOrmModule.forRoot({
       type: 'postgres',
       url: process.env.DB_URL,
-      entities: [User],
+      entities: [User, Area],
       synchronize: true,
     }),
     ActionModule,
-    UsersModule
+    UsersModule,
+    AreasModule
   ],
   controllers: [AppController],
   providers: [AppService],
