@@ -7,8 +7,9 @@ import { MqttRequestDto } from './dto/mqtt.dto';
 export class ActionService {
 
   constructor (public mqttService: MqttService) {
-    mqttService.subscribeToTopic('action');
     mqttService.subscribeToTopic('status');
+    this.listenToTopic('status');
+    console.log('Subscribed to status');
   }
 
   publishActionToIOT (message: string) {
@@ -23,10 +24,22 @@ export class ActionService {
     this.mqttService.publishToTopic('action', messageToSend);
   }
 
+  listenToTopic (mqttTopic: string) {
+    this.mqttService.mqttClient.on('message', (topic, payload, packet) => {
+      if (topic === mqttTopic) {
+        console.log(topic);
+        console.log(JSON.parse(payload.toString()));
+      }
+    });
+  }
+
   giveStatusUpdatesTo (client: Socket) {
-    this.mqttService.mqttClient.on('status', (data: any) => {
-      console.log(data);
-      client.emit(`Status update: ${data}`);
-    }); // TODO: SWAP ANY WITH RELEVANT DTO
+    // TODO: REUSE LISTENTOTOPIC HERE
+    this.mqttService.mqttClient.on('message', (topic, payload, packet) => {
+      if (topic === 'status') {
+        const data = JSON.parse(payload.toString());
+        client.emit('action', `Status update: ${data.id} is ${data.status}`);
+      }
+    });
   }
 }
