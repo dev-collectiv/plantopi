@@ -56,7 +56,7 @@ function mqttClient() {
     });
 
     mqttClient.on('error', () => {
-      console.log("MQTT client couldn't connect to broker");
+      console.log('MQTT client couldn\'t connect to broker');
     });
   }
 
