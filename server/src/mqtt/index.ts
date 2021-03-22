@@ -1,5 +1,4 @@
 import { connect } from 'mqtt';
-import { startBroker } from './broker';
 
 const MQTT_BROKER_IP = process.env.MQTT_BROKER_IP || '192.168.1.135';
 const MQTT_PORT = process.env.MQTT_PORT || 1883;
@@ -11,8 +10,6 @@ function mqttClient() {
   //list of topics client is subscribed to
   let subscribedTopics: string[] = [];
 
-  //for mocking purposes, the broker will be started from here
-  // startBroker();
   _startMqttClient();
 
   mqttClient.on('message', (topic, message, packet) => {
@@ -22,6 +19,9 @@ function mqttClient() {
   return { publishToTopic, subscribeToTopic, unsubscribeToTopic, getSubscribedTopics };
 
   function publishToTopic(topic: string, message: string) {
+    //buffered json object
+    const buffer = Buffer.from(JSON.stringify(message));
+
     mqttClient.publish(topic, message, { qos: 1 }, (err) => {
       if (err) {
         console.error(`An error occurred while trying to publish a message. Err: ${err}`);
