@@ -1,5 +1,5 @@
 import { connect } from 'mqtt';
-import { MqttDto } from '../action/dto/mqtt.dto';
+import { MqttRequestDto } from '../action/dto/mqtt.dto';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
@@ -39,7 +39,7 @@ export class MqttService {
     this.subscribedTopics = updatedTopics;
   }
 
-  publishToTopic(topic: string, message: MqttDto) {
+  publishToTopic(topic: string, message: MqttRequestDto) {
     //buffered json object
     const buffer = Buffer.from(JSON.stringify(message));
 
