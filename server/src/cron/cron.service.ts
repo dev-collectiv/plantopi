@@ -1,5 +1,4 @@
 import { CronCommand, CronJob } from 'cron';
-import { MqttService } from '../mqtt/mqtt.service';
 import { Injectable, Logger } from '@nestjs/common';
 import { SchedulerRegistry } from '@nestjs/schedule';
 
@@ -10,7 +9,7 @@ type CronCallbackType = (args?: any[]) => void;
 export class CronService {
   private readonly logger = new Logger(CronService.name);
 
-  constructor(private schedulerRegistry: SchedulerRegistry, private readonly mqttService: MqttService) {}
+  constructor(private schedulerRegistry: SchedulerRegistry) {}
 
   getCronJob(name: string) {
     // console.log(job.lastDate());
@@ -22,16 +21,15 @@ export class CronService {
     return 200;
   }
 
-  addCronJob(name: string, time: string, cb: CronCallbackType) {
+  addCronJob(id: string, time: string, cb: CronCallbackType) {
     const job = new CronJob(time, () => {
-      this.logger.log(`cron ${name} running`);
+      this.logger.log(`cron ${id} running`);
       cb();
     });
-    this.schedulerRegistry.addCronJob(name, job);
+
+    this.schedulerRegistry.addCronJob(id, job);
 
     job.start();
-
-    // return job;
   }
 
   getCrons() {
