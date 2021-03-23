@@ -10,7 +10,7 @@ const char *wifi_ssid = "Codeworks";
 const char *wifi_password = "codinginthesun";
 
 //MQTT SETTINGS
-const char *mqtt_broker = "192.168.1.170";
+const char *mqtt_broker = "192.168.1.135";
 const int mqtt_port = 1883;
 const char *mqttId = "pump1";
 const char mqtt_inTopic[] = "action";

@@ -12,6 +12,8 @@ import { Sensor } from './sensors/entities/sensor.entity';
 import { UsersModule } from './users/users.module';
 import { AreasModule } from './areas/areas.module';
 import { SensorsModule } from './sensors/sensors.module';
+import { CronModule } from './cron/cron.module';
+import { MqttService } from './mqtt/mqtt.service';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
@@ -20,11 +22,16 @@ dotenv.config();
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      url: process.env.DB_URL,
+      port: 5432,
+      host: 'localhost',
+      username: 'test',
+      password: 'test',
+      database: 'test',
       entities: [User, Area, Sensor],
       synchronize: true
     }),
     ActionModule,
+    CronModule,
     UsersModule,
     AreasModule,
     SensorsModule,
@@ -32,7 +39,7 @@ dotenv.config();
     ScheduleModule.forRoot()
   ],
   controllers: [AppController],
-  providers: [AppService, CronService]
+  providers: [AppService, CronService, MqttService]
 })
 export class AppModule {
   constructor(private connection: Connection) {}
