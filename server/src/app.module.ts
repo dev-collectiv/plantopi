@@ -6,12 +6,10 @@ import { ScheduleModule } from '@nestjs/schedule';
 import { CronService } from './cron/cron.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
-import { User } from './users/entities/user.entity';
-import { Area } from './areas/entities/area.entity';
-import { Sensor } from './sensors/entities/sensor.entity';
 import { UsersModule } from './users/users.module';
 import { AreasModule } from './areas/areas.module';
 import { SensorsModule } from './sensors/sensors.module';
+import { ControllersModule } from './controllers/controllers.module';
 import { CronModule } from './cron/cron.module';
 import { MqttService } from './mqtt/mqtt.service';
 import * as dotenv from 'dotenv';
@@ -20,23 +18,13 @@ dotenv.config();
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      port: 5432,
-      host: 'localhost',
-      username: 'test',
-      password: 'test',
-      database: 'test',
-      entities: [User, Area, Sensor],
-      synchronize: true
-    }),
+    TypeOrmModule.forRoot(),
     ActionModule,
     CronModule,
     UsersModule,
     AreasModule,
     SensorsModule,
-    ActionModule,
-    ScheduleModule.forRoot()
+    ControllersModule
   ],
   controllers: [AppController],
   providers: [AppService, CronService, MqttService]

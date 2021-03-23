@@ -4,11 +4,11 @@ import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 // Area ties to users with ManyToOne, users tie to area with OneToMany
 
 @Entity()
-export class Sensor {
+export class Controller {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => Area, area => area.sensors)
+  @ManyToOne(() => Area, area => area.controllers)
   area: Area;
 
   @Column()
