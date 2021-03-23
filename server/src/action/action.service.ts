@@ -35,11 +35,15 @@ export class ActionService {
 
   giveStatusUpdatesTo (client: Socket) {
     // TODO: REUSE LISTENTOTOPIC HERE
+    let watering = true;
+
     this.mqttService.mqttClient.on('message', (topic, payload, packet) => {
-      if (topic === 'status') {
+      if (topic === 'status' && watering) {
         const data = JSON.parse(payload.toString());
         client.emit('action', `Status update: ${data.id} is ${data.status}`);
+        if (data.status === 'off') watering = false;
       }
     });
+
   }
 }
