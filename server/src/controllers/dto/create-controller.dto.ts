@@ -1,4 +1,4 @@
-export class CreateSensorDto {
+export class CreateControllerDto {
   areaId: string;
   type: string;
   isActive: boolean;

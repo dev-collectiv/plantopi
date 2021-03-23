@@ -22,8 +22,8 @@ export class SensorsService {
     return this.sensorRepository.findOne(id, {relations: ['area']});
   }
 
-  update(id: number, updateUserDto: UpdateSensorDto): Promise<Sensor> {
-    return this.sensorRepository.save({id, ...updateUserDto});
+  update(id: number, updateSensorDto: UpdateSensorDto): Promise<Sensor> {
+    return this.sensorRepository.save({id, ...updateSensorDto});
   }
 
   async remove(id: number): Promise<void> {

@@ -15,11 +15,11 @@ export class AreasService {
   }
 
   findAll() {
-    return this.areaRepository.find({relations: ['user', 'sensors']});
+    return this.areaRepository.find({relations: ['user', 'sensors', 'controllers']});
   }
 
   findOne(id: number): Promise<Area|undefined > {
-    return this.areaRepository.findOne(id, {relations: ['user', 'sensors']});
+    return this.areaRepository.findOne(id, {relations: ['user', 'sensors', 'controllers']});
   }
 
   update(id: number, updateUserDto: UpdateAreaDto): Promise<Area> {
