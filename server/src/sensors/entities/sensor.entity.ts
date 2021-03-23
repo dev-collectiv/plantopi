@@ -6,21 +6,14 @@ import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 @Entity()
 export class Sensor {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @ManyToOne(() => Area, area => area.sensors)
-  area: Area;
+  area!: Area;
 
   @Column()
-  type: string;
+  type!: string;
 
   @Column({ default: true })
-  isActive: boolean;
-
-  constructor(id: number, area: Area, type: string, isActive: boolean) {
-    this.id = id;
-    this.area = area;
-    this.type = type;
-    this.isActive = isActive;
-  }
+  isActive!: boolean;
 }

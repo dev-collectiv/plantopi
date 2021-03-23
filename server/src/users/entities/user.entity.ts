@@ -4,25 +4,17 @@ import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @Column()
-  firstName: string;
+  firstName!: string;
 
   @Column()
-  lastName: string;
+  lastName!: string;
 
   @Column({ default: true })
-  isActive: boolean;
+  isActive!: boolean;
 
   @OneToMany(() => Area, area => area.user)
-  areas: Area[]
-
-  constructor(id: number, firstName: string, lastName: string, areas: Area[], isActive: boolean) {
-    this.id = id;
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.areas = areas;
-    this.isActive = isActive;
-  }
+  areas!: Area[]
 }
