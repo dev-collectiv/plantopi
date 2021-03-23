@@ -2,7 +2,7 @@ import { CronJob } from 'cron';
 import { Injectable, Logger } from '@nestjs/common';
 import { SchedulerRegistry } from '@nestjs/schedule';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CronAction } from './entities/cronAction.entity';
+import { CronAction } from './entities/cron-action.entity';
 import { Repository } from 'typeorm';
 
 type CronCallbackType = (args?: any[]) => void;

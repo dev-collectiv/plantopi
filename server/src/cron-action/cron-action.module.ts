@@ -4,7 +4,7 @@ import { CronActionService } from './cron-action.service';
 import { CronActionController } from './cron-action.controller';
 import { ActionService } from 'src/action/action.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CronAction } from './entities/cronAction.entity';
+import { CronAction } from './entities/cron-action.entity';
 import { SchedulerRegistry } from '@nestjs/schedule';
 
 @Module({

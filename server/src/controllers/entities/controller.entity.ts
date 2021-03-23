@@ -1,5 +1,5 @@
 import { Area } from 'src/areas/entities/area.entity';
-import { CronAction } from 'src/cron-action/entities/cronAction.entity';
+import { CronAction } from 'src/cron-action/entities/cron-action.entity';
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToOne } from 'typeorm';
 
 // Area ties to users with ManyToOne, users tie to area with OneToMany
