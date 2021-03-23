@@ -38,7 +38,6 @@ export class ActionService {
     let previousStatus: null|'off' = null;
     const statusUpdateHandler = (topic: string, payload: Buffer, _: any) => {
       if (topic === 'status' && watering) {
-        console.log('hi');
         const data = JSON.parse(payload.toString());
 
         // There is a chance that the server may still receive the previous status of IoT after the client makes a request,
