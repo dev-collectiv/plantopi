@@ -28,7 +28,7 @@ dotenv.config();
     ScheduleModule.forRoot()
   ],
   controllers: [AppController],
-  providers: [AppService, CronActionService, MqttService]
+  providers: [AppService, MqttService]
 })
 export class AppModule {
   constructor(private connection: Connection) {}
