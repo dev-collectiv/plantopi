@@ -7,9 +7,11 @@ import { Connection } from 'typeorm';
 import { User } from './users/entities/user.entity';
 import { Area } from './areas/entities/area.entity';
 import { Sensor } from './sensors/entities/sensor.entity';
+import { Controller } from './controllers/entities/controller.entity';
 import { UsersModule } from './users/users.module';
 import { AreasModule } from './areas/areas.module';
 import { SensorsModule } from './sensors/sensors.module';
+import { ControllersModule } from './controllers/controllers.module';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
@@ -19,13 +21,14 @@ dotenv.config();
     TypeOrmModule.forRoot({
       type: 'postgres',
       url: process.env.DB_URL,
-      entities: [User, Area, Sensor],
+      entities: [User, Area, Sensor, Controller],
       synchronize: true,
     }),
     ActionModule,
     UsersModule,
     AreasModule,
-    SensorsModule
+    SensorsModule,
+    ControllersModule
   ],
   controllers: [AppController],
   providers: [AppService],
