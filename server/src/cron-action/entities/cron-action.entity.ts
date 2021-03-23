@@ -3,19 +3,26 @@ import { Entity, Column, PrimaryGeneratedColumn, OneToOne } from 'typeorm';
 
 @Entity()
 export class CronAction {
-  @PrimaryGeneratedColumn()
-  id!: string;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column()
-  time!: string;
+  time: string;
 
   @Column()
-  cb!: string;
+  action: string;
 
   @Column({ default: true })
-  isActive!: boolean;
+  isActive: boolean;
 
   @OneToOne(() => Controller, (controller) => controller.cronAction)
-  controller!: Controller;
+  controller: Controller;
 
+  constructor(id: string, time: string, action: string, isActive: boolean, controller: Controller) {
+    this.id = id;
+    this.time = time;
+    this.action = action;
+    this.isActive = isActive;
+    this.controller = controller;
+  }
 }

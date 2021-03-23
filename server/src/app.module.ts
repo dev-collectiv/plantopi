@@ -3,7 +3,6 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ActionModule } from './action/action.module';
 import { ScheduleModule } from '@nestjs/schedule';
-import { CronActionService } from './cron-action/cron-action.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
 import { UsersModule } from './users/users.module';

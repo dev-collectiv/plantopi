@@ -19,7 +19,7 @@ export class Controller {
   isActive: boolean;
 
   @OneToOne(() => CronAction, (cronAction) => cronAction.controller)
-  cronAction!: CronAction;
+  cronAction?: CronAction;
 
   constructor(id: number, area: Area, type: string, isActive: boolean, cronAction: CronAction) {
     this.id = id;
