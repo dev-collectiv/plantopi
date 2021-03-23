@@ -4,7 +4,6 @@ import { ControllersController } from './controllers.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Controller } from './entities/controller.entity';
 
-
 @Module({
   imports: [TypeOrmModule.forFeature([Controller])],
   controllers: [ControllersController],
