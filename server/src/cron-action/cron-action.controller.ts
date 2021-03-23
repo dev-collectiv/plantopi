@@ -1,19 +1,21 @@
-import { CronService } from './cron.service';
-import { MqttService } from '../mqtt/mqtt.service';
+import { CronActionService } from './cron-action.service';
 import { CreateCronDto } from './dto/create-cron.dto';
 import { Controller, Post, Body } from '@nestjs/common';
 import { ActionService } from 'src/action/action.service';
 
 @Controller('crons')
-export class CronsController {
-  constructor(private readonly cronService: CronService, private readonly mqttService: MqttService, private readonly actionService: ActionService) {}
+export class CronActionController {
+  constructor(
+    private readonly cronService: CronActionService,
+    private readonly actionService: ActionService
+  ) {}
 
   @Post()
   create(@Body() createCronDto: CreateCronDto) {
-    const { id, time, action } = createCronDto;
+    const { time, action } = createCronDto;
     const cb = () => this.actionService.publishActionToIOT(action);
 
-    this.cronService.addCronJob(id, time, cb);
+    this.cronService.create(time, cb);
 
     //TODO - return db object
   }
