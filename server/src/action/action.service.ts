@@ -18,16 +18,17 @@ export class ActionService {
   listenToTopic(mqttTopic: string) {
     this.mqttService.mqttClient.on('message', (topic, payload, packet) => {
       if (topic === mqttTopic) {
-        console.log(topic);
-        console.log(JSON.parse(payload.toString()));
+        // console.log(topic);
+        // console.log(JSON.parse(payload.toString()));
       }
     });
   }
 
-  giveStatusUpdatesTo (client: Socket) {
+  giveStatusUpdatesTo(client: Socket) {
     let watering = true;
-    let previousStatus: null|'off' = null;
-    const statusUpdateHandler = (topic: string, payload: Buffer, _: any) => {
+    let previousStatus: null | 'off' = null;
+    //cb takes (topic, payload, packet)
+    const statusUpdateHandler = (topic: string, payload: Buffer) => {
       if (topic === 'status' && watering) {
         const data = JSON.parse(payload.toString());
 
