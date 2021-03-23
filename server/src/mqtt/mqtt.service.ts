@@ -13,7 +13,7 @@ export class MqttService {
   //list of topics client is subscribed to
   subscribedTopics: string[] = [];
 
-  constructor () {
+  constructor() {
     this._startMqttClient();
   }
 
@@ -40,6 +40,7 @@ export class MqttService {
   }
 
   publishToTopic(topic: string, message: MqttRequestDto) {
+    console.log(topic, message);
     //buffered json object
     const buffer = Buffer.from(JSON.stringify(message));
 
