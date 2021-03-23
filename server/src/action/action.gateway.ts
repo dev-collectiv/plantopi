@@ -16,9 +16,6 @@ export class ActionGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
   constructor (private readonly actionService: ActionService) {};
 
-  // TODO: FIX ANY BY INITIALIZING SERVER FIRST
-  @WebSocketServer() server: Server|any;
-
   private logger: Logger = new Logger('ActionGateway');
 
   handleConnection(client: Socket, ...args: any[]) {
