@@ -25,6 +25,7 @@ unsigned long statusInterval = 2000;
 void setup_outputs()
 {
   pinMode(digital_output_pin1, OUTPUT);
+  digitalWrite(digital_output_pin1, HIGH); // STOP
 }
 
 void printMsg(char *message_string)
@@ -45,12 +46,12 @@ void pumpOn(int time_duration)
   Serial.println(msg);
   started = millis();
   duration = time_duration * 1000;
-  digitalWrite(digital_output_pin1, HIGH); // IRRIGATE
+  digitalWrite(digital_output_pin1, LOW); // IRRIGATE
 }
 
 void pumpOff()
 {
   stat = OFF;
   printMsg("PUMP TURNED OFF!!");
-  digitalWrite(digital_output_pin1, LOW); // IRRIGATE
+  digitalWrite(digital_output_pin1, HIGH); // STOP
 }
