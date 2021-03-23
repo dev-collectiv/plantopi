@@ -34,16 +34,23 @@ export class ActionService {
   }
 
   giveStatusUpdatesTo (client: Socket) {
-    // TODO: REUSE LISTENTOTOPIC HERE
     let watering = true;
+    let previousStatus: null|'off' = null;
 
     this.mqttService.mqttClient.on('message', (topic, payload, packet) => {
       if (topic === 'status' && watering) {
         const data = JSON.parse(payload.toString());
+
+        // There is a chance that the server may still receive the previous status of IoT after the client makes a request,
+        // so we check and stop sending feedback only if we receive 'off' status twice in a row.
+        if (data.status === 'off' && previousStatus === 'off') {
+          watering = false;
+          return;
+        }
+
         client.emit('action', `Status update: ${data.id} is ${data.status}`);
-        if (data.status === 'off') watering = false;
+        if (data.status === 'off') previousStatus = 'off';
       }
     });
-
   }
 }
