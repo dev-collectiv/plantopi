@@ -24,7 +24,8 @@ dotenv.config();
     UsersModule,
     AreasModule,
     SensorsModule,
-    ControllersModule
+    ControllersModule,
+    ScheduleModule.forRoot()
   ],
   controllers: [AppController],
   providers: [AppService, CronService, MqttService]
