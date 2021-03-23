@@ -8,17 +8,25 @@ import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany } from 'ty
 @Entity()
 export class Area {
   @PrimaryGeneratedColumn()
-  id!: number;
+  id: number;
 
   @ManyToOne(() => User, user => user.areas)
-  user!: User;
+  user: User;
 
   @OneToMany(() => Sensor, sensor => sensor.area)
-  sensors!: Sensor[];
+  sensors: Sensor[];
 
   @OneToMany(() => Controller, controller => controller.area)
-  controllers!: Controller[];
+  controllers: Controller[];
 
   @Column({ default: true })
-  isActive!: boolean;
+  isActive: boolean;
+
+  constructor(id: number, user: User, sensors: Sensor[], controllers: Controller[], isActive: boolean) {
+    this.id = id;
+    this.user = user;
+    this.sensors = sensors;
+    this.controllers = controllers;
+    this.isActive = isActive;
+  }
 }
