@@ -33,14 +33,23 @@ void callback(char *topic, byte *payload, unsigned int length)
   {
     StaticJsonDocument<256> msgJson;
     deserializeJson(msgJson, payload, length);
-    parseAction(msgJson);
+    JsonObject objJson = msgJson.as<JsonObject>();
+    if (objJson.isNull())
+    {
+      Serial.println("ERROR: parsing json, did you send a json?");
+      mqttPublishResponse("ERROR: parsing json, did you send a json?");
+    }
+    else
+    {
+      parseAction(msgJson);
+    }
   }
 }
 
 void parseAction(StaticJsonDocument<256> actionJson)
 {
   const char *msgId = actionJson["id"];
-  if (!strcmp(msgId, mqttId))
+  if (strcmp(msgId, mqttId) == 0)
   {
     if (!actionJson.containsKey("action"))
     {
@@ -51,7 +60,7 @@ void parseAction(StaticJsonDocument<256> actionJson)
     else
     {
       const char *msgAction = actionJson["action"];
-      if (!strcmp(msgAction, "off"))
+      if (strcmp(msgAction, "off") == 0)
       {
         if (stat == ON)
         {
@@ -66,7 +75,7 @@ void parseAction(StaticJsonDocument<256> actionJson)
           mqttPublishResponse("O_o Received OFF action, but I was already OFF!");
         }
       }
-      else if (!strcmp(msgAction, "on"))
+      else if (strcmp(msgAction, "on") == 0)
       {
         if (!actionJson.containsKey("duration"))
         {
