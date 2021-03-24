@@ -1,4 +1,4 @@
-import { Area } from 'src/areas/entities/area.entity';
+import { Area } from '../../areas/entities/area.entity';
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 
 // Area ties to users with ManyToOne, users tie to area with OneToMany
