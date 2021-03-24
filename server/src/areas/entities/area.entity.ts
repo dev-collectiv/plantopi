@@ -10,7 +10,7 @@ export class Area {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => User, user => user.areas)
+  @ManyToOne(() => User, user => user.areas, {onDelete: 'CASCADE'})
   user: User;
 
   @OneToMany(() => Sensor, sensor => sensor.area)

@@ -8,7 +8,7 @@ export class Sensor {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => Area, area => area.sensors)
+  @ManyToOne(() => Area, area => area.sensors, {onDelete: 'CASCADE'})
   area: Area;
 
   @Column()
