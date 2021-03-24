@@ -9,7 +9,7 @@ export class Controller {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => Area, (area) => area.controllers)
+  @ManyToOne(() => Area, (area) => area.controllers, {onDelete: 'CASCADE'})
   area: Area;
 
   @Column()
