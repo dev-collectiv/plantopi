@@ -1,0 +1,15 @@
+@import 'styles/main.scss';
+
+.dashboardContainer {
+  display: flex;
+  flex-direction: column;
+  width: 80vw;
+  height: 100vh;
+}
+
+.illustrationInformation {
+  display: flex;
+  flex-direction: row;
+  height: 85%;
+  width: 100%;
+}

@@ -1,0 +1,34 @@
+@import 'styles/main.scss';
+
+.informationContainer {
+  @include dashboardPanels;
+  flex: 1;
+}
+
+.sensorInformation {
+  background-color: burlywood;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.temperature {
+  background-color: green;
+}
+
+.humidity {
+  background-color: red;
+}
+
+.chartContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: blue;
+  width: 100%;
+}
+.chart {
+  width: auto;
+}
