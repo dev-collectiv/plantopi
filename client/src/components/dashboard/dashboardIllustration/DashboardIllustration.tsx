@@ -6,7 +6,7 @@ import { Stop, Start, IrrigatingPlant, Plant } from 'assets';
 let socket = io('http://localhost:3002');
 
 const DashboardIllustration: React.FC = () => {
-  let [duration, setDuration] = useState<number>();
+  let [duration, setDuration] = useState<number>(0);
   let [irrigating, setIrrigating] = useState<boolean>(false);
 
   function inputChangeHandler(e: React.ChangeEvent<HTMLInputElement>) {
@@ -15,16 +15,15 @@ const DashboardIllustration: React.FC = () => {
 
   function clickHandler(e: React.FormEvent) {
     e.preventDefault();
-    socket.emit('action', duration);
-    setIrrigating(true);
-    setDuration(0);
+    socket.emit('action', { id: 'pump1', action: 'on', duration: duration });
+    setIrrigating(true); // TODO receive web socket with response before changing 'irrigating' variable
   }
 
   function abortIrrigation() {
-    setIrrigating(false);
-    setDuration(0);
-    socket.emit('action', 0);
+    socket.emit('action', { id: 'pump1', action: 'off', duration: 0 });
+    setIrrigating(false); // TODO receive web socket with response before changing 'irrigating' variable
   }
+
   return (
     <div className={styles.container}>
       <div className={styles.card}>
