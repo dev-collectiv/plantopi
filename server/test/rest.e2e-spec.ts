@@ -4,7 +4,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import * as request from 'supertest';
 import { AppModule } from '../src/app.module';
 import { Connection, getConnectionOptions } from 'typeorm';
-import * as mocks from './rest.e2e-mocks';
+import * as mockSeeds from './mocks/rest.e2e-mockSeeds';
+import { mockUsers } from './mocks/rest.e2e-mockUsers';
+import { mockAreas } from './mocks/rest.e2e-mockAreas';
+import { mockControllers } from './mocks/rest.e2e-mockControllers';
+import { mockSensors } from './mocks/rest.e2e-mockSensors';
+
 
 // DB ENTITIES
 import { CronAction } from '../src/cron-action/entities/cron-action.entity';
@@ -40,16 +45,50 @@ beforeAll(async () => {
     return connection.createQueryBuilder().insert().into(tableName).values(mockData).execute();
   }
 
-  await createSeeds('user', mocks.mockUserSeed);
-  await createSeeds('area', mocks.mockAreaSeed);
-  await createSeeds('sensor', mocks.mockSensorSeed);
-  await createSeeds('controller', mocks.mockControllerSeed);
+  await createSeeds('user', mockSeeds.mockUserSeed);
+  await createSeeds('area', mockSeeds.mockAreaSeed);
+  await createSeeds('sensor', mockSeeds.mockSensorSeed);
+  await createSeeds('controller', mockSeeds.mockControllerSeed);
 });
 
 describe('Users', () => {
   it('should get all users', async () => {
-    // const res = await request(app.getHttpServer()).get('/users');
-    // expect(res.status).toBe(200);
-    // expect(res.body).toEqual(mocks.mockUsers);
+    const res = await request(app.getHttpServer()).get('/users');
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual(mockUsers.all);
+  });
+
+  it('should get a single user', async () => {
+    const res = await request(app.getHttpServer()).get('/users/2');
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual(mockUsers.all.filter(user => user.id === 2)[0]);
+  });
+
+  it('should update a user', async () => {
+    const firstName = 'Deletoff';
+    const lastName = 'Updatiano';
+
+    const res = await request(app.getHttpServer()).patch('/users/2').send({firstName, lastName, isActive: false});
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual(mockUsers.modified);
+  });
+
+  it('should delete a user', async () => {
+    const deleteRes = await request(app.getHttpServer()).delete('/users/2');
+    expect(deleteRes.status).toBe(200);
+
+    const res = await request(app.getHttpServer()).get('/users');
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual(mockUsers.afterDelete);
+  });
+
+  it('should create a user', async () => {
+    const firstName = 'Phoenix';
+    const lastName = 'Resurrectsson';
+    const createRes = await request(app.getHttpServer()).post('/users').send({firstName, lastName, isActive: true});
+    expect(createRes.status).toBe(201);
+
+    const res = await request(app.getHttpServer()).get('/users/4');
+    expect(res.body).toEqual(mockUsers.created);
   });
 });
