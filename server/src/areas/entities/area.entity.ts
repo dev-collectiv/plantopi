@@ -1,6 +1,6 @@
-import { Sensor } from 'src/sensors/entities/sensor.entity';
-import { User } from 'src/users/entities/user.entity';
-import { Controller } from 'src/controllers/entities/controller.entity';
+import { Sensor } from '../../sensors/entities/sensor.entity';
+import { User } from '../../users/entities/user.entity';
+import { Controller } from '../../controllers/entities/controller.entity';
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany } from 'typeorm';
 
 // Area ties to users with ManyToOne, users tie to area with OneToMany
