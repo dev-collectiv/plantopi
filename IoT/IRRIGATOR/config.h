@@ -1,18 +1,16 @@
-#define CONFIG_H
-
 //GENERAL SETTINGS
-const int upload_speed = 115200;
-const int digital_output_pin1 = 5;
-const char *name_pin1 = "Pump#1";
+const int uploadSpeed = 115200;
+const int digitalOutputPin1 = 5;
+const char *namePin1 = "Pump#1";
 
 //WIFI SETTINGS
-const char *wifi_ssid = "Codeworks";
-const char *wifi_password = "codinginthesun";
+const char *wifiSsid = "Codeworks";
+const char *wifiPassword = "codinginthesun";
 
 //MQTT SETTINGS
-const char *mqtt_broker = "192.168.1.135";
-const int mqtt_port = 1883;
+const char *mqttBroker = "nanopim4v2";
+const int mqttPort = 1883;
 const char *mqttId = "pump1";
-const char mqtt_inTopic[] = "action";
-const char mqtt_outTopic[] = "status";
-const char mqtt_resTopic[] = "response";
+const char *mqttInTopic = "action";
+const char *mqttOutTopic = "status";
+const char *mqttResTopic = "response";
