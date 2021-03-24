@@ -1,8 +1,8 @@
+@import 'styles/main.scss';
+
 .dashboardContainer {
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
-
   width: 80vw;
   height: 100vh;
 }
@@ -10,6 +10,6 @@
 .illustrationInformation {
   display: flex;
   flex-direction: row;
-  border: 1px black solid;
+  height: 85%;
   width: 100%;
 }
