@@ -1,4 +1,4 @@
-const Illustration: React.FC = () => {
+const DashboardIllustration: React.FC = () => {
   return (
     <div className="illustrationContainer">
       <img src="https://static.thenounproject.com/png/2240444-200.png" alt="" className="illustration" />
@@ -6,4 +6,4 @@ const Illustration: React.FC = () => {
   );
 };
 
-export default Illustration;
+export default DashboardIllustration;
