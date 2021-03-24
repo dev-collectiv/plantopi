@@ -7,7 +7,7 @@ let socket = io('http://localhost:3002');
 const App: React.FC = () => {
   return (
     <div className="App">
-      <DashboardHeder />
+      <DashboardHeader />
     </div>
   );
 };
