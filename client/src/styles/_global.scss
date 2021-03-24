@@ -1,0 +1,31 @@
+* {
+  box-sizing: border-box;
+}
+
+body,
+html {
+  margin: 0;
+  font-family: $mainFont;
+  overflow-x: hidden;
+}
+
+.container {
+  width: 90%;
+  max-width: 1200px;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.text-center,
+.text-center--md {
+  text-align: center;
+}
+
+
+.bg-black {
+  background: #000;
+}
+
+.hide {
+  visibility: hidden;
+}

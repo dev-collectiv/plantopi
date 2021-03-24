@@ -10,9 +10,9 @@ let socket = io('http://localhost:3002');
 const App: React.FC = () => {
   return (
     <div className={styles.App}>
-      <MenuSideBar />
+      {/* <MenuSideBar /> */}
       <Dashboard />
-      <InfoSideBar />
+      {/* <InfoSideBar /> */}
     </div>
   );
 };

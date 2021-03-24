@@ -1,0 +1,35 @@
+// Margin & padding classes
+$spaceamounts: (1, 2, 3, 4, 5, 6);
+
+@each $space in $spaceamounts {
+ .m-#{$space} {
+  margin: #{$space}rem;
+ }
+
+ .my-#{$space} {
+  margin: #{$space}rem 0;
+ }
+
+ .mx-#{$space} {
+   margin: 0 #{$space}rem;
+ }
+
+ .p-#{$space} {
+  padding: #{$space}rem;
+ }
+
+ .py-#{$space} {
+  padding: #{$space}rem 0;
+ }
+}
+
+.mx-auto,
+.mx-auto--md {
+ margin-left: auto;
+ margin-right: auto;
+}
+
+.my-auto {
+  margin-top: auto;
+  margin-bottom: auto
+}

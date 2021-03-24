@@ -1,0 +1,56 @@
+header {
+  height: 80px;
+  width: 100vw;
+  background: $mainGreen;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+
+.nav-links {
+  li {
+    list-style-type: none;
+    margin: 0 20px;
+    a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      transition: 0.2s ease color;
+
+      &:hover {
+        color: #e2e2e2;
+      }
+    }
+  }
+}
+
+.home-view {
+  height: 100vh;
+  width: 100vw;
+  background: $mainGreen;
+  position: relative;
+  overflow-y: hidden;
+}
+
+.pizza-watermark {
+  position: absolute;
+  right: 0;
+  bottom: -25%;
+  height: 100%;
+}
+
+.section-img {
+  width: 100%;
+  height: 100%;
+}
+
+.show-animation {
+  animation: showContent 1s ease forwards;
+}
+
+footer {
+  background: $mainGreen;
+  padding-top: 4rem;
+  padding-bottom: 8rem;
+}

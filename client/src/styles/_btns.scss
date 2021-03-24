@@ -1,0 +1,42 @@
+.btn {
+  text-decoration: none;
+  font-weight: 700;
+  padding: 10px 70px;
+  display: inline-block;
+}
+
+.main-btn {
+  border: 2px solid $mainRed;
+  background: $mainRed;
+  color: #fff;
+  transition: 0.3s ease all;
+
+  &:hover {
+    background: transparent;
+    color: $mainRed;
+  }
+}
+
+.section-btn {
+  border: 2px solid $mainRed;
+  background: transparent;
+  color: $mainRed;
+  transition: 0.3s ease all;
+
+  &:hover {
+    background: $mainRed;
+    color: #fff;
+  }
+}
+
+.signup-btn {
+  color: #000;
+  background: #fff;
+  border: 2px solid #fff;
+  transition: 0.3s ease all;
+
+  &:hover {
+    background: #000;
+    color: #fff;
+  }
+}

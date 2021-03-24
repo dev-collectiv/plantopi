@@ -1,0 +1,12 @@
+@mixin dashboardPanels {
+  flex: 1;
+  display: flex;
+  flex-flow: column nowrap;
+  padding: 2.5rem;
+  border: 1px solid red;
+}
+
+@mixin card {
+  border: 1px solid red;
+  display: flex;
+}
