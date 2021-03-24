@@ -8,15 +8,17 @@ const DashboardInformation: React.FC = () => {
           <p>Humidity</p>
         </div>
         <div className={style.temperature}>
-          <h2>30C</h2>
+          <h2>30ºC</h2>
           <p>temperature</p>
         </div>
       </div>
-      <img
-        src="https://png.pngtree.com/png-vector/20190223/ourlarge/pngtree-charts-glyph-black-icon-png-image_691516.jpg"
-        alt=""
-        className={style.char}
-      />
+      <div className={style.chartContainer}>
+        <img
+          src="https://png.pngtree.com/png-vector/20190223/ourlarge/pngtree-charts-glyph-black-icon-png-image_691516.jpg"
+          alt=""
+          className={style.chart}
+        />
+      </div>
     </div>
   );
 };

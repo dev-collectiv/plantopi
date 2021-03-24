@@ -1,13 +1,37 @@
 .informationContainer {
-}
-.sensorInformation {
-  background-color: burlywood;
-  width: 40%;
-  height: 25%;
+  width: 50%;
+  height: 100%;
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
 }
 
-.char {
-  width: 60%;
+.sensorInformation {
+  background-color: burlywood;
+  width: 100%;
+  height: 40%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.temperature {
+  background-color: green;
+}
+
+.humidity {
+  background-color: red;
+}
+
+.chartContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: blue;
+  width: 100%;
+  height: 60%;
+}
+.chart {
+  width: auto;
+  height: 50%;
 }

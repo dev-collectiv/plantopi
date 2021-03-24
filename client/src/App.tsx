@@ -1,4 +1,4 @@
-import './App.css';
+import styles from './App.module.scss';
 import React, { useEffect, useState } from 'react';
 import io from 'socket.io-client';
 import MenuSideBar from 'components/menuSideBar/MenuSideBar';
@@ -9,7 +9,7 @@ let socket = io('http://localhost:3002');
 
 const App: React.FC = () => {
   return (
-    <div className="App">
+    <div className={styles.App}>
       <MenuSideBar />
       <Dashboard />
       <InfoSideBar />

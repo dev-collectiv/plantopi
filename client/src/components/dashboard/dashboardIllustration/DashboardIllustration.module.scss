@@ -1,0 +1,25 @@
+.illustrationContainer {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  height: 100%;
+  background-color: pink;
+}
+
+.pictureContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70%;
+}
+
+.picture {
+  width: auto;
+  height: 50%;
+}
+.buttonsContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  height: 30;
+}
