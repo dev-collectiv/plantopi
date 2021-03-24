@@ -1,4 +1,4 @@
-import { Area } from 'src/areas/entities/area.entity';
+import { Area } from '../../areas/entities/area.entity';
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
 @Entity()

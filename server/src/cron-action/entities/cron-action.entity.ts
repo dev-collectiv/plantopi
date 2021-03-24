@@ -1,4 +1,4 @@
-import { Controller } from 'src/controllers/entities/controller.entity';
+import { Controller } from '../../controllers/entities/controller.entity';
 import { Entity, Column, PrimaryGeneratedColumn, OneToOne } from 'typeorm';
 
 @Entity()
