@@ -1,14 +1,20 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
 import io from 'socket.io-client';
-import DashboardHeader from './components/central/dashboardHeader/DashboardHeader';
+import MenuSideBar from 'components/menuSideBar/MenuSideBar';
+import Dashboard from 'components/dashboard/Dashboard';
+import InfoSideBar from 'components/infoSideBar/InfoSideBar';
+
 let socket = io('http://localhost:3002');
 
 const App: React.FC = () => {
   return (
     <div className="App">
-      <DashboardHeader />
+      <MenuSideBar />
+      <Dashboard />
+      <InfoSideBar />
     </div>
   );
 };
+
 export default App;

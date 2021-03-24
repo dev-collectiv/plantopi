@@ -1,6 +1,6 @@
 import styles from './DashboardHeader.module.scss';
 
-const Header: React.FC = () => {
+const DashboardHeader: React.FC = () => {
   return (
     <div className={styles.headerContainer}>
       <div className="areaInfo">
@@ -15,4 +15,4 @@ const Header: React.FC = () => {
   );
 };
 
-export default Header;
+export default DashboardHeader;

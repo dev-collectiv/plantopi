@@ -1,2 +1,2 @@
-function Navegation() {}
-export default Navegation;
+function iconNavegation() {}
+export default iconNavegation;
