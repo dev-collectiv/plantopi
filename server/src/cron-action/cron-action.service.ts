@@ -42,14 +42,14 @@ export class CronActionService {
   }
 
   update(id: string, updateCronDto: UpdateCronDto): Promise<CronAction> {
-    const { action, time, ...rest } = updateCronDto;
+    const { action, time, isActive } = updateCronDto;
     const stringifiedAction = JSON.stringify(action);
 
     //delete scheduledCronAction and create a new one
     this.deleteScheduledCronAction(id);
-    this.scheduleCronAction(id, time, action);
+    if (isActive) this.scheduleCronAction(id, time, action);
 
-    return this.cronActionRepository.save({ id, time, action: stringifiedAction, ...rest });
+    return this.cronActionRepository.save({ id, ...updateCronDto, action: stringifiedAction });
   }
 
   remove(id: string): Promise<DeleteResult> {
@@ -71,8 +71,17 @@ export class CronActionService {
     });
   }
 
+  //Will keep this commented since it might be useful in the future
+  // private getScheduledCronJob(id: string): CronJob {
+  //   return this.schedulerRegistry.getCronJob(id);
+  // }
+
   private deleteScheduledCronAction(id: string): void {
-    this.schedulerRegistry.deleteCronJob(id);
+    try {
+      this.schedulerRegistry.deleteCronJob(id);
+    } catch (error) {
+      console.log('The fetched resolver does not exist');
+    }
   }
 
   private scheduleCronAction(id: string, time: string, action: MqttRequestDto): void {
