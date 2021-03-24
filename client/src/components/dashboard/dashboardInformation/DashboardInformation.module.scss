@@ -2,12 +2,14 @@
 
 .informationContainer {
   @include dashboardPanels;
-  flex: 1;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .sensorInformation {
-  background-color: burlywood;
+  background-color: white;
   width: 100%;
+  height: 40%;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -15,20 +17,63 @@
 }
 
 .temperature {
-  background-color: green;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffca;
+  height: 50%;
+  width: 25%;
+  border-radius: 15px;
+  font-size: larger;
+  font-weight: 600;
+  box-shadow: 10px 10px 8px #888888;
+  h2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50%;
+    width: 45%;
+    border-radius: 40px;
+    background: white;
+  }
 }
 
 .humidity {
-  background-color: red;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(197, 239, 255);
+  height: 50%;
+  width: 25%;
+  border-radius: 15px;
+  font-size: larger;
+  box-shadow: 10px 10px 8px #888888;
+  font-weight: 600;
+  h2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50%;
+    width: 45%;
+    border-radius: 40px;
+    background: white;
+  }
 }
 
 .chartContainer {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: blue;
+  background-color: white;
+
   width: 100%;
+  height: 60%;
 }
 .chart {
+  box-shadow: 10px 10px 8px #888888;
   width: auto;
+  height: 90%;
+  border: solid 0.5px black;
 }
