@@ -1,27 +1,20 @@
-// #define WIFI_H
-// #ifndef HELPERS_H
-// #include "helpers.h"
-// #endif
-// #ifndef CONFIG_H
-// #include "config.h"
-// #endif
 #include "helpers.h"
 
 #include <ESP8266WiFi.h>
 
 WiFiClient wifiClient;
 
-void setup_wifi()
+void setupWifi()
 {
 
   delay(10);
-  // We start by connecting to a WiFi network
+
   Serial.println();
-  Serial.print("\nConnecting to ");
-  Serial.println(wifi_ssid);
+  Serial.print("Connecting to ");
+  Serial.println(wifiSsid);
 
   WiFi.mode(WIFI_STA);
-  WiFi.begin(wifi_ssid, wifi_password);
+  WiFi.begin(wifiSsid, wifiPassword);
 
   while (WiFi.status() != WL_CONNECTED)
   {
@@ -29,6 +22,6 @@ void setup_wifi()
     Serial.print(".");
   }
   Serial.println("");
-  Serial.print("WiFi connected, IP: ");
+  Serial.print("WiFi - connected, IP: ");
   Serial.println(WiFi.localIP());
 }
