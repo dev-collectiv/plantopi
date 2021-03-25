@@ -37,9 +37,5 @@
 .button {
   max-width: 40px;
   max-height: 40px;
-  transition: all 0.25s ease;
-  &:hover {
-    cursor: pointer;
-    transform: scale(0.95);
-  }
+  @include button-hover;
 }
