@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import NavBar from 'components/NavBar/NavBar';
 import Dashboard from 'components/Dashboard/Dashboard';
 import DetailBar from 'components/DetailBar/DetailBar';
+import AreaPanel from 'components/AreaPanel/AreaPanel';
 
 const App: React.FC = () => {
   return (
@@ -10,6 +11,7 @@ const App: React.FC = () => {
       <NavBar />
       <Dashboard />
       <DetailBar />
+      <AreaPanel />
     </div>
   );
 };
