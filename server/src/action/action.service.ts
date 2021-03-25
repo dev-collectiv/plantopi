@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { MqttService } from '../mqtt/mqtt.service';
 import { Socket } from 'socket.io';
 import { MqttRequestDto } from './dto/mqtt.dto';
+import { WsException } from '@nestjs/websockets';
 
 @Injectable()
 export class ActionService {
@@ -31,7 +32,14 @@ export class ActionService {
     //cb takes (topic, payload, packet)
     const statusUpdateHandler = (topic: string, payload: Buffer) => {
       if (topic === 'status' && watering) {
-        const data = JSON.parse(payload.toString());
+
+        let data;
+
+        try {
+          data = JSON.parse(payload.toString());
+        } catch (err) {
+          throw new WsException ('Status from Mqtt could not be relayed to client. Verify that the broker is publishing a JSON.');
+        }
 
         // There is a chance that the server may still receive the previous status of IoT after the client makes a request,
         // so we check and stop sending feedback only if we receive 'off' status twice in a row.
