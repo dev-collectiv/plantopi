@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import io from 'socket.io-client';
-import styles from './DashboardLeft.module.scss';
+import styles from './DashboardIllustration.module.scss';
 import { Stop, Start, IrrigatingPlant, Plant } from 'assets';
 
 let socket = io('http://localhost:3002');
 
-const DashboardLeft: React.FC = () => {
+const DashboardIllustration: React.FC = () => {
   let [duration, setDuration] = useState<number>(0);
   let [irrigating, setIrrigating] = useState<boolean>(false);
 
@@ -48,4 +48,4 @@ const DashboardLeft: React.FC = () => {
   );
 };
 
-export default DashboardLeft;
+export default DashboardIllustration;

@@ -1,6 +1,6 @@
-import styles from './DashboardTop.module.scss';
+import styles from './DashboardTitle.module.scss';
 
-const DashboardTop: React.FC = () => {
+const DashboardTitle: React.FC = () => {
   return (
     <div className={styles.container}>
       <div className={styles.title}>
@@ -15,4 +15,4 @@ const DashboardTop: React.FC = () => {
   );
 };
 
-export default DashboardTop;
+export default DashboardTitle;
