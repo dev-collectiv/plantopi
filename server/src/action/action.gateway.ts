@@ -33,6 +33,6 @@ export class ActionGateway implements OnGatewayConnection, OnGatewayDisconnect {
     client.emit('action', 'Server received duration: ' + payload); // send feedback to front end
 
     this.actionService.publishActionToIOT(payload);
-    this.actionService.giveStatusUpdatesTo(client);
+    this.actionService.giveStatusUpdatesTo(client, payload);
   }
 }
