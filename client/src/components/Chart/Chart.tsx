@@ -1,58 +1,18 @@
 import { Line } from 'react-chartjs-2';
-
 import styles from './Chart.module.scss';
-
-const Chart: React.FC = () => {
-  const data = {
-    labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
-    datasets: [
-      {
-        data: [2, 1, 4, 2, 5, 2, 3],
-        fill: false,
-        backgroundColor: 'rgb(237, 137, 119)',
-        borderColor: 'rgba(255, 99, 132, 0.2)',
-        fontFamily: 'Roboto'
-      }
-    ]
-  };
-
-  const options = {
-    legend: { display: false },
-    scales: {
-      gridLines: {
-        lineWidth: 2,
-        color: 'rgb(170, 170, 170)'
-      },
-      xAxes: [
-        {
-          ticks: {
-            fontSize: 11,
-            fontColor: '#383838',
-            fontWeight: 700
-          }
-        }
-      ],
-      yAxes: [
-        {
-          ticks: {
-            none: true,
-            beginAtZero: true,
-            stepSize: 0.5,
-            maxTicksLimit: 5,
-            suggestedMax: 5,
-            fontFamily: 'Roboto',
-            fontSize: 11,
-            fontColor: '#383838',
-            fontWeight: 700
-          }
-        }
-      ]
-    }
-  };
+import IChartProps from './IChartProps';
+import charSettings from './chartsSettings';
+const Chart: React.FC<IChartProps> = (props) => {
+  let options;
+  if (props.options) {
+    options = props.options;
+  } else {
+    options = charSettings;
+  }
 
   return (
     <div className={styles.container}>
-      <Line data={data} options={options} />
+      <Line data={props.data} options={options} />
     </div>
   );
 };
