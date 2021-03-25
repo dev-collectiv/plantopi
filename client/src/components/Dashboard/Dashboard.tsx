@@ -1,14 +1,14 @@
 import styles from './Dashboard.module.scss';
-import DashboardTop from './DashboardTop/DashboardTop';
-import DashboardLeft from './DashboardLeft/DashboardLeft';
-import DashboardRight from './DashboardRight/DashboardRight';
+import DashboardTop from './DashboardTitle/DashboardTitle';
+import DashboardIllustration from './DashboardIllustration/DashboardIllustration';
+import DashboardInfo from './DashboardInfo/DashboardInfo';
 const Dashboard = () => {
   return (
     <div className={styles.container}>
       <DashboardTop />
       <div className={styles.contentContainer}>
-        <DashboardLeft />
-        <DashboardRight />
+        <DashboardIllustration />
+        <DashboardInfo />
       </div>
     </div>
   );
