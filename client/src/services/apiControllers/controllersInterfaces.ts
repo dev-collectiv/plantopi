@@ -11,15 +11,15 @@ export interface IGetControllers {
   isActive: boolean;
 }
 
-interface IpostRespond {
+interface IPostRespond {
   id: number;
   isActive?: boolean;
 }
 
 export interface IPostControllerRespond {
-  identifiers: IpostRespond[];
-  generatedMaps: IpostRespond[];
-  raw: IpostRespond[];
+  identifiers: IPostRespond[];
+  generatedMaps: IPostRespond[];
+  raw: IPostRespond[];
 }
 
 export interface IPatchControllers {

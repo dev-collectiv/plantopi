@@ -1,19 +1,17 @@
-import { Identifier } from 'typescript';
-
 export interface IAddSensors {
   area: string;
   type: string;
   isActive: boolean;
 }
 
-interface Irespond {
+interface IRespond {
   id: number;
   isActive?: boolean;
 }
 export interface IPostRespond {
-  identifiers: Irespond[];
-  generatedMaps: Irespond[];
-  raw: Irespond[];
+  identifiers: IRespond[];
+  generatedMaps: IRespond[];
+  raw: IRespond[];
 }
 
 export interface IGetSensors {
@@ -27,7 +25,7 @@ export interface IGetSensors {
 }
 
 export interface IPatchSensors {
-  id?: Identifier;
+  id?: number;
   area?: string;
   type?: string;
   isActive?: boolean;

@@ -1,17 +1,17 @@
-interface Isensors {
+interface ISensors {
   id?: number;
   type?: string;
   isActive?: boolean;
 }
 
-interface Icontrollers {
+interface IControllers {
   id?: number;
   area?: string;
   type?: string;
   isActive?: boolean;
 }
 
-interface Irespond {
+interface IRespond {
   id: number;
   isActive?: boolean;
 }
@@ -24,20 +24,20 @@ export interface IGetArea {
   id: number;
   user: string | null;
   isActive: boolean;
-  sensors: Isensors[];
-  controllers: Icontrollers[];
+  sensors: ISensors[];
+  controllers: IControllers[];
 }
 
 export interface IPatchArea {
   id?: number;
   user?: string;
   isActive?: boolean;
-  sensors?: Isensors[];
-  controllers?: Icontrollers[];
+  sensors?: ISensors[];
+  controllers?: IControllers[];
 }
 
 export interface IPostRes {
-  identifiers: Irespond[];
-  generatedMaps: Irespond[];
-  raw: Irespond[];
+  identifiers: IRespond[];
+  generatedMaps: IRespond[];
+  raw: IRespond[];
 }
