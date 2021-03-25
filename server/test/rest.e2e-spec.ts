@@ -10,7 +10,6 @@ import { mockAreas } from './mocks/rest.e2e-mockAreas';
 import { mockControllers } from './mocks/rest.e2e-mockControllers';
 import { mockSensors } from './mocks/rest.e2e-mockSensors';
 
-
 // DB ENTITIES
 import { CronAction } from '../src/cron-action/entities/cron-action.entity';
 import { Sensor } from '../src/sensors/entities/sensor.entity';
@@ -19,39 +18,63 @@ import { Area } from '../src/areas/entities/area.entity';
 import { User } from '../src/users/entities/user.entity';
 //
 
-let app: INestApplication;
-let connection: Connection;
 
 // Initializes test server & database
-beforeAll(async () => {
-  const moduleFixture: TestingModule = await Test.createTestingModule({
-    imports: [
-      TypeOrmModule.forRootAsync(
-        {useFactory: async () => Object.assign(await getConnectionOptions('test'), {
-          entities: [CronAction, Controller, Area, User, Sensor]})}),
-      AppModule
-    ]}).compile();
+async function initializeTestApp () {
+  return new Promise<INestApplication> (async (resolve) => {
+    const moduleFixture: TestingModule = await Test.createTestingModule({
+      imports: [
+        TypeOrmModule.forRootAsync(
+          {useFactory: async () => Object.assign(await getConnectionOptions('test'), {
+            entities: [CronAction, Controller, Area, User, Sensor]})}),
+        AppModule
+      ]}).compile();
 
-  app = moduleFixture.createNestApplication();
-  await app.init();
+    const app = moduleFixture.createNestApplication();
+    await app.init();
+    app.enableShutdownHooks();
+    resolve(app);
+  });
+}
+
+async function initalizeTestDb (app: INestApplication) {
+  return new Promise<Connection> (async (resolve) => {
+    const connection = app.get(Connection);
+    await connection.synchronize(true);
+
+    function createSeeds (tableName: string, mockData: any[]) {
+      return connection.createQueryBuilder().insert().into(tableName).values(mockData).execute();
+    }
+
+    await createSeeds('user', mockSeeds.mockUserSeed);
+    await createSeeds('area', mockSeeds.mockAreaSeed);
+    await createSeeds('sensor', mockSeeds.mockSensorSeed);
+    await createSeeds('controller', mockSeeds.mockControllerSeed);
+    resolve(connection);
+  });
+}
+
+let app: INestApplication;
+
+beforeAll(async (done) => {
+  app = await initializeTestApp();
+  done();
 });
 
-beforeEach(async () => {
-  // DB INITIALIZATION
-  connection = app.get(Connection);
-  await connection.synchronize(true);
-
-  function createSeeds (tableName: string, mockData: any[]) {
-    return connection.createQueryBuilder().insert().into(tableName).values(mockData).execute();
-  }
-
-  await createSeeds('user', mockSeeds.mockUserSeed);
-  await createSeeds('area', mockSeeds.mockAreaSeed);
-  await createSeeds('sensor', mockSeeds.mockSensorSeed);
-  await createSeeds('controller', mockSeeds.mockControllerSeed);
+afterAll(async (done) => {
+  await app.get(Connection).close();
+  // await app.close(); ---> Creates an error, need to manually kill the process
+  done();
 });
 
-describe('Users', async () => {
+describe('Users', () => {
+  let connection: Connection;
+
+  beforeAll(async (done) => {
+    connection = await initalizeTestDb(app);
+    done();
+  });
+
   it('should get all users', async (done) => {
     const res = await request(app.getHttpServer()).get('/users');
     expect(res.status).toBe(200);
@@ -99,6 +122,13 @@ describe('Users', async () => {
 });
 
 describe('Areas', () => {
+  let connection: Connection;
+
+  beforeAll(async (done) => {
+    connection = await initalizeTestDb(app);
+    done();
+  });
+
   it('should get all areas', async (done) => {
     const res = await request(app.getHttpServer()).get('/areas');
     expect(res.status).toBe(200);
@@ -144,6 +174,13 @@ describe('Areas', () => {
 });
 
 describe('Controllers', () => {
+  let connection: Connection;
+
+  beforeAll(async (done) => {
+    connection = await initalizeTestDb(app);
+    done();
+  });
+
   it('should get all controllers', async (done) => {
     const res = await request(app.getHttpServer()).get('/controllers');
     expect(res.status).toBe(200);
@@ -190,6 +227,13 @@ describe('Controllers', () => {
 });
 
 describe('Sensors', () => {
+  let connection: Connection;
+
+  beforeAll(async (done) => {
+    connection = await initalizeTestDb(app);
+    done();
+  });
+
   it('should get all sensors', async (done) => {
     const res = await request(app.getHttpServer()).get('/sensors');
     expect(res.status).toBe(200);
