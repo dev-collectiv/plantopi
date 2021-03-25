@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import io from 'socket.io-client';
+// import io from 'socket.io-client';
 import styles from './DashboardIllustration.module.scss';
 import { Stop, Start, IrrigatingPlant, Plant } from 'assets';
 
-let socket = io(`${process.env.REACT_APP_SOCKET_HOST}:${process.env.REACT_APP_SOCKET_PORT}`);
+// let socket = io(`${process.env.REACT_APP_SOCKET_HOST}:${process.env.REACT_APP_SOCKET_PORT}`);
 
 const DashboardIllustration: React.FC = () => {
   let [duration, setDuration] = useState<number>(0);
@@ -15,12 +15,12 @@ const DashboardIllustration: React.FC = () => {
 
   function clickHandler(e: React.FormEvent) {
     e.preventDefault();
-    socket.emit('action', { id: 'pump1', action: 'on', duration: duration });
+    // socket.emit('action', { id: 'pump1', action: 'on', duration: duration });
     setIrrigating(true); // TODO receive web socket with response before changing 'irrigating' variable
   }
 
   function abortIrrigation() {
-    socket.emit('action', { id: 'pump1', action: 'off', duration: 0 });
+    // socket.emit('action', { id: 'pump1', action: 'off', duration: 0 });
     setIrrigating(false); // TODO receive web socket with response before changing 'irrigating' variable
   }
 
