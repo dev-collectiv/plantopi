@@ -1,6 +1,3 @@
-#ifndef MQTT_H
-#define MQTT_H
-
 #include "wifi.h"
 
 #include <PubSubClient.h>
@@ -112,8 +109,9 @@ void reconnect()
     if (mqttClient.connect(mqttId))
     {
       Serial.println("MQTT: Connected");
-      snprintf(msg, MSG_BUFFER_SIZE, "Connection established #%s", mqttId);
-      mqttClient.publish(mqttOutTopic, msg);
+      snprintf(msg, MSG_BUFFER_SIZE, "MQTT: Connection established #%s", mqttId);
+      Serial.println(msg);
+      mqttClient.publish(mqttOutTopic, msg); //TODO publish JSON???
       mqttClient.subscribe(mqttInTopic);
     }
     else
@@ -154,7 +152,6 @@ void publishStatusOn()
   Serial.print(" sec. ago, ");
   Serial.print(tLeft / 1000);
   Serial.println(" sec. left");
-  free(buffer);
 }
 
 void mqttPublishResponse(char *response)
@@ -166,7 +163,6 @@ void mqttPublishResponse(char *response)
   statJson["time"] = millis() / 1000;
   size_t n = serializeJson(statJson, buffer);
   mqttClient.publish(mqttResTopic, buffer, n);
-  free(buffer);
 }
 
 void publishStatusOff()
@@ -179,7 +175,6 @@ void publishStatusOff()
   size_t n = serializeJson(statJson, buffer);
   mqttClient.publish(mqttOutTopic, buffer, n);
   Serial.println("STATUS: OFF");
-  free(buffer);
 }
 
 void publishStatusUnknown()
@@ -192,7 +187,6 @@ void publishStatusUnknown()
   size_t n = serializeJson(statJson, buffer);
   mqttClient.publish(mqttOutTopic, buffer, n);
   Serial.println("STATUS: UNKNOWN");
-  free(buffer);
 }
 
 void mqttPublishStatus(Status stat)
@@ -209,4 +203,3 @@ void mqttPublishStatus(Status stat)
     publishStatusUnknown();
   }
 }
-#endif
