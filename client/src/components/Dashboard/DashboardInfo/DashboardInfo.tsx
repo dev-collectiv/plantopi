@@ -1,4 +1,5 @@
 import Chart from 'components/Chart/Chart';
+import CronForm from 'components/cron-schedule/CronForm/CronForm';
 import style from './DashboardInfo.module.scss';
 
 const DashboardInfo: React.FC = () => {
@@ -20,7 +21,8 @@ const DashboardInfo: React.FC = () => {
         </div>
 
         <div className={`${style.card} ${style.bigCard}`}>
-          <Chart />
+          {/* <Chart /> */}
+          <CronForm />
         </div>
       </div>
     </div>
