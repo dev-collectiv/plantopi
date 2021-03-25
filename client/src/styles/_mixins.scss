@@ -1,12 +1,32 @@
+@import './vars';
+
 @mixin dashboardPanels {
   padding: 2.5rem;
   flex: 1;
   display: flex;
   flex-flow: column nowrap;
-  border: 1px solid red;
 }
 
 @mixin card {
-  border: 1px solid red;
-  display: flex;
+  box-shadow: 0px 0px 10px 1px rgba($dark, 0.2);
+}
+
+@mixin button-hover {
+  transition: all 0.25s ease;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(0.95);
+  }
+}
+
+@mixin card-title {
+  text-transform: uppercase;
+  font-family: $titleFont;
+  color: rgb(44, 44, 44);
+  position: absolute;
+  font-size: 1.25rem;
+  font-weight: 600;
+  left: 10px;
+  top: 10px;
 }

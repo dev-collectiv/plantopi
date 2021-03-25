@@ -6,25 +6,25 @@
 }
 
 .main-btn {
-  border: 2px solid $mainRed;
-  background: $mainRed;
+  border: 2px solid $red;
+  background: $red;
   color: #fff;
   transition: 0.3s ease all;
 
   &:hover {
     background: transparent;
-    color: $mainRed;
+    color: $red;
   }
 }
 
 .section-btn {
-  border: 2px solid $mainRed;
+  border: 2px solid $red;
   background: transparent;
-  color: $mainRed;
+  color: $red;
   transition: 0.3s ease all;
 
   &:hover {
-    background: $mainRed;
+    background: $red;
     color: #fff;
   }
 }

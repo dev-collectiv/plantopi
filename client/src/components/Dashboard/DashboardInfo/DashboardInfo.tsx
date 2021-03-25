@@ -1,25 +1,17 @@
+import SensorCard from 'components/Cards/SensorCard/SensorCard';
+import Chart from 'components/Chart/Chart';
+import CronForm from 'components/cron-schedule/CronForm/CronForm';
 import style from './DashboardInfo.module.scss';
 
 const DashboardInfo: React.FC = () => {
   return (
     <div className={style.container}>
       <div className={style.gridContainer}>
-        <div className={`${style.smallFirst} ${style.card} ${style.smallCard}`}>
-          <h2>25%</h2>
-          <p>Humidity</p>
-        </div>
-
-        <div className={`${style.smallSecond} ${style.card} ${style.smallCard}`}>
-          <h2>30ºC</h2>
-          <p>temperature</p>
-        </div>
-
+        <SensorCard id="1" name="Humidity" type="humidity" reading={25} position="smallFirst" />
+        <SensorCard id="2" name="Temperature" type="temperature" reading={30} position="smallSecond" />
         <div className={`${style.card} ${style.bigCard}`}>
-          {/* <img
-          // src="https://png.pngtree.com/png-vector/20190223/ourlarge/pngtree-charts-glyph-black-icon-png-image_691516.jpg"
-          alt=""
-          className={style.chart}
-        /> */}
+          {/* <Chart /> */}
+          <CronForm />
         </div>
       </div>
     </div>

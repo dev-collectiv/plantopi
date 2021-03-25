@@ -1,0 +1,71 @@
+@import 'styles/main';
+
+.container {
+  display: flex;
+  flex-flow: column nowrap;
+
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.cronSelection {
+  display: flex;
+  flex-flow: row nowrap;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  height: 30%;
+  min-width: 100%;
+  // border: 1px solid red;
+
+  & h2 {
+    @include card-title;
+    font-size: 1rem;
+    left: 0;
+    top: 0;
+  }
+}
+
+.customSelection {
+  & > * {
+    margin: 0 0.25rem;
+  }
+}
+
+@mixin cron-button {
+  @include button-hover;
+  background-color: $bg;
+  border: none;
+  font-family: $titleFont;
+  outline: none;
+  font-size: 1rem;
+  & span {
+    transition: all 0.05s ease;
+  }
+
+  &:hover span {
+    border-bottom: 2px solid $red;
+  }
+}
+
+.dayButton {
+  @include cron-button;
+  border-radius: 50px;
+  width: 40px;
+  height: 40px;
+}
+
+.activeButton {
+  background-color: $red;
+  &:hover span {
+    border-bottom: 2px solid $bg;
+  }
+}
+
+.cronScheduleButton {
+  @include cron-button;
+  border-radius: 5px;
+  height: 40px;
+  width: 80px;
+}
