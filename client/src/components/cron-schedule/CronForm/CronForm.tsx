@@ -4,17 +4,21 @@ import Select from '../Select/Select';
 import styles from './CronForm.module.scss';
 
 const CronForm: React.FC = () => {
-  const [cron, setCron] = useState(null);
+  const [cron, setCron] = useState<string[]>(Array(5).fill('*'));
   const [activeDays, setActiveDays] = useState<string[]>([]);
 
   function onSelectDayFn(day: string, active: boolean) {
-    if (active) {
-      const _activeDays = activeDays.filter((_day) => _day !== day);
-      setActiveDays(_activeDays);
-    } else {
-      const _activeDays = [...activeDays, day];
-      setActiveDays(_activeDays);
-    }
+    let _activeDays;
+
+    if (active) _activeDays = activeDays.filter((_day) => _day !== day);
+    else _activeDays = [...activeDays, day];
+
+    const _cron = convertToCronSchedule('days', _activeDays, cron);
+
+    console.log(_cron);
+
+    setCron(_cron);
+    setActiveDays(_activeDays);
   }
 
   function onSelectFn(label: string, value: string | number) {
@@ -72,7 +76,6 @@ const CronForm: React.FC = () => {
 
       <div className={styles.cronSelection}>
         <h2>Scheduled Jobs</h2>
-        {/* <p>Every </p> */}
       </div>
 
       <button className={styles.cronScheduleButton}>
@@ -84,4 +87,12 @@ const CronForm: React.FC = () => {
 
 export default CronForm;
 
-function convertToCronSchedule(label: string, value: string | number, prevSchedule: string) {}
+function convertToCronSchedule(label: string, values: string[] | number[], currCron: string[]) {
+  const refArr = ['minutes', 'hours', 'days', 'weeks', 'months'];
+  const newCron = [...currCron];
+  const refIdx = refArr.indexOf(label);
+
+  newCron[refIdx] = values.length < 1 ? '*' : values.join(',');
+
+  return newCron;
+}
