@@ -68,17 +68,10 @@
 }
 
 .cardTitle {
-  text-transform: uppercase;
-  font-family: $titleFont;
-  color: $dark;
-  position: absolute;
-  font-size: 1.25rem;
-  font-weight: 600;
-  left: 10px;
-  top: 10px;
+  @include card-title;
 }
 
 .cardReading {
   font-family: $titleFont;
-  border-bottom: 1px solid $red;
+  border-bottom: 2px solid $red;
 }

@@ -1,5 +1,6 @@
 import SensorCard from 'components/Cards/SensorCard/SensorCard';
 import Chart from 'components/Chart/Chart';
+import CronForm from 'components/cron-schedule/CronForm/CronForm';
 import style from './DashboardInfo.module.scss';
 
 const DashboardInfo: React.FC = () => {
@@ -9,7 +10,8 @@ const DashboardInfo: React.FC = () => {
         <SensorCard id="1" name="Humidity" type="humidity" reading={25} position="smallFirst" />
         <SensorCard id="2" name="Temperature" type="temperature" reading={30} position="smallSecond" />
         <div className={`${style.card} ${style.bigCard}`}>
-          <Chart />
+          {/* <Chart /> */}
+          <CronForm />
         </div>
       </div>
     </div>
