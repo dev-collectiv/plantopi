@@ -24,9 +24,10 @@ export class ActionService {
     });
   }
 
-  giveStatusUpdatesTo(client: Socket) {
+  giveStatusUpdatesTo(client: Socket, payload: MqttRequestDto) {
     let watering = true;
     let previousStatus: null | 'off' = null;
+
     //cb takes (topic, payload, packet)
     const statusUpdateHandler = (topic: string, payload: Buffer) => {
       if (topic === 'status' && watering) {
@@ -45,6 +46,10 @@ export class ActionService {
       }
     };
 
-    this.mqttService.mqttClient.on('message', statusUpdateHandler);
+    if (payload.action === 'off') {
+      this.mqttService.mqttClient.removeListener('message', statusUpdateHandler);
+    } else {
+      this.mqttService.mqttClient.on('message', statusUpdateHandler);
+    }
   }
 }
