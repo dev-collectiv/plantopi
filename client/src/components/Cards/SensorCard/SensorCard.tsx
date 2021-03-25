@@ -1,7 +1,6 @@
-/* eslint-disable indent */
 import React from 'react';
 import ISensorCardProps from './ISensorCardProps';
-import style from './SensorCard.module.scss';
+import styles from './SensorCard.module.scss';
 
 const SensorCard: React.FC<ISensorCardProps> = (props) => {
   const { name, type, reading, position } = props;
@@ -14,10 +13,10 @@ const SensorCard: React.FC<ISensorCardProps> = (props) => {
   };
 
   return (
-    <div className={`${position && style[position]} ${style.card} ${style.smallCard}`}>
-      <span className={style.smallCardContainer}>
-        <h2 className={style.cardTitle}>{name}</h2>
-        <h2 className={style.cardReading}>{reading_data[type]}</h2>
+    <div className={`${position && styles[position]} ${styles.card} ${styles.smallCard}`}>
+      <span className={styles.smallCardContainer}>
+        <h2 className={styles.cardTitle}>{name}</h2>
+        <h2 className={styles.cardReading}>{reading_data[type]}</h2>
       </span>
     </div>
   );
