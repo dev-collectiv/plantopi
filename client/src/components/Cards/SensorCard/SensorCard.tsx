@@ -14,7 +14,7 @@ const SensorCard: React.FC<ISensorCardProps> = (props) => {
   };
 
   return (
-    <div className={`${style[position]} ${style.card} ${style.smallCard}`}>
+    <div className={`${position && style[position]} ${style.card} ${style.smallCard}`}>
       <span className={style.smallCardContainer}>
         <h2 className={style.cardTitle}>{name}</h2>
         <h2 className={style.cardReading}>{reading_data[type]}</h2>
