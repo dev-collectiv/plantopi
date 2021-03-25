@@ -1,6 +1,6 @@
 @import 'styles/main.scss';
 
-.informationContainer {
+.container {
   @include dashboardPanels;
   justify-content: space-around;
   align-items: center;

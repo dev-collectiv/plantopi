@@ -1,7 +1,7 @@
-import IleftBarData from './Interfaces';
+import INavBarData from 'types/INavBarData';
 import { Calendar, Chatting, Home, Image, User } from 'assets';
 
-export const leftBarData: IleftBarData[] = [
+export const navBarData: INavBarData[] = [
   {
     title: 'home',
     path: '/home',

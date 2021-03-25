@@ -1,7 +1,7 @@
-import style from './DashboardInformation.module.scss';
-const DashboardInformation: React.FC = () => {
+import style from './DashboardRight.module.scss';
+const DashboardRight: React.FC = () => {
   return (
-    <div className={style.informationContainer}>
+    <div className={style.container}>
       <div className={style.sensorInformation}>
         <div className={style.humidity}>
           <h2>25%</h2>
@@ -22,4 +22,4 @@ const DashboardInformation: React.FC = () => {
     </div>
   );
 };
-export default DashboardInformation;
+export default DashboardRight;
