@@ -51,7 +51,7 @@ beforeAll(async () => {
   await createSeeds('controller', mockSeeds.mockControllerSeed);
 });
 
-describe('Users', () => {
+xdescribe('Users', () => {
   it('should get all users', async () => {
     const res = await request(app.getHttpServer()).get('/users');
     expect(res.status).toBe(200);
@@ -90,5 +90,45 @@ describe('Users', () => {
 
     const res = await request(app.getHttpServer()).get('/users/4');
     expect(res.body).toEqual(mockUsers.created);
+  });
+});
+
+describe('Areas', () => {
+  it('should get all areas', async () => {
+    const res = await request(app.getHttpServer()).get('/areas');
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual(mockAreas.all);
+  });
+
+  it('should get a single area', async () => {
+    const res = await request(app.getHttpServer()).get('/areas/2');
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual(mockAreas.all.filter(area => area.id === 2)[0]);
+  });
+
+  it('should update an area', async () => {
+    const res = await request(app.getHttpServer()).patch('/areas/3').send({isActive: false});
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual(mockAreas.modified);
+    await request(app.getHttpServer()).patch('/areas/3').send({isActive: true}); // reset status
+  });
+
+  it('should delete an area', async () => {
+    const deleteRes = await request(app.getHttpServer()).delete('/areas/2');
+    expect(deleteRes.status).toBe(200);
+    await request(app.getHttpServer()).delete('/areas/5'); // deletes the one created within tests
+
+
+    const res = await request(app.getHttpServer()).get('/areas');
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual(mockAreas.all.filter(area => area.id !== 2));
+  });
+
+  it('should create an area', async () => {
+    const createRes = await request(app.getHttpServer()).post('/areas').send({user: 3, isActive: true});
+    expect(createRes.status).toBe(201);
+
+    const res = await request(app.getHttpServer()).get('/areas/5');
+    expect(res.body).toEqual(mockAreas.created);
   });
 });
