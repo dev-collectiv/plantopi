@@ -1,13 +1,13 @@
 @import 'styles/main.scss';
 
-.dashboardContainer {
+.container {
   display: flex;
   flex-direction: column;
   width: 80vw;
   height: 100vh;
 }
 
-.illustrationInformation {
+.contentContainer {
   display: flex;
   flex-direction: row;
   height: 85%;

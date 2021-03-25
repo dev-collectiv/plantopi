@@ -1,7 +1,8 @@
 import { IAddArea, IAddControllers, IAddSensors, IAddUser, IGetArea, IGetControllers, IGetSensors, IGetUser } from './interfaces';
-const urlBase = 'http://localhost:3001';
+const urlBase = 'http://localhost:3001'; //TODO .env
 
 function apiRequest(method: string, option?: RequestInit): Promise<any> {
+  // TODO no any
   return fetch(urlBase + method, option)
     .then((res) => (res.status <= 400 ? res : Promise.reject()))
     .then((res) => (res.status === 204 ? res : res.json()))
@@ -65,6 +66,7 @@ function deleteArea(id: number): Promise<void> {
 }
 
 function deleteController(id: number): Promise<any> {
+  //TODO no any
   const httpOptions = {
     method: 'DELETE',
     headers: { 'Content-Type': 'application/json' },
@@ -73,6 +75,7 @@ function deleteController(id: number): Promise<any> {
   return apiRequest(`/controllers/:${id}`, httpOptions);
 }
 function deleteSensor(id: number): Promise<any> {
+  //TODO no any
   const httpOptions = {
     method: 'DELETE',
     headers: { 'Content-Type': 'application/json' },
@@ -81,6 +84,7 @@ function deleteSensor(id: number): Promise<any> {
   return apiRequest(`/sensors/:${id}`, httpOptions);
 }
 function deleteUser(id: number): Promise<any> {
+  //TODO no any
   const httpOptions = {
     method: 'DELETE',
     headers: { 'Content-Type': 'application/json' },
@@ -90,6 +94,7 @@ function deleteUser(id: number): Promise<any> {
 }
 
 function patchAreas(body: any, id: number): Promise<any> {
+  //TODO no any
   const httpOptions = {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json' },
@@ -98,6 +103,7 @@ function patchAreas(body: any, id: number): Promise<any> {
   return apiRequest(`/areas/:${id}`, httpOptions);
 }
 function patchControllers(body: any, id: number): Promise<any> {
+  //TODO no any
   const httpOptions = {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json' },
@@ -107,6 +113,7 @@ function patchControllers(body: any, id: number): Promise<any> {
 }
 
 function patchSensors(body: any, id: number): Promise<any> {
+  //TODO no any
   const httpOptions = {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json' },
@@ -116,6 +123,7 @@ function patchSensors(body: any, id: number): Promise<any> {
 }
 
 function patchUsers(body: any, id: number): Promise<any> {
+  //TODO no any
   const httpOptions = {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json' },
