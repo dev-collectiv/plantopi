@@ -23,13 +23,13 @@ void mqttPublishStatus(Status);
 
 void mqttInit()
 {
-  mqttClient.setServer(mqtt_broker, mqtt_port);
+  mqttClient.setServer(mqttBroker, mqttPort);
   mqttClient.setCallback(callback);
 }
 
 void callback(char *topic, byte *payload, unsigned int length)
 {
-  if (!strcmp(topic, mqtt_inTopic))
+  if (strcmp(topic, mqttInTopic) == 0)
   {
     StaticJsonDocument<256> msgJson;
     deserializeJson(msgJson, payload, length);
@@ -113,8 +113,8 @@ void reconnect()
     {
       Serial.println("MQTT: Connected");
       snprintf(msg, MSG_BUFFER_SIZE, "Connection established #%s", mqttId);
-      mqttClient.publish(mqtt_outTopic, msg);
-      mqttClient.subscribe(mqtt_inTopic);
+      mqttClient.publish(mqttOutTopic, msg);
+      mqttClient.subscribe(mqttInTopic);
     }
     else
     {
@@ -137,23 +137,24 @@ void mqttCheckMessages()
 
 void publishStatusOn()
 {
-  unsigned long t_now = millis();
-  unsigned long t_since = t_now - started;
-  unsigned long t_left = duration - t_since;
+  unsigned long tNow = millis();
+  unsigned long tSince = tNow - started;
+  unsigned long tLeft = duration - tSince;
   char buffer[256];
   StaticJsonDocument<256> statJson;
   statJson["id"] = mqttId;
   statJson["status"] = "on";
-  statJson["time"] = t_now / 1000;
+  statJson["time"] = tNow / 1000;
   statJson["duration"] = duration / 1000;
-  statJson["timeLeft"] = t_left / 1000;
+  statJson["timeLeft"] = tLeft / 1000;
   size_t n = serializeJson(statJson, buffer);
-  mqttClient.publish(mqtt_outTopic, buffer, n);
+  mqttClient.publish(mqttOutTopic, buffer, n);
   Serial.print("STATUS: ON since ");
-  Serial.print(t_since / 1000);
+  Serial.print(tSince / 1000);
   Serial.print(" sec. ago, ");
-  Serial.print(t_left / 1000);
+  Serial.print(tLeft / 1000);
   Serial.println(" sec. left");
+  free(buffer);
 }
 
 void mqttPublishResponse(char *response)
@@ -164,7 +165,8 @@ void mqttPublishResponse(char *response)
   statJson["response"] = response;
   statJson["time"] = millis() / 1000;
   size_t n = serializeJson(statJson, buffer);
-  mqttClient.publish(mqtt_resTopic, buffer, n);
+  mqttClient.publish(mqttResTopic, buffer, n);
+  free(buffer);
 }
 
 void publishStatusOff()
@@ -175,8 +177,9 @@ void publishStatusOff()
   statJson["status"] = "off";
   statJson["time"] = millis() / 1000;
   size_t n = serializeJson(statJson, buffer);
-  mqttClient.publish(mqtt_outTopic, buffer, n);
+  mqttClient.publish(mqttOutTopic, buffer, n);
   Serial.println("STATUS: OFF");
+  free(buffer);
 }
 
 void publishStatusUnknown()
@@ -187,8 +190,9 @@ void publishStatusUnknown()
   statJson["status"] = "unknown";
   statJson["time"] = millis() / 1000;
   size_t n = serializeJson(statJson, buffer);
-  mqttClient.publish(mqtt_outTopic, buffer, n);
+  mqttClient.publish(mqttOutTopic, buffer, n);
   Serial.println("STATUS: UNKNOWN");
+  free(buffer);
 }
 
 void mqttPublishStatus(Status stat)
