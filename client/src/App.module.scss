@@ -1,9 +1,13 @@
+@import 'styles/main.scss';
+
 * {
   box-sizing: border-box;
 }
 
 .container {
   display: grid;
+  background-color: $bg;
+
   grid-template-columns: 0 10fr 2fr;
   //if navbar
   // grid-template-columns: 0.5fr 10fr 2fr;

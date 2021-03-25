@@ -1,12 +1,12 @@
+@import './vars';
+
 @mixin dashboardPanels {
   padding: 2.5rem;
   flex: 1;
   display: flex;
   flex-flow: column nowrap;
-  border: 1px solid red;
 }
 
 @mixin card {
-  border: 1px solid red;
-  display: flex;
+  box-shadow: 0px 0px 10px 1px rgba($dark, 0.2);
 }
