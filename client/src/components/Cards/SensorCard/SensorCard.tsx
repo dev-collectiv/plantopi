@@ -1,10 +1,10 @@
 /* eslint-disable indent */
 import React from 'react';
 import ISensorCardProps from './ISensorCardProps';
-import styles from './SensorCard.module.scss';
+import style from './SensorCard.module.scss';
 
 const SensorCard: React.FC<ISensorCardProps> = (props) => {
-  const { name, type, reading } = props;
+  const { name, type, reading, position } = props;
 
   let celsius = true; //TODO get this from the settings
 
@@ -14,9 +14,11 @@ const SensorCard: React.FC<ISensorCardProps> = (props) => {
   };
 
   return (
-    <div className={`${styles.container} ${type === 'humidity' ? styles.humidity : styles.temperature}`}>
-      <p className={`${styles.reading}`}>{reading_data[type]}</p>
-      <p className={`${styles.name}`}>{name}</p>
+    <div className={`${style[position]} ${style.card} ${style.smallCard}`}>
+      <span className={style.smallCardContainer}>
+        <h2 className={style.cardTitle}>{name}</h2>
+        <h2 className={style.cardReading}>{reading_data[type]}</h2>
+      </span>
     </div>
   );
 };
