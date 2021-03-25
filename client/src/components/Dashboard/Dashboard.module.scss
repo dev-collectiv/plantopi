@@ -3,8 +3,9 @@
 .container {
   display: flex;
   flex-direction: column;
-  width: 80vw;
-  height: 100vh;
+  grid-area: main;
+  min-width: 100%;
+  border: 1px solid red;
 }
 
 .contentContainer {

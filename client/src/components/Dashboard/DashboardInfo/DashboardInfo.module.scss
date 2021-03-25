@@ -6,74 +6,48 @@
   align-items: center;
 }
 
-.sensorInformation {
-  background-color: white;
-  width: 100%;
-  height: 40%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
+.gridContainer {
+  height: 30rem;
+  width: 30rem;
+  // border: 1px solid black;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 2fr;
+  column-gap: 1rem;
+  row-gap: 1rem;
+  grid-template-areas:
+    'smallFirst smallSecond'
+    'big big';
 }
 
-.temperature {
+.card {
+  // border: 1px solid black;
+  border-radius: $borderRadius;
   display: flex;
-  flex-direction: column;
+  flex-flow: column nowrap;
+  align-items: center;
   justify-content: center;
-  align-items: center;
-  background-color: #ffffca;
-  height: 50%;
-  width: 25%;
-  border-radius: 15px;
-  font-size: larger;
-  font-weight: 600;
-  box-shadow: 10px 10px 8px #888888;
-  h2 {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 50%;
-    width: 45%;
-    border-radius: 40px;
-    background: white;
-  }
+  box-shadow: 0 0 5px #888888;
+
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 100%;
+  max-height: 100%;
+
+  padding: 1rem;
 }
 
-.humidity {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: rgb(197, 239, 255);
-  height: 50%;
-  width: 25%;
-  border-radius: 15px;
-  font-size: larger;
-  box-shadow: 10px 10px 8px #888888;
-  font-weight: 600;
-  h2 {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 50%;
-    width: 45%;
-    border-radius: 40px;
-    background: white;
-  }
+.smallCard {
 }
 
-.chartContainer {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: white;
-
-  width: 100%;
-  height: 60%;
+.left {
+  grid-area: smallFirst;
 }
-.chart {
-  box-shadow: 10px 10px 8px #888888;
-  width: auto;
-  height: 90%;
-  border: solid 0.5px black;
+
+.right {
+  grid-area: smallSecond;
+}
+
+.bigCard {
+  grid-area: big;
 }

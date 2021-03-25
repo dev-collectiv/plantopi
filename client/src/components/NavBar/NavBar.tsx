@@ -1,5 +1,7 @@
+import styles from './NavBar.module.scss';
+
 const NavBar: React.FC = () => {
-  return <></>;
+  return <div className={styles.container}></div>;
 };
 
 export default NavBar;
