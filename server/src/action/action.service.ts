@@ -3,13 +3,17 @@ import { MqttService } from '../mqtt/mqtt.service';
 import { Socket } from 'socket.io';
 import { MqttRequestDto, MqttStatusDto } from './dto/mqtt.dto';
 import { WsException } from '@nestjs/websockets';
+import { TimetableService } from '../timetable/timetable.service';
+import { createDurationTracker } from './action.service.helpers';
+
+const trackedController = 1; // As we don't track separate controllers yet time tracking fn always recors time under this controller id. To be assigned to relevant controllers as they become available.
 
 @Injectable()
 export class ActionService {
-  constructor(public mqttService: MqttService) {
+  constructor(public mqttService: MqttService, private timetableService: TimetableService) {
     mqttService.subscribeToTopic('status');
 
-    const durationTracker = this.createDurationTracker();
+    const durationTracker = createDurationTracker(this.timetableService.create);
     this.onMqttTopic('status', data => durationTracker(data));
 
     console.log('Subscribed to status');
@@ -34,42 +38,6 @@ export class ActionService {
     });
   }
 
-  createDurationTracker () {
-    let previousStatus: null | 'on' | 'off' = null;
-    let startTime: null | Date = null;
-    let endTime: null | Date = null;
-
-    return (data: MqttStatusDto) => {
-      const status = data.status;
-
-      switch (previousStatus) {
-      case null:
-        previousStatus = status;
-        break;
-      case 'off':
-        if (status === 'on') {
-          startTime = new Date(Date.now());
-          previousStatus = status;
-        }
-        break;
-      case 'on':
-        if (status === 'off') {
-          endTime = new Date(Date.now());
-        }
-        break;
-      }
-
-      if (startTime && endTime) {
-        const durationInMs = endTime.valueOf() - startTime.valueOf();
-
-        // UPDATE DURATION IN DB
-
-        startTime = null;
-        endTime = null;
-      }
-    };
-  }
-
   giveStatusUpdatesTo(client: Socket, payload: MqttRequestDto) {
     let watering = true;
     let previousStatus: null | 'off' = null;
@@ -85,6 +53,7 @@ export class ActionService {
         } catch (err) {
           throw new WsException ('Status from Mqtt could not be relayed to client. Verify that the broker is publishing a JSON.');
         }
+        // This part above can be refactored into onMqttTopic later
 
         // There is a chance that the server may still receive the previous status of IoT after the client makes a request,
         // so we check and stop sending feedback only if we receive 'off' status twice in a row.
