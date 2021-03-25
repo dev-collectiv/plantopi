@@ -51,7 +51,7 @@ beforeAll(async () => {
   await createSeeds('controller', mockSeeds.mockControllerSeed);
 });
 
-xdescribe('Users', () => {
+describe('Users', () => {
   it('should get all users', async () => {
     const res = await request(app.getHttpServer()).get('/users');
     expect(res.status).toBe(200);
@@ -130,5 +130,46 @@ describe('Areas', () => {
 
     const res = await request(app.getHttpServer()).get('/areas/5');
     expect(res.body).toEqual(mockAreas.created);
+  });
+});
+
+describe.only('Controllers', () => {
+  it('should get all controllers', async () => {
+    const res = await request(app.getHttpServer()).get('/controllers');
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual(mockControllers.all);
+  });
+
+  it('should get a single controller', async () => {
+    const res = await request(app.getHttpServer()).get('/controllers/2');
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual(mockControllers.all.filter(controller => controller.id === 2)[0]);
+  });
+
+  it('should update a controller', async () => {
+    const res = await request(app.getHttpServer()).patch('/controllers/3').send({type: 'NowLatersDoor'});
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual(mockControllers.modifiedFirstLevel);
+
+    await request(app.getHttpServer()).patch('/controllers/3').send({area: 4});
+    const resAreaChange = await request(app.getHttpServer()).get('/controllers/3');
+    expect(resAreaChange.body).toEqual(mockControllers.modifiedSecondLevel);
+  });
+
+  it('should delete a controller', async () => {
+    const deleteRes = await request(app.getHttpServer()).delete('/controllers/3');
+    expect(deleteRes.status).toBe(200);
+
+    const res = await request(app.getHttpServer()).get('/controllers');
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual(mockControllers.all.filter(controller => controller.id !== 3));
+  });
+
+  it('should create a controller', async () => {
+    const createRes = await request(app.getHttpServer()).post('/controllers').send({area: 2, type: 'TestiesNewDoor', isActive: true});
+    expect(createRes.status).toBe(201);
+
+    const res = await request(app.getHttpServer()).get('/controllers/7');
+    expect(res.body).toEqual(mockControllers.created);
   });
 });
