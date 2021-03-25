@@ -1,5 +1,5 @@
 import { IAddArea, IAddControllers, IAddSensors, IAddUser, IGetArea, IGetControllers, IGetSensors, IGetUser } from './interfaces';
-const urlBase = 'http://localhost:3001'; //TODO .env
+const urlBase = `${process.env.REACT_APP_API_HOST}:${process.env.REACT_APP_API_PORT}`;
 
 function apiRequest(method: string, option?: RequestInit): Promise<any> {
   // TODO no any
