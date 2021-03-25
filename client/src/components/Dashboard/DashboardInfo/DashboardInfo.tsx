@@ -1,3 +1,4 @@
+import Chart from 'components/Chart/Chart';
 import style from './DashboardInfo.module.scss';
 
 const DashboardInfo: React.FC = () => {
@@ -5,21 +6,21 @@ const DashboardInfo: React.FC = () => {
     <div className={style.container}>
       <div className={style.gridContainer}>
         <div className={`${style.smallFirst} ${style.card} ${style.smallCard}`}>
-          <h2>25%</h2>
-          <p>Humidity</p>
+          <span className={style.smallCardContainer}>
+            <h2 className={style.cardTitle}>Humidity</h2>
+            <h2 className={style.cardReading}>25%</h2>
+          </span>
         </div>
 
         <div className={`${style.smallSecond} ${style.card} ${style.smallCard}`}>
-          <h2>30ºC</h2>
-          <p>temperature</p>
+          <span className={style.smallCardContainer}>
+            <h2 className={style.cardTitle}>Temperature</h2>
+            <h2 className={style.cardReading}>30ºC</h2>
+          </span>
         </div>
 
         <div className={`${style.card} ${style.bigCard}`}>
-          {/* <img
-          // src="https://png.pngtree.com/png-vector/20190223/ourlarge/pngtree-charts-glyph-black-icon-png-image_691516.jpg"
-          alt=""
-          className={style.chart}
-        /> */}
+          <Chart />
         </div>
       </div>
     </div>

@@ -21,33 +21,64 @@
 }
 
 .card {
-  // border: 1px solid black;
+  @include card;
   border-radius: $borderRadius;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 5px #888888;
 
   min-width: 100%;
   max-width: 100%;
   min-height: 100%;
   max-height: 100%;
+  position: relative;
 
   padding: 1rem;
+  font-weight: 600;
 }
 
 .smallCard {
 }
 
-.left {
-  grid-area: smallFirst;
+.smallCardContainer {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  height: 6rem;
+  width: 6rem;
+  border-radius: 50px;
+  background-color: $bg;
 }
 
-.right {
+.smallFirst {
+  grid-area: smallFirst;
+  background-color: $yellow;
+}
+
+.smallSecond {
   grid-area: smallSecond;
+  background-color: $yellow;
 }
 
 .bigCard {
   grid-area: big;
+  background-color: $yellow;
+}
+
+.cardTitle {
+  text-transform: uppercase;
+  font-family: $titleFont;
+  color: $dark;
+  position: absolute;
+  font-size: 1.25rem;
+  font-weight: 600;
+  left: 10px;
+  top: 10px;
+}
+
+.cardReading {
+  font-family: $titleFont;
+  border-bottom: 1px solid $red;
 }
