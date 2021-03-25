@@ -281,7 +281,7 @@ describe('Sensors', () => {
   });
 });
 
-describe.only('Cron Jobs', () => {
+describe('Cron Jobs', () => {
   //TODO: Mock cron job's internal dependencies
 
   let connection: Connection;

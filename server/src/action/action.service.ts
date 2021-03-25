@@ -1,14 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { MqttService } from '../mqtt/mqtt.service';
 import { Socket } from 'socket.io';
-import { MqttRequestDto } from './dto/mqtt.dto';
+import { MqttRequestDto, MqttStatusDto } from './dto/mqtt.dto';
 import { WsException } from '@nestjs/websockets';
 
 @Injectable()
 export class ActionService {
   constructor(public mqttService: MqttService) {
     mqttService.subscribeToTopic('status');
-    this.listenToTopic('status');
+
+    const durationTracker = this.createDurationTracker();
+    this.onMqttTopic('status', data => durationTracker(data));
+
     console.log('Subscribed to status');
   }
 
@@ -16,13 +19,55 @@ export class ActionService {
     this.mqttService.publishToTopic('action', action);
   }
 
-  listenToTopic(mqttTopic: string) {
-    this.mqttService.mqttClient.on('message', (topic, payload, packet) => {
-      if (topic === mqttTopic) {
-        // console.log(topic);
-        // console.log(JSON.parse(payload.toString()));
+  onMqttTopic(mqttTopic: string, handler: (data: MqttStatusDto) => any) {
+    this.mqttService.mqttClient.on('message', (topic, payload) => {
+      if (topic !== mqttTopic) return;
+
+      let data: MqttStatusDto;
+      try {
+        data = JSON.parse(payload.toString());
+      } catch (err) {
+        throw new WsException ('Status from Mqtt could not be relayed to client. Verify that the broker is publishing a JSON.');
       }
+
+      handler(data);
     });
+  }
+
+  createDurationTracker () {
+    let previousStatus: null | 'on' | 'off' = null;
+    let startTime: null | Date = null;
+    let endTime: null | Date = null;
+
+    return (data: MqttStatusDto) => {
+      const status = data.status;
+
+      switch (previousStatus) {
+      case null:
+        previousStatus = status;
+        break;
+      case 'off':
+        if (status === 'on') {
+          startTime = new Date(Date.now());
+          previousStatus = status;
+        }
+        break;
+      case 'on':
+        if (status === 'off') {
+          endTime = new Date(Date.now());
+        }
+        break;
+      }
+
+      if (startTime && endTime) {
+        const durationInMs = endTime.valueOf() - startTime.valueOf();
+
+        // UPDATE DURATION IN DB
+
+        startTime = null;
+        endTime = null;
+      }
+    };
   }
 
   giveStatusUpdatesTo(client: Socket, payload: MqttRequestDto) {
