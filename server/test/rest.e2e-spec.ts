@@ -9,6 +9,7 @@ import { mockUsers } from './mocks/rest.e2e-mockUsers';
 import { mockAreas } from './mocks/rest.e2e-mockAreas';
 import { mockControllers } from './mocks/rest.e2e-mockControllers';
 import { mockSensors } from './mocks/rest.e2e-mockSensors';
+import { mockCrons } from './mocks/rest.e2e-mockCrons';
 
 // DB ENTITIES
 import { CronAction } from '../src/cron-action/entities/cron-action.entity';
@@ -50,6 +51,7 @@ async function initalizeTestDb (app: INestApplication) {
     await createSeeds('area', mockSeeds.mockAreaSeed);
     await createSeeds('sensor', mockSeeds.mockSensorSeed);
     await createSeeds('controller', mockSeeds.mockControllerSeed);
+    await createSeeds('cron_action', mockSeeds.mockCronSeed);
     resolve(connection);
   });
 }
@@ -275,6 +277,86 @@ describe('Sensors', () => {
 
     const res = await request(app.getHttpServer()).get('/sensors/7');
     expect(res.body).toEqual(mockSensors.created);
+    done();
+  });
+});
+
+describe.only('Cron Jobs', () => {
+  //TODO: Mock cron job's internal dependencies
+
+  let connection: Connection;
+  let allCrons: CronAction[];
+  let singleCronId: string;
+  let mockUpdatedCron: CronAction;
+
+  beforeAll(async (done) => {
+    connection = await initalizeTestDb(app);
+    allCrons = await connection.getRepository(CronAction).find();
+    singleCronId = allCrons[0].id;
+
+    mockUpdatedCron = Object.assign({}, allCrons[0]);
+    mockUpdatedCron.time = '7 * * * * *';
+    mockUpdatedCron.action = JSON.stringify({id: 'pump1', action: 'on', duration:'2'});
+    done();
+  });
+
+  it('should get all cron jobs', async (done) => {
+    const res = await request(app.getHttpServer()).get('/crons');
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual(allCrons);
+    done();
+  });
+
+  it('should get a single cron', async (done) => {
+    const res = await request(app.getHttpServer()).get('/crons/' + singleCronId);
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual(allCrons[0]);
+    done();
+  });
+
+  it('should update a cron job in db', async (done) => {
+    const res = await request(app.getHttpServer()).patch('/crons/' + singleCronId)
+      .send({
+        time: '7 * * * * *',
+        action: {id: 'pump1', action: 'on', duration:'2'}
+      });
+
+    expect(res.status).toBe(200);
+
+    const updatedCron = await request(app.getHttpServer()).get('/crons/' + singleCronId);
+    expect(updatedCron.body).toEqual(mockUpdatedCron);
+    done();
+  });
+
+  it('should delete a cron job from db', async (done) => {
+    const deleteRes = await request(app.getHttpServer()).delete('/crons/' + singleCronId);
+    expect(deleteRes.status).toBe(200);
+
+    const res = await request(app.getHttpServer()).get('/crons');
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual(allCrons.filter(cron => cron.id !== singleCronId));
+    done();
+  });
+
+  it('should create a cron job', async (done) => {
+    const newCronReq = {
+      isActive: true,
+      controller: 2,
+      time: '9 * * * * *',
+      action: {id: 'pump2', action: 'on', duration: '2'}
+    };
+
+    const createRes = await request(app.getHttpServer()).post('/crons').send(newCronReq);
+    expect(createRes.status).toBe(201);
+
+    const { id } = createRes.body.identifiers[0];
+    const res = await request(app.getHttpServer()).get('/crons/' + id);
+    expect(res.body).toEqual({
+      id,
+      isActive: true,
+      time: '9 * * * * *',
+      action: JSON.stringify(newCronReq.action)
+    });
     done();
   });
 });
