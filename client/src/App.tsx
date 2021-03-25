@@ -1,18 +1,17 @@
 import styles from './App.module.scss';
 import React, { useEffect, useState } from 'react';
-import io from 'socket.io-client';
-import MenuSideBar from 'components/menuSideBar/MenuSideBar';
-import Dashboard from 'components/dashboard/Dashboard';
-import InfoSideBar from 'components/infoSideBar/InfoSideBar';
-
-let socket = io('http://localhost:3002');
+import NavBar from 'components/NavBar/NavBar';
+import Dashboard from 'components/Dashboard/Dashboard';
+import DetailBar from 'components/DetailBar/DetailBar';
+import AreaPanel from 'components/AreaPanel/AreaPanel';
 
 const App: React.FC = () => {
   return (
-    <div className={styles.App}>
-      {/* <MenuSideBar /> */}
+    <div className={styles.container}>
+      <NavBar />
       <Dashboard />
-      {/* <InfoSideBar /> */}
+      <DetailBar />
+      <AreaPanel />
     </div>
   );
 };

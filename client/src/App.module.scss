@@ -2,8 +2,28 @@
   box-sizing: border-box;
 }
 
-.App {
-  display: flex;
-  flex-direction: row;
+.container {
+  display: grid;
+  grid-template-columns: 0 10fr 2fr;
+  //if navbar
+  // grid-template-columns: 0.5fr 10fr 2fr;
+
+  // justify-items: stretch;
+
+  column-gap: 0;
   height: 100vh;
+  width: 100vw;
+  grid-template-areas: 'left-panel main right-panel';
 }
+
+// @mixin grid-main {
+//   grid-area: main;
+// }
+
+// @mixin grid-left {
+//   grid-area: left-panel;
+// }
+
+// @mixin grid-right {
+//   grid-area: right-panel;
+// }
