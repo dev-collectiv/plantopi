@@ -24,8 +24,6 @@ let connection: Connection;
 
 // Initializes test server & database
 beforeAll(async () => {
-
-  // SERVER INITIALIZATION
   const moduleFixture: TestingModule = await Test.createTestingModule({
     imports: [
       TypeOrmModule.forRootAsync(
@@ -36,7 +34,9 @@ beforeAll(async () => {
 
   app = moduleFixture.createNestApplication();
   await app.init();
+});
 
+beforeEach(async () => {
   // DB INITIALIZATION
   connection = app.get(Connection);
   await connection.synchronize(true);
@@ -51,38 +51,42 @@ beforeAll(async () => {
   await createSeeds('controller', mockSeeds.mockControllerSeed);
 });
 
-describe('Users', () => {
-  it('should get all users', async () => {
+describe('Users', async () => {
+  it('should get all users', async (done) => {
     const res = await request(app.getHttpServer()).get('/users');
     expect(res.status).toBe(200);
     expect(res.body).toEqual(mockUsers.all);
+    done();
   });
 
-  it('should get a single user', async () => {
+  it('should get a single user', async (done) => {
     const res = await request(app.getHttpServer()).get('/users/2');
     expect(res.status).toBe(200);
     expect(res.body).toEqual(mockUsers.all.filter(user => user.id === 2)[0]);
+    done();
   });
 
-  it('should update a user', async () => {
+  it('should update a user', async (done) => {
     const firstName = 'Deletoff';
     const lastName = 'Updatiano';
 
     const res = await request(app.getHttpServer()).patch('/users/2').send({firstName, lastName, isActive: false});
     expect(res.status).toBe(200);
     expect(res.body).toEqual(mockUsers.modified);
+    done();
   });
 
-  it('should delete a user', async () => {
+  it('should delete a user', async (done) => {
     const deleteRes = await request(app.getHttpServer()).delete('/users/2');
     expect(deleteRes.status).toBe(200);
 
     const res = await request(app.getHttpServer()).get('/users');
     expect(res.status).toBe(200);
     expect(res.body).toEqual(mockUsers.afterDelete);
+    done();
   });
 
-  it('should create a user', async () => {
+  it('should create a user', async (done) => {
     const firstName = 'Phoenix';
     const lastName = 'Resurrectsson';
     const createRes = await request(app.getHttpServer()).post('/users').send({firstName, lastName, isActive: true});
@@ -90,30 +94,34 @@ describe('Users', () => {
 
     const res = await request(app.getHttpServer()).get('/users/4');
     expect(res.body).toEqual(mockUsers.created);
+    done();
   });
 });
 
 describe('Areas', () => {
-  it('should get all areas', async () => {
+  it('should get all areas', async (done) => {
     const res = await request(app.getHttpServer()).get('/areas');
     expect(res.status).toBe(200);
     expect(res.body).toEqual(mockAreas.all);
+    done();
   });
 
-  it('should get a single area', async () => {
+  it('should get a single area', async (done) => {
     const res = await request(app.getHttpServer()).get('/areas/2');
     expect(res.status).toBe(200);
     expect(res.body).toEqual(mockAreas.all.filter(area => area.id === 2)[0]);
+    done();
   });
 
-  it('should update an area', async () => {
+  it('should update an area', async (done) => {
     const res = await request(app.getHttpServer()).patch('/areas/3').send({isActive: false});
     expect(res.status).toBe(200);
     expect(res.body).toEqual(mockAreas.modified);
     await request(app.getHttpServer()).patch('/areas/3').send({isActive: true}); // reset status
+    done();
   });
 
-  it('should delete an area', async () => {
+  it('should delete an area', async (done) => {
     const deleteRes = await request(app.getHttpServer()).delete('/areas/2');
     expect(deleteRes.status).toBe(200);
     await request(app.getHttpServer()).delete('/areas/5'); // deletes the one created within tests
@@ -122,31 +130,35 @@ describe('Areas', () => {
     const res = await request(app.getHttpServer()).get('/areas');
     expect(res.status).toBe(200);
     expect(res.body).toEqual(mockAreas.all.filter(area => area.id !== 2));
+    done();
   });
 
-  it('should create an area', async () => {
+  it('should create an area', async (done) => {
     const createRes = await request(app.getHttpServer()).post('/areas').send({user: 3, isActive: true});
     expect(createRes.status).toBe(201);
 
     const res = await request(app.getHttpServer()).get('/areas/5');
     expect(res.body).toEqual(mockAreas.created);
+    done();
   });
 });
 
-describe.only('Controllers', () => {
-  it('should get all controllers', async () => {
+describe('Controllers', () => {
+  it('should get all controllers', async (done) => {
     const res = await request(app.getHttpServer()).get('/controllers');
     expect(res.status).toBe(200);
     expect(res.body).toEqual(mockControllers.all);
+    done();
   });
 
-  it('should get a single controller', async () => {
+  it('should get a single controller', async (done) => {
     const res = await request(app.getHttpServer()).get('/controllers/2');
     expect(res.status).toBe(200);
     expect(res.body).toEqual(mockControllers.all.filter(controller => controller.id === 2)[0]);
+    done();
   });
 
-  it('should update a controller', async () => {
+  it('should update a controller', async (done) => {
     const res = await request(app.getHttpServer()).patch('/controllers/3').send({type: 'NowLatersDoor'});
     expect(res.status).toBe(200);
     expect(res.body).toEqual(mockControllers.modifiedFirstLevel);
@@ -154,22 +166,71 @@ describe.only('Controllers', () => {
     await request(app.getHttpServer()).patch('/controllers/3').send({area: 4});
     const resAreaChange = await request(app.getHttpServer()).get('/controllers/3');
     expect(resAreaChange.body).toEqual(mockControllers.modifiedSecondLevel);
+    done();
   });
 
-  it('should delete a controller', async () => {
+  it('should delete a controller', async (done) => {
     const deleteRes = await request(app.getHttpServer()).delete('/controllers/3');
     expect(deleteRes.status).toBe(200);
 
     const res = await request(app.getHttpServer()).get('/controllers');
     expect(res.status).toBe(200);
     expect(res.body).toEqual(mockControllers.all.filter(controller => controller.id !== 3));
+    done();
   });
 
-  it('should create a controller', async () => {
+  it('should create a controller', async (done) => {
     const createRes = await request(app.getHttpServer()).post('/controllers').send({area: 2, type: 'TestiesNewDoor', isActive: true});
     expect(createRes.status).toBe(201);
 
     const res = await request(app.getHttpServer()).get('/controllers/7');
     expect(res.body).toEqual(mockControllers.created);
+    done();
+  });
+});
+
+describe('Sensors', () => {
+  it('should get all sensors', async (done) => {
+    const res = await request(app.getHttpServer()).get('/sensors');
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual(mockSensors.all);
+    done();
+  });
+
+  it('should get a single sensor', async (done) => {
+    const res = await request(app.getHttpServer()).get('/sensors/2');
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual(mockSensors.all.filter(sensor => sensor.id === 2)[0]);
+    done();
+  });
+
+  it('should update a sensor', async (done) => {
+    const res = await request(app.getHttpServer()).patch('/sensors/3').send({type: 'NowLatersSensor'});
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual(mockSensors.modifiedFirstLevel);
+
+    await request(app.getHttpServer()).patch('/sensors/3').send({area: 4});
+    const resAreaChange = await request(app.getHttpServer()).get('/sensors/3');
+    expect(resAreaChange.body).toEqual(mockSensors.modifiedSecondLevel);
+    done();
+  });
+
+  it('should delete a sensor', async (done) => {
+    const deleteRes = await request(app.getHttpServer()).delete('/sensors/3');
+    expect(deleteRes.status).toBe(200);
+
+    const res = await request(app.getHttpServer()).get('/sensors');
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual(mockSensors.all.filter(sensor => sensor.id !== 3));
+    done();
+  });
+
+  it('should create a sensor', async (done) => {
+    const createRes = await request(app.getHttpServer()).post('/sensors').send({area: 2, type: 'TestiesNewSensor', isActive: true});
+    expect(createRes.status).toBe(201);
+
+    const res = await request(app.getHttpServer()).get('/sensors/7');
+    expect(res.body).toEqual(mockSensors.created);
+    done();
   });
 });
