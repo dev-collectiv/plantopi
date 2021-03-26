@@ -12,13 +12,17 @@
 
 .cronSelection {
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: column nowrap;
   position: relative;
   justify-content: center;
   align-items: center;
-  height: 30%;
+  height: 40%;
   min-width: 100%;
   // border: 1px solid red;
+
+  & > * {
+    font-family: $titleFont;
+  }
 
   //TODO - change into own block
   & h2 {

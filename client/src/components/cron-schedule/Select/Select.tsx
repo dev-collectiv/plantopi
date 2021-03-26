@@ -8,7 +8,7 @@ interface ISelect {
   options: string[] | number[];
   label: string;
   defaultOption?: string;
-  initialOption?: string;
+  initialOption?: string | number;
   maxWidth?: string;
 }
 

@@ -8,11 +8,15 @@ const minutes = ['00', '15', '30', '45'];
 const hours = Array(12)
   .fill(null)
   .map((_, idx) => idx + 1);
+const durationOptions = Array(60)
+  .fill(null)
+  .map((_, idx) => idx + 1);
 
 const CronForm: React.FC = () => {
   const [cron, setCron] = useState<string[]>(Array(5).fill('*'));
   const [activeDays, setActiveDays] = useState<string[]>([]);
   const [scheduledCron, setScheduledCron] = useState<string>();
+  const [duration, setDuration] = useState<number | string>(5);
 
   function handleSelectDayFn(day: string, active: boolean) {
     let _activeDays;
@@ -32,12 +36,16 @@ const CronForm: React.FC = () => {
   }
 
   function handleScheduleCron() {
-    const _parsedScheduledCron = parseCronSchedule(cron);
+    const _parsedScheduledCron = parseCronSchedule(cron, duration);
 
-    //this one goes to backend ->
+    //this one goes to backend + duration ->
     const _cronScheduleString = cron.join(' ');
 
     setScheduledCron(_parsedScheduledCron);
+  }
+
+  function handleDuration(label: string, value: number | string) {
+    setDuration(value);
   }
 
   function renderCustomOptions() {
@@ -65,8 +73,11 @@ const CronForm: React.FC = () => {
       <div className={styles.cronSelection}>
         <h2>Custom</h2>
         <span className={styles.customSelection}>{renderCustomOptions()}</span>
-        <Select options={hours} onChangeFn={handleSelectTimeFn} label="hours" /> :
-        <Select options={minutes} onChangeFn={handleSelectTimeFn} label="minutes" />
+        <span>
+          <Select options={hours} onChangeFn={handleSelectTimeFn} label="hours" />:
+          <Select options={minutes} onChangeFn={handleSelectTimeFn} label="minutes" />
+          <Select options={durationOptions} onChangeFn={handleDuration} label="duration" initialOption={duration} />
+        </span>
       </div>
 
       <div className={styles.cronSelection}>
@@ -95,7 +106,7 @@ function convertToCronSchedule(label: string, values: (string | number)[], currC
 }
 
 //TODO -  find a more customizable way after MVP
-function parseCronSchedule(cron: string[]): string {
+function parseCronSchedule(cron: string[], duration: string | number): string {
   const _cron = [...cron];
   const cronObj: { [key: string]: string | number } = {};
 
@@ -108,12 +119,12 @@ function parseCronSchedule(cron: string[]): string {
     days: 'Every . '
   };
 
-  const parsedSchedule = Object.entries(cronObj).map(([key, value], idx) => {
+  const parsedSchedule = Object.entries(cronObj).map(([key, value]) => {
     const [left, right] = customTag[key].split('.');
     return `${left}${value}${right}`;
   });
 
-  const scheduleString = parsedSchedule.reverse().join('');
+  const scheduleString = parsedSchedule.reverse().join('') + ` for ${duration} secs`;
 
   return scheduleString;
 }
