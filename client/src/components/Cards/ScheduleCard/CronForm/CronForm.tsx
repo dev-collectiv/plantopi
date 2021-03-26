@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Select from '../Select/Select';
 import styles from './CronForm.module.scss';
 import { postCrons } from 'services/apiCrons/apiCrons';
-const daysInWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const daysInWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 //const minutes = ['00', '15', '30', '45'];
 const minutes = Array(60)
   .fill(null)
@@ -41,7 +41,8 @@ const CronForm: React.FC = () => {
   function handleScheduleCron() {
     const _parsedScheduledCron = parseCronSchedule(cron, duration);
 
-    const _cronScheduleString = cron.join(' ');
+    const _cronScheduleString = convertToCronSchedule2(cron);
+
     console.log('------------------------', _cronScheduleString);
     postCrons({
       time: _cronScheduleString,
@@ -139,6 +140,18 @@ function parseCronSchedule(cron: string[], duration: string | number): string {
   const scheduleString = parsedSchedule.reverse().join('') + ` for ${duration} secs`;
 
   return scheduleString;
+}
+
+function convertToCronSchedule2(cron: string[]) {
+  const _cron = [...cron];
+
+  _cron[_cron.length - 1] = _cron[_cron.length - 1]
+    .split(',')
+    .map((el) => daysInWeek.indexOf(el))
+    .sort((a, b) => a - b)
+    .join(',');
+
+  return _cron.join(' ');
 }
 
 // const quickOptionsObj = {
