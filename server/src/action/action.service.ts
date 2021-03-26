@@ -6,14 +6,14 @@ import { WsException } from '@nestjs/websockets';
 import { TimetableService } from '../timetable/timetable.service';
 import { createDurationTracker } from './action.service.helpers';
 
-const trackedController = 1; // As we don't track separate controllers yet time tracking fn always recors time under this controller id. To be assigned to relevant controllers as they become available.
+const trackedController = 16; // As we don't track separate controllers yet time tracking fn always recors time under this controller id. To be assigned to relevant controllers as they become available.
 
 @Injectable()
 export class ActionService {
   constructor(public mqttService: MqttService, private timetableService: TimetableService) {
     mqttService.subscribeToTopic('status');
 
-    const durationTracker = createDurationTracker(this.timetableService.create);
+    const durationTracker = createDurationTracker(this.timetableService.create, trackedController);
     this.onMqttTopic('status', data => durationTracker(data));
 
     console.log('Subscribed to status');
@@ -31,7 +31,8 @@ export class ActionService {
       try {
         data = JSON.parse(payload.toString());
       } catch (err) {
-        throw new WsException ('Status from Mqtt could not be relayed to client. Verify that the broker is publishing a JSON.');
+        console.log('Status from Mqtt could not be relayed to client. Verify that the broker is publishing a JSON.');
+        return;
       }
 
       handler(data);
@@ -51,7 +52,8 @@ export class ActionService {
         try {
           data = JSON.parse(payload.toString());
         } catch (err) {
-          throw new WsException ('Status from Mqtt could not be relayed to client. Verify that the broker is publishing a JSON.');
+          console.log('Status from Mqtt could not be relayed to client. Verify that the broker is publishing a JSON.');
+          return;
         }
         // This part above can be refactored into onMqttTopic later
 
