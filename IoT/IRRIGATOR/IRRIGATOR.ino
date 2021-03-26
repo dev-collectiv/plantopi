@@ -29,7 +29,7 @@ void loop()
     mqttPublishStatus(stat); //Publish status -> mqtt.h
   }
 
-  if (now - lastReading > sensorInterval) // Check if is time to publish status
+  if (sensorActive && now - lastReading > sensorInterval) // Check if is time to publish status
   {
     lastReading = now; //Update last reading time
     reading = getSensorReading();
