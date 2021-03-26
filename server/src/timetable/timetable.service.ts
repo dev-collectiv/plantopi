@@ -10,7 +10,7 @@ export class TimetableService {
   constructor(@InjectRepository(Timetable) private timetableRepository: Repository<Timetable>) {}
 
   create = (createTimetableDto: CreateTimetableDto) => {
-    return this.timetableRepository.insert(createTimetableDto);
+    // return this.timetableRepository.insert(createTimetableDto);
   }
 
   findAll() {
