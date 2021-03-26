@@ -2,6 +2,6 @@
 
 .container {
   @include dashboardPanels;
-  justify-content: space-around;
-  align-items: center;
+  grid-template-columns: 1fr;
+  grid-template-areas: 'big';
 }
