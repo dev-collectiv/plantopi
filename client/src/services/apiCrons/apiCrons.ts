@@ -31,9 +31,4 @@ function patchCrons(body: IPatchCrons, id: string): Promise<IPatchCronsRes> {
   return apiRequest(`/crons/:${id}`, httpOptions);
 }
 
-export const apiControllers = {
-  getCrons,
-  postCrons,
-  deleteCrons,
-  patchCrons
-};
+export { getCrons, postCrons, deleteCrons, patchCrons };

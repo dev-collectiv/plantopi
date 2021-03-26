@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import Select from '../Select/Select';
-
 import styles from './CronForm.module.scss';
-
+import { postCrons } from 'services/apiCrons/apiCrons';
 const daysInWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-const minutes = ['00', '15', '30', '45'];
+//const minutes = ['00', '15', '30', '45'];
+const minutes = Array(60)
+  .fill(null)
+  .map((_, idx) => idx);
+
 const hours = Array(12)
   .fill(null)
   .map((_, idx) => idx + 1);
@@ -38,9 +41,17 @@ const CronForm: React.FC = () => {
   function handleScheduleCron() {
     const _parsedScheduledCron = parseCronSchedule(cron, duration);
 
-    //this one goes to backend + duration ->
     const _cronScheduleString = cron.join(' ');
-
+    console.log('------------------------', _cronScheduleString);
+    postCrons({
+      time: _cronScheduleString,
+      controllerId: '1',
+      action: {
+        id: 'pump1',
+        action: 'on',
+        duration: +duration
+      }
+    });
     setScheduledCron(_parsedScheduledCron);
   }
 
@@ -94,7 +105,7 @@ const CronForm: React.FC = () => {
 
 export default CronForm;
 
-const refArr = ['minutes', 'hours', 'days', 'weeks', 'months'];
+const refArr = ['minutes', 'hours', 'weeks', 'months', 'days'];
 
 function convertToCronSchedule(label: string, values: (string | number)[], currCron: string[]) {
   const newCron = [...currCron];
@@ -111,7 +122,7 @@ function parseCronSchedule(cron: string[], duration: string | number): string {
   const cronObj: { [key: string]: string | number } = {};
 
   //slice up until the days since we are still not concerned with weeks and months
-  refArr.slice(0, 3).forEach((key, idx) => (cronObj[key] = _cron[idx]));
+  refArr.forEach((key, idx) => (cronObj[key] = _cron[idx]));
 
   const customTag: { [key: string]: string } = {
     minutes: '.hrs',
