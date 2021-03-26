@@ -9,7 +9,7 @@ import { Repository } from 'typeorm';
 export class TimetableService {
   constructor(@InjectRepository(Timetable) private timetableRepository: Repository<Timetable>) {}
 
-  create(createTimetableDto: CreateTimetableDto) {
+  create = (createTimetableDto: CreateTimetableDto) => {
     return this.timetableRepository.insert(createTimetableDto);
   }
 
