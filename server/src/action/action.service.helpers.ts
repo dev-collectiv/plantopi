@@ -1,7 +1,7 @@
 import { MqttStatusDto } from './dto/mqtt.dto';
 import { CreateTimetableDto } from '../timetable/dto/create-timetable.dto';
 
-export function createDurationTracker (dbHandler: (timetable: CreateTimetableDto) => void) {
+export function createDurationTracker (dbHandler: (timetable: CreateTimetableDto) => void, controllerId: number) {
   let previousStatus: null | 'on' | 'off' = null;
   let startTime: null | Date = null;
   let endTime: null | Date = null;
@@ -28,11 +28,10 @@ export function createDurationTracker (dbHandler: (timetable: CreateTimetableDto
 
     if (startTime && endTime) {
 
-      // TODO: HANDLE IF START & END DAYS ARE DIFFERENT
       dbHandler({
         startTime,
         endTime,
-        controllerId: 1
+        controllerId: controllerId.toString()
       });
 
       startTime = null;
