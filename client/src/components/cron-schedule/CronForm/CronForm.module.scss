@@ -3,8 +3,9 @@
 .container {
   display: flex;
   flex-flow: column nowrap;
-
   align-items: center;
+  justify-content: space-between;
+
   width: 100%;
   height: 100%;
 }
@@ -19,11 +20,19 @@
   min-width: 100%;
   // border: 1px solid red;
 
+  //TODO - change into own block
   & h2 {
     @include card-title;
     font-size: 1rem;
     left: 0;
     top: 0;
+  }
+
+  & h3 {
+    border-radius: 20px;
+    padding: 0.5rem 1rem;
+    background-color: $bg;
+    font-family: $titleFont;
   }
 }
 

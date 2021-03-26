@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import IIrrigationCardProps from './IIrrigationCard';
 import styles from './IrrigationCard.module.scss';
-import io from 'socket.io-client';
+// import io from 'socket.io-client';
 
 import { Stop, Start, IrrigatingPlant, Plant } from 'assets';
 
-let socket = io(`${process.env.REACT_APP_SOCKET_HOST}:${process.env.REACT_APP_SOCKET_PORT}`);
+// let socket = io(`${process.env.REACT_APP_SOCKET_HOST}:${process.env.REACT_APP_SOCKET_PORT}`);
 
 const IrrigationCard: React.FC<IIrrigationCardProps> = (props) => {
   const { controllerId } = props;
@@ -18,12 +18,12 @@ const IrrigationCard: React.FC<IIrrigationCardProps> = (props) => {
 
   function clickHandler(e: React.FormEvent) {
     e.preventDefault();
-    socket.emit('action', { id: controllerId, action: 'on', duration: duration });
+    // socket.emit('action', { id: controllerId, action: 'on', duration: duration });
     setIrrigating(true); // TODO receive web socket with response before changing 'irrigating' variable
   }
 
   function abortIrrigation() {
-    socket.emit('action', { id: controllerId, action: 'off', duration: 0 });
+    // socket.emit('action', { id: controllerId, action: 'off', duration: 0 });
     setIrrigating(false); // TODO receive web socket with response before changing 'irrigating' variable
   }
 
