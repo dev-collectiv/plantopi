@@ -5,6 +5,5 @@ const int sensorPin = A0;
 int getSensorReading()
 {
   int sensorVal = analogRead(sensorPin);
-  Serial.println(sensorVal);
   return map(sensorVal, wet, dry, 100, 0);
 }

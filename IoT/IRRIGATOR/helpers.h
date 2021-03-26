@@ -13,9 +13,9 @@ enum Status
 Status stat = OFF;
 
 unsigned long lastMsg = 0;
+unsigned long lastReading = 0;
 unsigned long started = 0;
 unsigned long duration = 0;
-unsigned long statusInterval = 2000;
 
 void setupOutputs()
 {
