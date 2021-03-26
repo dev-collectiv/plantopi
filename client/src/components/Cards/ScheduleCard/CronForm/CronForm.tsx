@@ -43,7 +43,6 @@ const CronForm: React.FC = () => {
 
     const _cronScheduleString = convertToCronSchedule2(cron);
 
-    console.log('------------------------', _cronScheduleString);
     postCrons({
       time: _cronScheduleString,
       controllerId: '1',

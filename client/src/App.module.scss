@@ -8,7 +8,7 @@
   display: grid;
   background-color: $bg;
 
-  grid-template-columns: 0.5fr 10fr 0.5fr;
+  grid-template-columns: 0fr 10fr 2fr;
   //if navbar
   // grid-template-columns: 0.5fr 10fr 2fr;
 
@@ -19,15 +19,3 @@
   width: 100vw;
   grid-template-areas: 'left-panel main right-panel';
 }
-
-// @mixin grid-main {
-//   grid-area: main;
-// }
-
-// @mixin grid-left {
-//   grid-area: left-panel;
-// }
-
-// @mixin grid-right {
-//   grid-area: right-panel;
-// }
