@@ -1,0 +1,7 @@
+@import 'styles/main.scss';
+
+.container {
+  @include dashboardPanels;
+  grid-template-columns: 1fr;
+  grid-template-areas: 'big';
+}

@@ -1,0 +1,15 @@
+@import 'styles/main.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  grid-area: main;
+  min-width: 100%;
+}
+
+.contentContainer {
+  display: flex;
+  flex-direction: row;
+  height: 85%;
+  width: 100%;
+}

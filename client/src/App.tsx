@@ -1,33 +1,58 @@
-import './App.css';
+import styles from './App.module.scss';
 import React, { useEffect, useState } from 'react';
-import io from 'socket.io-client';
-let socket = io('http://localhost:3002');
+import NavBar from 'components/NavBar/NavBar';
+import Dashboard from 'components/Dashboard/Dashboard';
+import DetailBar from 'components/DetailBar/DetailBar';
+import AreaPanel from 'components/AreaPanel/AreaPanel';
+
+import { apiUser } from './services/apiUser/apiUser';
+import { apiArea } from './services/apiArea/apiArea';
+import { apiControllers } from './services/apiControllers/apiControllers';
+import { apiSensors } from './services/apiSensors/apiSensors';
+
+import { IGetUser } from './services/apiUser/userInterfaces';
+import { IGetArea } from './services/apiArea/areaInterfaces';
+import { IGetControllers } from './services/apiControllers/controllersInterfaces';
+import { IGetSensors } from './services/apiSensors/sensorsInterfaces';
 
 const App: React.FC = () => {
-  let [duration, setDuration] = useState<string>('');
+  const [users, setUsers] = useState<IGetUser[]>([]);
+  const [areas, setAreas] = useState<IGetArea[]>([]);
+  const [controllers, setControllers] = useState<IGetControllers[]>([]);
+  const [sensors, setSensors] = useState<IGetSensors[]>([]);
 
   useEffect(() => {
-    socket.on('connect', () => console.log('connected to ws'));
-    socket.on('action', (data: string) => console.log('received msg: ' + data));
+    apiUser.getUser().then((user) => {
+      setUsers(user);
+    });
   }, []);
 
-  function clickHandler (e: React.FormEvent) {
-    e.preventDefault();
-    socket.emit('action', duration);
-    setDuration('');
-  }
+  useEffect(() => {
+    apiArea.getArea().then((area) => {
+      setAreas(area);
+    });
+  }, []);
 
-  function inputChangeHandler (e: React.ChangeEvent<HTMLInputElement>) {
-    setDuration(e.target.value);
-  }
+  useEffect(() => {
+    apiControllers.getControllers().then((controller) => {
+      setControllers(controller);
+    });
+  }, []);
+
+  useEffect(() => {
+    apiSensors.getSensors().then((sensor) => {
+      setSensors(sensor);
+    });
+  }, []);
 
   return (
-    <div className="App">
-      <form action="" onSubmit={clickHandler}>
-        <input type="text" value={duration} onChange={inputChangeHandler}/>
-        <button type="submit">emit</button>
-      </form>
+    <div className={styles.container}>
+      <NavBar />
+      <Dashboard />
+      <DetailBar />
+      <AreaPanel />
     </div>
   );
 };
+
 export default App;

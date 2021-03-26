@@ -1,22 +1,18 @@
 import {
   SubscribeMessage,
   WebSocketGateway,
-  WebSocketServer,
   OnGatewayConnection,
   OnGatewayDisconnect,
 } from '@nestjs/websockets';
 import { Logger } from '@nestjs/common';
-import { Socket, Server } from 'socket.io';
-
+import { Socket } from 'socket.io';
 import { ActionService } from './action.service';
+import { MqttRequestDto } from './dto/mqtt.dto';
 
 @WebSocketGateway(3002)
 export class ActionGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
   constructor (private readonly actionService: ActionService) {};
-
-  // TODO: FIX ANY BY INITIALIZING SERVER FIRST
-  @WebSocketServer() server: Server|any;
 
   private logger: Logger = new Logger('ActionGateway');
 
@@ -30,11 +26,11 @@ export class ActionGateway implements OnGatewayConnection, OnGatewayDisconnect {
   }
 
   @SubscribeMessage('action')
-  handleActionMessage(client: Socket, payload: string): void {
-    this.logger.log('Duration received: ' + payload);
-    client.emit('action', 'Server received duration: ' + payload); // send feedback to front end
+  handleActionMessage(client: Socket, payload: MqttRequestDto): void {
+    this.logger.log('Duration received: ' + payload.duration);
+    client.emit('action', 'Server received duration: ' + payload.duration); // send feedback to front end
 
     this.actionService.publishActionToIOT(payload);
-    this.actionService.giveStatusUpdatesTo(client);
+    this.actionService.giveStatusUpdatesTo(client, payload);
   }
 }

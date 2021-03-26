@@ -1,0 +1,3 @@
+- folders: non capital letter, same name as component
+- files: first capital letter and camel case if it's a component and same name as component
+- variables: camel-case

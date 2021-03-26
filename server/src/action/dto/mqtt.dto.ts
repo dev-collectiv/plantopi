@@ -1,3 +1,5 @@
+//TODO - refactor into MqttActionDto
+
 export interface MqttRequestDto {
   id: string,
   action: string,
@@ -6,6 +8,6 @@ export interface MqttRequestDto {
 
 export interface MqttStatusDto {
   id: string,
-  status: string,
+  status: 'on' | 'off',
   time: number
 }

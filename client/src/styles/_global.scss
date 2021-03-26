@@ -1,0 +1,23 @@
+* {
+  box-sizing: border-box;
+}
+
+body,
+html {
+  margin: 0;
+  font-family: $mainFont;
+  overflow-x: hidden;
+}
+
+.text-center,
+.text-center--md {
+  text-align: center;
+}
+
+.bg-black {
+  background: #000;
+}
+
+.hide {
+  visibility: hidden;
+}
