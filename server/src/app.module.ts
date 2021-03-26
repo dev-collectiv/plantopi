@@ -11,6 +11,7 @@ import { SensorsModule } from './sensors/sensors.module';
 import { ControllersModule } from './controllers/controllers.module';
 import { CronActionModule } from './cron-action/cron-action.module';
 import { MqttService } from './mqtt/mqtt.service';
+import { TimetableModule } from './timetable/timetable.module';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
@@ -27,7 +28,8 @@ const dbName = process.env.NODE_ENV === 'test' ? 'test' : 'development';
     AreasModule,
     SensorsModule,
     ControllersModule,
-    ScheduleModule.forRoot()
+    ScheduleModule.forRoot(),
+    TimetableModule
   ],
   controllers: [AppController],
   providers: [AppService, MqttService]

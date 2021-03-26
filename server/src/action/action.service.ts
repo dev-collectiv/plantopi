@@ -1,14 +1,21 @@
 import { Injectable } from '@nestjs/common';
 import { MqttService } from '../mqtt/mqtt.service';
 import { Socket } from 'socket.io';
-import { MqttRequestDto } from './dto/mqtt.dto';
+import { MqttRequestDto, MqttStatusDto } from './dto/mqtt.dto';
 import { WsException } from '@nestjs/websockets';
+import { TimetableService } from '../timetable/timetable.service';
+import { createDurationTracker } from './action.service.helpers';
+
+const trackedController = 1; // As we don't track separate controllers yet time tracking fn always recors time under this controller id. To be assigned to relevant controllers as they become available.
 
 @Injectable()
 export class ActionService {
-  constructor(public mqttService: MqttService) {
+  constructor(public mqttService: MqttService, private timetableService: TimetableService) {
     mqttService.subscribeToTopic('status');
-    this.listenToTopic('status');
+
+    const durationTracker = createDurationTracker(this.timetableService.create);
+    this.onMqttTopic('status', data => durationTracker(data));
+
     console.log('Subscribed to status');
   }
 
@@ -16,12 +23,18 @@ export class ActionService {
     this.mqttService.publishToTopic('action', action);
   }
 
-  listenToTopic(mqttTopic: string) {
-    this.mqttService.mqttClient.on('message', (topic, payload, packet) => {
-      if (topic === mqttTopic) {
-        // console.log(topic);
-        // console.log(JSON.parse(payload.toString()));
+  onMqttTopic(mqttTopic: string, handler: (data: MqttStatusDto) => any) {
+    this.mqttService.mqttClient.on('message', (topic, payload) => {
+      if (topic !== mqttTopic) return;
+
+      let data: MqttStatusDto;
+      try {
+        data = JSON.parse(payload.toString());
+      } catch (err) {
+        throw new WsException ('Status from Mqtt could not be relayed to client. Verify that the broker is publishing a JSON.');
       }
+
+      handler(data);
     });
   }
 
@@ -40,6 +53,7 @@ export class ActionService {
         } catch (err) {
           throw new WsException ('Status from Mqtt could not be relayed to client. Verify that the broker is publishing a JSON.');
         }
+        // This part above can be refactored into onMqttTopic later
 
         // There is a chance that the server may still receive the previous status of IoT after the client makes a request,
         // so we check and stop sending feedback only if we receive 'off' status twice in a row.

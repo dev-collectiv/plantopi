@@ -29,8 +29,8 @@ export class ActionGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
   @SubscribeMessage('action')
   handleActionMessage(client: Socket, payload: MqttRequestDto): void {
-    this.logger.log('Duration received: ' + payload);
-    client.emit('action', 'Server received duration: ' + payload); // send feedback to front end
+    this.logger.log('Duration received: ' + payload.duration);
+    client.emit('action', 'Server received duration: ' + payload.duration); // send feedback to front end
 
     this.actionService.publishActionToIOT(payload);
     this.actionService.giveStatusUpdatesTo(client, payload);

@@ -13,6 +13,7 @@ import { mockCrons } from './mocks/rest.e2e-mockCrons';
 
 // DB ENTITIES
 import { CronAction } from '../src/cron-action/entities/cron-action.entity';
+import { Timetable } from '../src/timetable/entities/timetable.entity';
 import { Sensor } from '../src/sensors/entities/sensor.entity';
 import { Controller } from '../src/controllers/entities/controller.entity';
 import { Area } from '../src/areas/entities/area.entity';
@@ -27,7 +28,7 @@ async function initializeTestApp () {
       imports: [
         TypeOrmModule.forRootAsync(
           {useFactory: async () => Object.assign(await getConnectionOptions('test'), {
-            entities: [CronAction, Controller, Area, User, Sensor]})}),
+            entities: [CronAction, Controller, Area, User, Sensor, Timetable]})}),
         AppModule
       ]}).compile();
 
@@ -281,7 +282,7 @@ describe('Sensors', () => {
   });
 });
 
-describe.only('Cron Jobs', () => {
+describe('Cron Jobs', () => {
   //TODO: Mock cron job's internal dependencies
 
   let connection: Connection;
