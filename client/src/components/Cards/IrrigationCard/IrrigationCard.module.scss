@@ -23,13 +23,24 @@
 
 .form {
   align-self: center;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  & > * {
+    margin-top: 0.5rem;
+  }
+  & label {
+    margin-right: 0.25rem;
+    font-family: $titleFont;
+  }
 }
 
 .formElement {
 }
 
 .button {
+  @include button-hover;
   max-width: 40px;
   max-height: 40px;
-  @include button-hover;
+  margin: 0 0.5rem;
 }

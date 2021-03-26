@@ -43,7 +43,6 @@ const CronForm: React.FC = () => {
 
     const _cronScheduleString = convertToCronSchedule2(cron);
 
-    console.log('------------------------', _cronScheduleString);
     postCrons({
       time: _cronScheduleString,
       controllerId: '1',
@@ -130,8 +129,8 @@ function parseCronSchedule(cron: string[], duration: string | number): string {
     days: 'Every . '
   };
 
-  const parsedSchedule = Object.entries(cronObj).map(([key, value]) => {
-    if (value === '*') return value;
+  const parsedSchedule = Object.entries(cronObj).map(([key, value], idx) => {
+    if (value === '*') return `of every ${refArr[idx].slice(0, refArr[idx].length - 1)} `;
 
     const [left, right] = customTag[key].split('.');
     return `${left}${value}${right}`;
@@ -147,7 +146,7 @@ function convertToCronSchedule2(cron: string[]) {
 
   _cron[_cron.length - 1] = _cron[_cron.length - 1]
     .split(',')
-    .map((el) => daysInWeek.indexOf(el))
+    .map((el) => daysInWeek.indexOf(el)+1)
     .sort((a, b) => a - b)
     .join(',');
 
