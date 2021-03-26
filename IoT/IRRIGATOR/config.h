@@ -14,7 +14,7 @@ const char *sensorId = "humidity2";
 const char *mqttControllerInTopic = "action";
 const char *mqttControllerOutTopic = "status";
 const char *mqttControllerResTopic = "response";
-const char *mqttSensorTopic = "sensor2";
+const char *mqttSensorTopic = "sensors";
 
 unsigned long statusInterval = 2000;
 unsigned long sensorInterval = 1000;
