@@ -130,8 +130,8 @@ function parseCronSchedule(cron: string[], duration: string | number): string {
     days: 'Every . '
   };
 
-  const parsedSchedule = Object.entries(cronObj).map(([key, value]) => {
-    if (value === '*') return value;
+  const parsedSchedule = Object.entries(cronObj).map(([key, value], idx) => {
+    if (value === '*') return `of every ${refArr[idx].slice(0, refArr[idx].length - 1)} `;
 
     const [left, right] = customTag[key].split('.');
     return `${left}${value}${right}`;

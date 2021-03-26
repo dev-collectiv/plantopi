@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import IIrrigationCardProps from './IIrrigationCard';
+import Select from '../ScheduleCard/Select/Select';
+
 import styles from './IrrigationCard.module.scss';
 import io from 'socket.io-client';
 
@@ -7,13 +9,18 @@ import { Stop, Start, IrrigatingPlant, Plant } from 'assets';
 
 let socket = io(`${process.env.REACT_APP_SOCKET_HOST}:${process.env.REACT_APP_SOCKET_PORT}`);
 
+const durationOptions = Array(60)
+  .fill(null)
+  .map((_, idx) => idx + 1);
+
 const IrrigationCard: React.FC<IIrrigationCardProps> = (props) => {
   const { controllerId } = props;
-  let [duration, setDuration] = useState<number>(0);
+  const [duration, setDuration] = useState<number | string>(5);
+
   let [irrigating, setIrrigating] = useState<boolean>(false);
 
-  function inputChangeHandler(e: React.ChangeEvent<HTMLInputElement>) {
-    setDuration(+e.target.value);
+  function handleDuration(label: string, value: number | string) {
+    setDuration(value);
   }
 
   function clickHandler(e: React.FormEvent) {
@@ -37,7 +44,7 @@ const IrrigationCard: React.FC<IIrrigationCardProps> = (props) => {
       <form className={styles.form} action="" onSubmit={clickHandler}>
         <div className={styles.formElement}>
           <label htmlFor="duration">Duration in seconds:</label>
-          <input type="number" id="duration" name="duration" min="0" max="300" value={duration} onChange={inputChangeHandler} />
+          <Select options={durationOptions} onChangeFn={handleDuration} label="duration" initialOption={duration} />
         </div>
         <div className={`${styles.formElement}`}>
           <Start onClick={clickHandler} className={`${styles.button} ${styles.svg}`} />
