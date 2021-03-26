@@ -1,11 +1,13 @@
 export class CreateTimetableDto {
-  controllerId: number;
+  controllerId: string;
   startTime: Date;
   endTime: Date;
 
-  constructor (controller: number, startTime: Date, endTime: Date) {
-    this.controllerId = controller;
+  constructor (controllerId: string, startTime: Date, endTime: Date) {
+    this.controllerId = controllerId;
     this.startTime = startTime;
     this.endTime = endTime;
   }
 }
+
+export type DurationEntry = {controllerId: string, date: string, duration: number};

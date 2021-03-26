@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, NotFoundException } from '@nestjs/common';
 import { TimetableService } from './timetable.service';
 
 @Controller('timetable')
@@ -12,10 +12,20 @@ export class TimetableController {
     return this.timetableService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.timetableService.findOne(+id);
-  }
+  @Get('durations') // GET DURATIONS OF ALL - TODO: IMPLEMENT GET DURATION BY CONTROLLER ID
+  async getDurations() {
+    const timetable = await this.timetableService.findAll();
+    if (!timetable) throw new NotFoundException();
+
+    const durationTable = this.timetableService.createDurationTable(timetable);
+    const durationPivot = this.timetableService.pivotDurations(durationTable);
+    return durationPivot;
+  };
+
+  // @Get(':id')
+  // findOne(@Param('id') id: string) {
+  //   return this.timetableService.findOne(+id);
+  // }
 
   @Delete(':id')
   remove(@Param('id') id: string) {

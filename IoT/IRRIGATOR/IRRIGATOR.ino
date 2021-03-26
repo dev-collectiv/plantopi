@@ -1,5 +1,7 @@
 #include "mqtt.h"
+#include "humidity/sensor.h"
 
+int reading = 0;
 // Setup function
 void setup()
 {
@@ -25,5 +27,15 @@ void loop()
   {
     lastMsg = now;           //Update last status time
     mqttPublishStatus(stat); //Publish status -> mqtt.h
+  }
+
+  if (sensorActive && now - lastReading > sensorInterval) // Check if is time to publish status
+  {
+    lastReading = now; //Update last reading time
+    reading = getSensorReading();
+    mqttPublishSensorReading(sensorId, reading); //Publish status -> mqtt.h
+    Serial.print("Humidity: ");
+    Serial.print(reading);
+    Serial.println("%");
   }
 }
