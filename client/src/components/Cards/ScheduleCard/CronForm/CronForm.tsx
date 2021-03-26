@@ -146,7 +146,7 @@ function convertToCronSchedule2(cron: string[]) {
 
   _cron[_cron.length - 1] = _cron[_cron.length - 1]
     .split(',')
-    .map((el) => daysInWeek.indexOf(el))
+    .map((el) => daysInWeek.indexOf(el)+1)
     .sort((a, b) => a - b)
     .join(',');
 
