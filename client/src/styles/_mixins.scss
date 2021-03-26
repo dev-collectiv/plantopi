@@ -32,3 +32,9 @@
   left: 10px;
   top: 10px;
 }
+
+@mixin svg-icon {
+  @include button-hover;
+  max-width: 25px;
+  max-height: 25px;
+}
