@@ -1,13 +1,11 @@
 import {
   SubscribeMessage,
   WebSocketGateway,
-  WebSocketServer,
   OnGatewayConnection,
   OnGatewayDisconnect,
 } from '@nestjs/websockets';
 import { Logger } from '@nestjs/common';
-import { Socket, Server } from 'socket.io';
-
+import { Socket } from 'socket.io';
 import { ActionService } from './action.service';
 import { MqttRequestDto } from './dto/mqtt.dto';
 

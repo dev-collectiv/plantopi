@@ -1,5 +1,5 @@
 import { Controller } from '../../controllers/entities/controller.entity';
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
 
 @Entity()
 export class Timetable {
@@ -10,7 +10,7 @@ export class Timetable {
   controller: Controller;
 
   @Column()
-  controllerId: number;
+  controllerId: string;
 
   @Column({type: 'timestamp'})
   startTime: Date;
@@ -18,7 +18,7 @@ export class Timetable {
   @Column({type: 'timestamp'})
   endTime: Date;
 
-  constructor(id: number, startTime: Date, endTime: Date, controller: Controller, controllerId: number) {
+  constructor(id: number, startTime: Date, endTime: Date, controller: Controller, controllerId: string) {
     this.id = id;
     this.controller = controller;
     this.controllerId = controllerId;

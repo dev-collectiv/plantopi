@@ -2,11 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { MqttService } from '../mqtt/mqtt.service';
 import { Socket } from 'socket.io';
 import { MqttRequestDto, MqttStatusDto } from './dto/mqtt.dto';
-import { WsException } from '@nestjs/websockets';
 import { TimetableService } from '../timetable/timetable.service';
 import { createDurationTracker } from './action.service.helpers';
 
-const trackedController = 16; // As we don't track separate controllers yet time tracking fn always recors time under this controller id. To be assigned to relevant controllers as they become available.
+const trackedController = 12; // As we don't track separate controllers yet time tracking fn always recors time under this controller id. To be assigned to relevant controllers as they become available.
 
 @Injectable()
 export class ActionService {
