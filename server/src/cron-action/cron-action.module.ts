@@ -6,9 +6,10 @@ import { ActionService } from '../action/action.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CronAction } from './entities/cron-action.entity';
 import { SchedulerRegistry } from '@nestjs/schedule';
+import { TimetableModule } from '../timetable/timetable.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([CronAction]), SchedulerRegistry],
+  imports: [TypeOrmModule.forFeature([CronAction]), SchedulerRegistry, TimetableModule],
   controllers: [CronActionController],
   providers: [CronActionService, MqttService, ActionService]
 })
