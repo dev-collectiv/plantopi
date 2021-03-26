@@ -121,7 +121,6 @@ function parseCronSchedule(cron: string[], duration: string | number): string {
   const _cron = [...cron];
   const cronObj: { [key: string]: string | number } = {};
 
-  //slice up until the days since we are still not concerned with weeks and months
   refArr.forEach((key, idx) => (cronObj[key] = _cron[idx]));
 
   const customTag: { [key: string]: string } = {
@@ -131,6 +130,8 @@ function parseCronSchedule(cron: string[], duration: string | number): string {
   };
 
   const parsedSchedule = Object.entries(cronObj).map(([key, value]) => {
+    if (value === '*') return value;
+
     const [left, right] = customTag[key].split('.');
     return `${left}${value}${right}`;
   });
