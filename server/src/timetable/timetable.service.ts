@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UseFilters } from '@nestjs/common';
 import { CreateTimetableDto, DurationEntry } from './dto/create-timetable.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Timetable } from './entities/timetable.entity';

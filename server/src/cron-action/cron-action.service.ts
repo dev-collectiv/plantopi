@@ -6,6 +6,7 @@ import { CronAction } from './entities/cron-action.entity';
 import { DeleteResult, InsertResult, Repository } from 'typeorm';
 import { MqttRequestDto } from '../action/dto/mqtt.dto';
 import { ActionService } from '../action/action.service';
+import { CreateCronDto } from './dto/create-cron.dto';
 import { UpdateCronDto } from './dto/update-cron.dto';
 
 type CronCallbackType = (args?: any[]) => void;
