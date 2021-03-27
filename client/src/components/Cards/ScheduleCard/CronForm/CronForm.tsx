@@ -95,8 +95,6 @@ const CronForm: React.FC = () => {
         <span className={styles.actionSelection}>
           <h4 className={styles.selectionTags}>Time</h4>
           <input type="time" className={styles.timeSelect} onChange={handleSelectTimeFn}></input>
-          {/* <Select options={hours} onChangeFn={handleSelectTimeFn} label="hours" />:
-          <Select options={minutes} onChangeFn={handleSelectTimeFn} label="minutes" /> */}
           <h4 className={styles.selectionTags}>Duration</h4>
           <Select options={durationOptions} onChangeFn={handleDuration} label="duration" initialOption={duration} />
         </span>
