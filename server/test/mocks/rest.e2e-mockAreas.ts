@@ -34,7 +34,9 @@ export const mockAreas ={
                     "isActive": true
                 }
             ],
-            "isActive": true
+            "isActive": true,
+            "latitude": "41.3851",
+            "longitude": "2.1734",
         },
         {
             "id": 2,
@@ -58,7 +60,9 @@ export const mockAreas ={
                     "isActive": true
                 }
             ],
-            "isActive": true
+            "isActive": true,
+            "latitude": "41.3851",
+            "longitude": "2.1734",
         },
         {
             "id": 3,
@@ -82,7 +86,9 @@ export const mockAreas ={
                     "isActive": true
                 }
             ],
-            "isActive": true
+            "isActive": true,
+            "latitude": "41.3851",
+            "longitude": "2.1734",
         },
         {
             "id": 4,
@@ -116,7 +122,9 @@ export const mockAreas ={
                     "isActive": true
                 }
             ],
-            "isActive": true
+            "isActive": true,
+            "latitude": "41.3851",
+            "longitude": "2.1734",
         }
     ],
 
@@ -135,6 +143,8 @@ export const mockAreas ={
         },
         "sensors": [],
         "controllers": [],
-        "isActive": true
+        "isActive": true,
+        "latitude": "41.3851",
+        "longitude": "2.1734",
     }
 }
