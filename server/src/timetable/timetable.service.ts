@@ -1,16 +1,21 @@
 import { Injectable } from '@nestjs/common';
-import { CreateTimetableDto } from './dto/create-timetable.dto';
+import { CreateTimetableDto, DurationEntry } from './dto/create-timetable.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Timetable } from './entities/timetable.entity';
 import { Repository } from 'typeorm';
 
-
 @Injectable()
 export class TimetableService {
-  constructor(@InjectRepository(Timetable) private timetableRepository: Repository<Timetable>) {}
+  constructor(@InjectRepository(Timetable) private timetableRepository: Repository<Timetable>) {
+  }
 
-  create = (createTimetableDto: CreateTimetableDto) => {
-    // return this.timetableRepository.insert(createTimetableDto);
+  create = async (createTimetableDto: CreateTimetableDto) => {
+    try {
+      await this.timetableRepository.insert(createTimetableDto);
+      console.log('Time entry created.');
+    } catch (err) {
+      console.log('Time entry could not be created - check if associated controller exists in the database.');
+    }
   }
 
   findAll() {
@@ -20,6 +25,33 @@ export class TimetableService {
   findOne(id: number) {
     return this.timetableRepository.findOne(id);
   }
+
+  createDurationTable(timetable: CreateTimetableDto[]): DurationEntry[] {
+    const durationTable = timetable.map((timeEntry) => {
+      // TODO: HANDLE IF START & END DAYS ARE DIFFERENT - for now treating start date as the date of irrigation
+      const duration = timeEntry.endTime.valueOf() - timeEntry.startTime.valueOf();
+      const date = timeEntry.startTime.toISOString().split('T')[0];
+      return {controllerId: timeEntry.controllerId.toString(), date, duration};
+    });
+
+    return durationTable;
+  };
+
+  pivotDurations(durationTable: DurationEntry[]) {
+    type PivotTable = {[index: string]: {[index: string]: number}};
+
+    const pivotTable: PivotTable = {};
+
+    durationTable.forEach(entry => {
+      if (!pivotTable[entry.controllerId]) {
+        pivotTable[entry.controllerId] = {[entry.date]: entry.duration};
+      } else {
+        pivotTable[entry.controllerId][entry.date] += entry.duration;
+      }
+    });
+
+    return pivotTable;
+  };
 
   async remove(id: number) {
     await this.timetableRepository.delete(id);
