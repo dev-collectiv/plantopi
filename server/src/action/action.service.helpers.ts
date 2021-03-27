@@ -47,6 +47,7 @@ export function createSensorReadingHandler (dbHandler: (sensorReadingDto: Create
 
   return (data: MqttSensorDto) => {
     let { reading } = data;
+    if (reading === -1) return;
     if (reading > 100) reading = 100;
     if (reading < 0) reading = 0;
 
