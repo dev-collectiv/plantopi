@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 const AreaPanel: any = () => {
   const [areas, setAreas] = useState<IGetArea[]>([]);
   const [showAreaForm, setShowAreaForm] = useState<boolean>(false);
-
+ 
   useEffect(() => {
     apiArea.getArea().then((area) => {
       setAreas(area); 

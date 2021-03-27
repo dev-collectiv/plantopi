@@ -1,7 +1,7 @@
 import styles from './AreasDisplay.module.scss';
 import {IGetArea} from '../../../types/areaInterfaces';
 const AreasDisplay: any = ({ areas, deleteArea, showAreaForm }: any) => {
-  
+   
   let styleContainer;
   if (showAreaForm) {
     styleContainer = styles.componentAreaContainer;

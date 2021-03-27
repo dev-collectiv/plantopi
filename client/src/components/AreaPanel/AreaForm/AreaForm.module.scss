@@ -13,7 +13,7 @@
   h3{
       font-family: $titleFont;
       margin: 2px;
-    }
+    } 
 }
 input{
     min-height: 2rem;
@@ -32,10 +32,10 @@ font-size: larger;
 .btn{
     border-radius: $borderRadius;
     border: none;
+    margin-bottom: 10px;
     margin-top: 15px;
     box-shadow: 4px 4px 10px #666;
     cursor: pointer;
     background-color: #dfc884;
-  margin-bottom: 10px;
     
 }
