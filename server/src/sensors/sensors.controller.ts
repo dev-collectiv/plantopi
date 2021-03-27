@@ -24,6 +24,11 @@ export class SensorsController {
     return this.sensorsService.getReadings();
   }
 
+  @Get('reading/:id')
+  findReadingById(@Param('id') id: string) {
+    return this.sensorsService.getReadingsById(id);
+  }
+
   @Get()
   findAll() {
     return this.sensorsService.findAll();
