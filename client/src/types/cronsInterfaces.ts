@@ -9,6 +9,10 @@ interface MqttRequestDto {
   action: string;
   duration: number;
 }
+interface IAction{
+  id:string;
+  action:string;
+  duration:string}
 
 export interface IGetCrons {
   id: string;

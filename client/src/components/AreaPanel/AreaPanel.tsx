@@ -6,8 +6,8 @@ import { apiArea } from '../../services/apiArea/apiArea';
 import { IGetArea, IAddArea } from '../../types/areaInterfaces';
 import { useEffect, useState } from 'react';
 
-const AreaPanel: React.FC = () => {
-  const [areas, setAreas] = useState<any>();
+const AreaPanel: any = () => {
+  const [areas, setAreas] = useState<IGetArea[]>([]);
   const [showAreaForm, setShowAreaForm] = useState<boolean>(false);
 
   useEffect(() => {
@@ -18,7 +18,7 @@ const AreaPanel: React.FC = () => {
  
   const addingArea = (area: IAddArea) => {
     apiArea.postArea(area).then((area) => {
-      setAreas((prevAreas: any) => [...prevAreas, area]);
+      setAreas((prevAreas: any ) => [...prevAreas, area]);
     });
     
   };
@@ -33,11 +33,13 @@ const AreaPanel: React.FC = () => {
   };
   return (
     <div className={styles.container}>
-      <h1>Area</h1>
+      <div className={styles.title}>
+        <h1>Areas</h1>
+        <button onClick={() => setShowAreaForm(!showAreaForm)}> + </button>
+      </div>
       <div className={styles.areaContainer}></div>
-      {areas && <AreasDisplay areas={areas} deleteArea={deleteArea} />}
-      <button onClick={() => setShowAreaForm(!showAreaForm)}> add </button>
-      {showAreaForm && <AddArea addingArea={addingArea} />}
+      {areas && <AreasDisplay areas={areas} deleteArea={deleteArea} showAreaForm={showAreaForm}/>}
+      {showAreaForm && <AddArea addingArea={addingArea}  />}
     </div>
   );
 };
