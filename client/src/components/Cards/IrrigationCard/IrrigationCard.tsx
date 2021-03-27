@@ -35,67 +35,67 @@ const IrrigationCard: React.FC<IIrrigationCardProps> = (props) => {
     setIrrigating(false); // TODO receive web socket with response before changing 'irrigating' variable
   }
 
-  useEffect(() => {
-    gsap.to('.top-dark-leaves', {
-      duration: 2,
-      transformOrigin: 'center center',
-      rotate: '5deg',
-      x: 7,
-      yoyo: true,
-      repeat: -1,
-      ease: 'Sine.easeInOut'
-    });
+  // useEffect(() => {
+  //   const defaults = {
+  //     ease: 'Sine.easeInOut',
+  //     repeat: -1,
+  //     yoyo: true,
+  //     duration: 2
+  //   };
 
-    gsap.to('.top-light-leaves', {
-      duration: 2,
-      transformOrigin: 'center center',
-      rotate: '-3deg',
-      x: 4,
-      yoyo: true,
-      repeat: -1,
-      ease: 'Sine.easeInOut'
-    });
+  //   const leavesDefaults = {
+  //     ...defaults,
+  //     transformOrigin: 'center center'
+  //   };
 
-    gsap.to('.trunk', {
-      duration: 2,
-      transformOrigin: 'center bottom',
-      rotate: '2deg',
-      yoyo: true,
-      repeat: -1,
-      ease: 'Sine.easeInOut'
-    });
+  //   gsap.to('.top-dark-leaves', {
+  //     ...leavesDefaults,
+  //     rotate: '5deg',
+  //     x: 7
+  //   });
 
-    return () => {
-      gsap.killTweensOf('*');
-    };
-  }, []);
+  //   gsap.to('.top-light-leaves', {
+  //     ...leavesDefaults,
+  //     rotate: '-3deg'
+  //   });
 
-  useEffect(() => {
-    if (irrigating) {
-      gsap.fromTo(
-        '.drop',
-        {
-          stagger: 0.5,
-          y: -400,
-          opacity: 0.8
-        },
-        {
-          stagger: 0.5,
-          duration: 2,
-          repeat: -1,
-          y: 400,
-          opacity: 0,
-          ease: 'Power1.easeIn'
-        }
-      );
-    } else {
-      gsap.set('.drop', { opacity: 0 });
-    }
+  //   gsap.to('.trunk', {
+  //     ...defaults,
+  //     transformOrigin: 'center bottom',
+  //     rotate: '2deg'
+  //   });
 
-    return () => {
-      gsap.killTweensOf('.drop');
-    };
-  }, [irrigating]);
+  //   return () => {
+  //     gsap.killTweensOf('*');
+  //   };
+  // }, []);
+
+  // useEffect(() => {
+  //   if (irrigating) {
+  //     gsap.fromTo(
+  //       '.drop',
+  //       {
+  //         stagger: 0.5,
+  //         y: -400,
+  //         opacity: 0.8
+  //       },
+  //       {
+  //         stagger: 0.5,
+  //         duration: 2,
+  //         repeat: -1,
+  //         y: 400,
+  //         opacity: 0,
+  //         ease: 'Power1.easeIn'
+  //       }
+  //     );
+  //   } else {
+  //     gsap.set('.drop', { opacity: 0 });
+  //   }
+
+  //   return () => {
+  //     gsap.killTweensOf('.drop');
+  //   };
+  // }, [irrigating]);
 
   return (
     <div className={styles.card}>
