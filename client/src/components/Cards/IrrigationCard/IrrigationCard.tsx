@@ -1,6 +1,5 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SocketContext } from 'context/socket';
-
 import IIrrigationCardProps from './IIrrigationCard';
 import Select from '../ScheduleCard/Select/Select';
 import { gsap } from 'gsap';
@@ -9,13 +8,13 @@ import styles from './IrrigationCard.module.scss';
 
 import { Stop, Start, Plant } from 'assets';
 
+
 const durationOptions = Array(60)
   .fill(null)
   .map((_, idx) => idx + 1);
 
 const IrrigationCard: React.FC<IIrrigationCardProps> = (props) => {
   const socket = useContext(SocketContext);
-
   const { controllerId } = props;
   const [duration, setDuration] = useState<number | string>(5);
 
@@ -36,67 +35,67 @@ const IrrigationCard: React.FC<IIrrigationCardProps> = (props) => {
     setIrrigating(false); // TODO receive web socket with response before changing 'irrigating' variable
   }
 
-  // useEffect(() => {
-  //   const defaults = {
-  //     ease: 'Sine.easeInOut',
-  //     repeat: -1,
-  //     yoyo: true,
-  //     duration: 2
-  //   };
+  useEffect(() => {
+    gsap.to('.top-dark-leaves', {
+      duration: 2,
+      transformOrigin: 'center center',
+      rotate: '5deg',
+      x: 7,
+      yoyo: true,
+      repeat: -1,
+      ease: 'Sine.easeInOut'
+    });
 
-  //   const leavesDefaults = {
-  //     ...defaults,
-  //     transformOrigin: 'center center'
-  //   };
+    gsap.to('.top-light-leaves', {
+      duration: 2,
+      transformOrigin: 'center center',
+      rotate: '-3deg',
+      x: 4,
+      yoyo: true,
+      repeat: -1,
+      ease: 'Sine.easeInOut'
+    });
 
-  //   gsap.to('.top-dark-leaves', {
-  //     ...leavesDefaults,
-  //     rotate: '5deg',
-  //     x: 7
-  //   });
+    gsap.to('.trunk', {
+      duration: 2,
+      transformOrigin: 'center bottom',
+      rotate: '2deg',
+      yoyo: true,
+      repeat: -1,
+      ease: 'Sine.easeInOut'
+    });
 
-  //   gsap.to('.top-light-leaves', {
-  //     ...leavesDefaults,
-  //     rotate: '-3deg'
-  //   });
+    return () => {
+      gsap.killTweensOf('*');
+    };
+  }, []);
 
-  //   gsap.to('.trunk', {
-  //     ...defaults,
-  //     transformOrigin: 'center bottom',
-  //     rotate: '2deg'
-  //   });
+  useEffect(() => {
+    if (irrigating) {
+      gsap.fromTo(
+        '.drop',
+        {
+          stagger: 0.5,
+          y: -400,
+          opacity: 0.8
+        },
+        {
+          stagger: 0.5,
+          duration: 2,
+          repeat: -1,
+          y: 400,
+          opacity: 0,
+          ease: 'Power1.easeIn'
+        }
+      );
+    } else {
+      gsap.set('.drop', { opacity: 0 });
+    }
 
-  //   return () => {
-  //     gsap.killTweensOf('*');
-  //   };
-  // }, []);
-
-  // useEffect(() => {
-  //   if (irrigating) {
-  //     gsap.fromTo(
-  //       '.drop',
-  //       {
-  //         stagger: 0.5,
-  //         y: -400,
-  //         opacity: 0.8
-  //       },
-  //       {
-  //         stagger: 0.5,
-  //         duration: 2,
-  //         repeat: -1,
-  //         y: 400,
-  //         opacity: 0,
-  //         ease: 'Power1.easeIn'
-  //       }
-  //     );
-  //   } else {
-  //     gsap.set('.drop', { opacity: 0 });
-  //   }
-
-  //   return () => {
-  //     gsap.killTweensOf('.drop');
-  //   };
-  // }, [irrigating]);
+    return () => {
+      gsap.killTweensOf('.drop');
+    };
+  }, [irrigating]);
 
   return (
     <div className={styles.card}>

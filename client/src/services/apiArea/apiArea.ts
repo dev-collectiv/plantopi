@@ -1,5 +1,5 @@
 import { apiRequest } from '../apiService';
-import { IGetArea, IAddArea, IPatchArea, IPostRes } from './areaInterfaces';
+import { IGetArea, IAddArea, IPatchArea, IPostRes } from '../../types/areaInterfaces';
 
 function getArea(): Promise<IGetArea[]> {
   return apiRequest('/areas');
@@ -11,15 +11,14 @@ function postArea(body: IAddArea): Promise<IPostRes> {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body)
   });
-}
-
+} 
+ 
 function deleteArea(id: number): Promise<void> {
   const httpOptions = {
     method: 'DELETE',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(id)
   };
-  return apiRequest(`/areas/:${id}`, httpOptions);
+  return apiRequest(`/areas/${id}`, httpOptions);
 }
 
 function patchAreas(body: IPatchArea, id: number): Promise<IPatchArea> {
