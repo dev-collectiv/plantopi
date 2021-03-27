@@ -6,7 +6,7 @@ export class SensorReading {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => Sensor, sensor => sensor.sensorReadings  , {onDelete: 'CASCADE'})
+  @ManyToOne(() => Sensor, sensor => sensor.sensorReadings, {onDelete: 'CASCADE'})
   sensor: Sensor;
 
   @Column()
