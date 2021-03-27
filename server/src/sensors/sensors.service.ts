@@ -1,14 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { CreateSensorDto } from './dto/create-sensor.dto';
+import { CreateSensorReadingDto } from './dto/create-sensor-reading.dto';
 import { UpdateSensorDto } from './dto/update-sensor.dto';
 import { Repository } from 'typeorm';
 import { Sensor } from './entities/sensor.entity';
+import { SensorReading } from './entities/sensor-reading.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 
 
 @Injectable()
 export class SensorsService {
-  constructor(@InjectRepository(Sensor) private sensorRepository: Repository<Sensor>) {}
+  constructor(@InjectRepository(Sensor) private sensorRepository: Repository<Sensor>, @InjectRepository(SensorReading) private sensorReadingRepository: Repository<SensorReading>) {}
 
   create(createSensorDto: CreateSensorDto) {
     return this.sensorRepository.insert(createSensorDto);
@@ -28,5 +30,13 @@ export class SensorsService {
 
   async remove(id: number): Promise<void> {
     await this.sensorRepository.delete(id);
+  }
+
+  createReading (createSensorReadingDto: CreateSensorReadingDto) {
+    return this.sensorReadingRepository.insert(createSensorReadingDto);
+  }
+
+  getReadings() {
+    return this.sensorReadingRepository.find({});
   }
 }

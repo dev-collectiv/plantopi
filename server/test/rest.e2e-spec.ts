@@ -17,6 +17,7 @@ import { Sensor } from '../src/sensors/entities/sensor.entity';
 import { Controller } from '../src/controllers/entities/controller.entity';
 import { Area } from '../src/areas/entities/area.entity';
 import { User } from '../src/users/entities/user.entity';
+import { SensorReading } from '../src/sensors/entities/sensor-reading.entity';
 //
 
 
@@ -27,7 +28,7 @@ async function initializeTestApp () {
       imports: [
         TypeOrmModule.forRootAsync(
           {useFactory: async () => Object.assign(await getConnectionOptions('test'), {
-            entities: [CronAction, Controller, Area, User, Sensor, Timetable]})}),
+            entities: [CronAction, Controller, Area, User, Sensor, Timetable, SensorReading]})}),
         AppModule
       ]}).compile();
 

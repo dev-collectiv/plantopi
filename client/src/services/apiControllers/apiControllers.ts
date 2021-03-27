@@ -1,4 +1,4 @@
-import { IGetControllers, IAddControllers, IPostControllerRespond, IPatchControllers } from './controllersInterfaces';
+import { IGetControllers, IAddControllers, IPostControllerRespond, IPatchControllers } from '../../types/controllersInterfaces';
 import { apiRequest } from '../apiService';
 
 function getControllers(): Promise<IGetControllers[]> {
@@ -14,7 +14,7 @@ function postController(body: IAddControllers): Promise<IPostControllerRespond> 
 }
 
 function deleteController(id: number): Promise<void> {
-  const httpOptions = {
+  const httpOptions = { 
     method: 'DELETE',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(id)

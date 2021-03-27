@@ -13,7 +13,7 @@ export interface IPostRespond {
   generatedMaps: IRespond[];
   raw: IRespond[];
 }
-
+ 
 export interface IGetSensors {
   id: number;
   area: {

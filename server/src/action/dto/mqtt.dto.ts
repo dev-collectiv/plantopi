@@ -11,3 +11,9 @@ export interface MqttStatusDto {
   status: 'on' | 'off',
   time: number
 }
+
+export interface MqttSensorDto {
+  id: string,
+  reading: number,
+  time: number
+}

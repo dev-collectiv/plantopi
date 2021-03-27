@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { postCrons, getCrons } from 'services/apiCrons/apiCrons';
 import Select from '../Select/Select';
-import { IAddCrons, IGetCrons } from 'services/apiCrons/cronsInterfaces';
+import { IAddCrons, IGetCrons } from 'types/cronsInterfaces';
 
 import { Settings } from 'assets/index';
 import styles from './CronForm.module.scss';

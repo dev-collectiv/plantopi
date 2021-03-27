@@ -5,14 +5,12 @@ import { TimetableService } from './timetable.service';
 export class TimetableController {
   constructor(private readonly timetableService: TimetableService) {}
 
-  //TODO: Add option to get by controller id, and another one that calculates daily duration from timestamps
-
   @Get()
   findAll() {
     return this.timetableService.findAll();
   }
 
-  @Get('durations') // GET DURATIONS OF ALL - TODO: IMPLEMENT GET DURATION BY CONTROLLER ID
+  @Get('durations')
   async getDurations() {
     const timetable = await this.timetableService.findAll();
     if (!timetable) throw new NotFoundException();
@@ -22,10 +20,11 @@ export class TimetableController {
     return durationPivot;
   };
 
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.timetableService.findOne(+id);
-  // }
+  @Get('durations/:id') // Get filtered by controller id
+  async getDurationsById(@Param('id') id: string) {
+    const allDurations = await this.getDurations();
+    return allDurations[id];
+  };
 
   @Delete(':id')
   remove(@Param('id') id: string) {
