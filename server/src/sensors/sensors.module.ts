@@ -8,6 +8,7 @@ import { SensorReading } from './entities/sensor-reading.entity';
 @Module({
   imports: [TypeOrmModule.forFeature([Sensor, SensorReading])],
   controllers: [SensorsController],
-  providers: [SensorsService]
+  providers: [SensorsService],
+  exports: [SensorsService]
 })
 export class SensorsModule {}

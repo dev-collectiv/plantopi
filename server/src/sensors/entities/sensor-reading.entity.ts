@@ -16,9 +16,9 @@ export class SensorReading {
   timestamp: Date;
 
   @Column()
-  value: string;
+  value: number;
 
-  constructor(id: number, timestamp: Date, value: string, sensor: Sensor, sensorId: string) {
+  constructor(id: number, timestamp: Date, value: number, sensor: Sensor, sensorId: string) {
     this.id = id;
     this.sensor = sensor;
     this.sensorId = sensorId;
