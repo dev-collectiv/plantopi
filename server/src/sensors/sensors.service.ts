@@ -39,4 +39,8 @@ export class SensorsService {
   getReadings() {
     return this.sensorReadingRepository.find({});
   }
+
+  getReadingsById(id: string) {
+    return this.sensorReadingRepository.find({sensorId: id});
+  }
 }
