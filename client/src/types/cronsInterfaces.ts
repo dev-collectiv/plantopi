@@ -13,7 +13,7 @@ interface MqttRequestDto {
 export interface IGetCrons {
   id: string;
   time: string;
-  action: string;
+  action: MqttRequestDto;
   isActive: boolean;
 } 
 
