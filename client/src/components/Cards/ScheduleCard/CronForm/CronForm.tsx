@@ -5,7 +5,7 @@ import Select from '../Select/Select';
 
 import { Settings } from 'assets/index';
 import styles from './CronForm.module.scss';
-
+ 
 const daysInWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 const minutes = Array(60)
   .fill(null)

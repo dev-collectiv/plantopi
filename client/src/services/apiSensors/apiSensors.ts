@@ -1,4 +1,4 @@
-import { IGetSensors, IAddSensors, IPostRespond, IPatchSensors } from './sensorsInterfaces';
+import { IGetSensors, IAddSensors, IPostRespond, IPatchSensors } from '../../types/sensorsInterfaces';
 import { apiRequest } from '../apiService';
 
 function getSensors(): Promise<IGetSensors[]> {
@@ -11,7 +11,7 @@ function postSensor(body: IAddSensors): Promise<IPostRespond> {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body)
   });
-}
+} 
 
 function deleteSensor(id: number): Promise<void> {
   const httpOptions = {

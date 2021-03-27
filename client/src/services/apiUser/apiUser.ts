@@ -1,4 +1,4 @@
-import { IGetUser, IAddUserInput, IAddUserRespond, IPathUserInput } from './userInterfaces';
+import { IGetUser, IAddUserInput, IAddUserRespond, IPathUserInput } from '../../types/userInterfaces';
 import { apiRequest } from '../apiService';
 
 function getUser(): Promise<IGetUser[]> {

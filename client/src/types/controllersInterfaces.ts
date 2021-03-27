@@ -15,7 +15,7 @@ interface IPostRespond {
   id: number;
   isActive?: boolean;
 }
-
+ 
 export interface IPostControllerRespond {
   identifiers: IPostRespond[];
   generatedMaps: IPostRespond[];
