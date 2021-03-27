@@ -9,7 +9,6 @@ import { mockUsers } from './mocks/rest.e2e-mockUsers';
 import { mockAreas } from './mocks/rest.e2e-mockAreas';
 import { mockControllers } from './mocks/rest.e2e-mockControllers';
 import { mockSensors } from './mocks/rest.e2e-mockSensors';
-import { mockCrons } from './mocks/rest.e2e-mockCrons';
 
 // DB ENTITIES
 import { CronAction } from '../src/cron-action/entities/cron-action.entity';
