@@ -6,7 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { CronAction } from './entities/cron-action.entity';
 import { SchedulerRegistry } from '@nestjs/schedule';
 import { TimetableModule } from '../timetable/timetable.module';
-import { MqttModule } from 'src/mqtt/mqtt.module';
+import { MqttModule } from '../mqtt/mqtt.module';
 
 @Module({
   imports: [TypeOrmModule.forFeature([CronAction]), MqttModule, SchedulerRegistry, TimetableModule, ActionModule],

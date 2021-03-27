@@ -3,18 +3,23 @@ import { MqttService } from '../mqtt/mqtt.service';
 import { Socket } from 'socket.io';
 import { MqttRequestDto, MqttStatusDto } from './dto/mqtt.dto';
 import { TimetableService } from '../timetable/timetable.service';
-import { createDurationTracker } from './action.service.helpers';
+import { createDurationTracker, createSensorReadingHandler } from './action.service.helpers';
+import { SensorsService } from '../sensors/sensors.service';
 
-const trackedController = 6; // As we don't track separate controllers yet time tracking fn always recors time under this controller id. To be assigned to relevant controllers as they become available.
+const trackedController = '6'; // As we don't track separate controllers yet time tracking fn always recors time under this controller id. To be assigned to relevant controllers as they become available.
+const trackedSensor = '1';
+const readingCountToRecord = 100;
 
 @Injectable()
 export class ActionService {
-  constructor(public mqttService: MqttService, private timetableService: TimetableService) {
+  constructor(public mqttService: MqttService, private timetableService: TimetableService, private sensorService: SensorsService) {
     mqttService.subscribeToTopic('status');
 
     const durationTracker = createDurationTracker(this.timetableService.create, trackedController);
+    const sensorReadingHandler = createSensorReadingHandler(this.sensorService.createReading, trackedSensor, readingCountToRecord);
 
     this.onMqttTopic('status', data => durationTracker(data));
+    this.onMqttTopic('sensors', data => sensorReadingHandler(data));
 
     console.log('Subscribed to status');
   }
@@ -23,7 +28,7 @@ export class ActionService {
     this.mqttService.publishToTopic('action', action);
   }
 
-  onMqttTopic(mqttTopic: string, handler: (data: MqttStatusDto) => any) {
+  onMqttTopic(mqttTopic: string, handler: (data: any) => any) {
     this.mqttService.mqttClient.on('message', (topic, payload) => {
       if (topic !== mqttTopic) return;
 
