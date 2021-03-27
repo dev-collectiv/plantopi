@@ -1,34 +1,34 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { postCrons } from 'services/apiCrons/apiCrons';
+import { postCrons, getCrons } from 'services/apiCrons/apiCrons';
 import Select from '../Select/Select';
+import { IAddCrons, IGetCrons } from 'services/apiCrons/cronsInterfaces';
 
 import { Settings } from 'assets/index';
 import styles from './CronForm.module.scss';
 
-const daysInWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-const minutes = Array(60)
-  .fill(null)
-  .map((_, idx) => idx);
+const daysInWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const refArr = ['minutes', 'hours', 'weeks', 'months', 'days'];
 
-const hours = Array(12)
-  .fill(null)
-  .map((_, idx) => idx + 1);
 const durationOptions = Array(60)
   .fill(null)
   .map((_, idx) => idx + 1);
 
 const CronForm: React.FC = () => {
   const [cron, setCron] = useState<string[]>(Array(5).fill('*'));
-  const [activeDays, setActiveDays] = useState<string[]>([]);
-  const [scheduledCron, setScheduledCron] = useState<string>();
+  const [activeDays, setActiveDays] = useState<number[]>([]);
+  const [scheduledCrons, setScheduledCrons] = useState<IGetCrons[]>([]);
   const [duration, setDuration] = useState<number | string>(5);
 
-  function handleSelectDayFn(day: string, active: boolean) {
+  useEffect(() => {
+    getCrons().then((crons) => setScheduledCrons(crons));
+  }, []);
+
+  function handleSelectDayFn(dayIdx: number, active: boolean) {
     let _activeDays;
 
-    if (active) _activeDays = activeDays.filter((_day) => _day !== day);
-    else _activeDays = [...activeDays, day];
+    if (!active) _activeDays = [...activeDays, dayIdx].sort((a, b) => a - b);
+    else _activeDays = activeDays.filter((_dayIdx) => _dayIdx !== dayIdx);
 
     const _cron = convertToCronArray('days', _activeDays, cron);
 
@@ -39,29 +39,52 @@ const CronForm: React.FC = () => {
   function handleSelectTimeFn(event: any) {
     const [hours, minutes] = event.target.value.split(':');
 
-    //since the convertToCronArray is only designed to take one label at a time, we first call it with the hours and then with the minutes
+    //since the convertToCronArray is only designed to take one label at a time,
+    //we first call it with the hours and then with the minutes
     const _cronHours = convertToCronArray('hours', [hours], cron);
     const _cron = convertToCronArray('minutes', [minutes], _cronHours);
 
     setCron(_cron);
   }
 
-  function handleScheduleCron() {
-    const _parsedScheduledCron = parseCronSchedule(cron, duration);
+  async function handleScheduleCron() {
+    parseCronSchedule(cron, duration);
 
-    const _cronScheduleString = convertToCronSchedule(cron);
+    const _cronTimeString = cron.join(' ');
 
-    postCrons({
-      time: _cronScheduleString,
+    const addCronObj: IAddCrons = {
+      time: _cronTimeString,
       controllerId: '1',
       action: {
         id: 'pump1',
         action: 'on',
         duration: +duration
       }
-    });
+    };
 
-    setScheduledCron(_parsedScheduledCron);
+    const res = await postCrons(addCronObj);
+
+    const id = res.identifiers[0].id;
+
+    const addedCron: IGetCrons = { ...addCronObj, id, isActive: true };
+
+    setScheduledCrons([...scheduledCrons, addedCron]);
+  }
+
+  function renderScheduledCrons() {
+    return scheduledCrons.map((cron) => {
+      // TODO - id will be used for deleting scheduled actions
+      const { time, id, action } = cron;
+
+      //parseCronSchedule takes in an array
+      //will see later if there is a more feasible way to do this
+      const timeArr = time.split(' ');
+
+      //TODO - parse json of duration
+      const parsedString = parseCronSchedule(timeArr, action.duration);
+
+      return <h3>{parsedString}</h3>;
+    });
   }
 
   function handleDuration(label: string, value: number | string) {
@@ -70,13 +93,13 @@ const CronForm: React.FC = () => {
 
   function renderCustomOptions() {
     return daysInWeek.map((day, idx) => {
-      const active: boolean = activeDays.includes(day);
+      const active: boolean = activeDays.includes(idx);
+
       return (
         <button
-          value={day}
           key={day + idx}
           className={`${styles.dayButton} ${active && styles.activeButton}`}
-          onClick={() => handleSelectDayFn(day, active)}
+          onClick={() => handleSelectDayFn(idx, active)}
         >
           {day.slice(0, 1)}
         </button>
@@ -102,20 +125,19 @@ const CronForm: React.FC = () => {
 
       <div className={styles.cronPanelModule}>
         <h2>Scheduled Actions</h2>
-        {scheduledCron && <h3>{scheduledCron}</h3>}
+        {renderScheduledCrons()}
       </div>
 
       <button className={styles.cronScheduleButton} onClick={handleScheduleCron}>
         <span>Schedule</span>
       </button>
+
       <Settings className={styles.svg} />
     </div>
   );
 };
 
 export default CronForm;
-
-const refArr = ['minutes', 'hours', 'weeks', 'months', 'days'];
 
 function convertToCronArray(label: string, values: (string | number)[], currCron: string[]) {
   const newCron = [...currCron];
@@ -126,14 +148,15 @@ function convertToCronArray(label: string, values: (string | number)[], currCron
   return newCron;
 }
 
-//TODO -  find a more customizable way after MVP
-function parseCronSchedule(cron: string[], duration: string | number): string {
+function parseCronSchedule(cron: string[], duration: string | number) {
   const _cron = [...cron];
-  const cronObj: { [key: string]: string | number } = {};
+  const cronObj: { [key: string]: string } = {};
 
   refArr.forEach((key, idx) => (cronObj[key] = _cron[idx]));
 
-  //the dot is a placeholder for the label [hours, days, etc]
+  console.log(cronObj);
+
+  // the dot is a placeholder for the label [hours, days, etc]
   const customTag: { [key: string]: string } = {
     minutes: '.hrs',
     hours: '@ .:',
@@ -144,6 +167,8 @@ function parseCronSchedule(cron: string[], duration: string | number): string {
     if (value === '*') return `${idx === 0 ? '' : 'of'} every ${refArr[idx].slice(0, refArr[idx].length - 1)} `;
 
     const [left, right] = customTag[key].split('.');
+
+    if (key === 'days') value = parseStringOfDays(value);
     return `${left}${value}${right}`;
   });
 
@@ -152,25 +177,11 @@ function parseCronSchedule(cron: string[], duration: string | number): string {
   return scheduleString;
 }
 
-function convertToCronSchedule(cron: string[]) {
-  const _cron = [...cron];
-
-  _cron[_cron.length - 1] = _cron[_cron.length - 1]
+function parseStringOfDays(str: string): string {
+  const _str = str
     .split(',')
-    .map((el) => daysInWeek.indexOf(el) + 1)
-    .sort((a, b) => a - b)
-    .join(',');
+    .map((val) => daysInWeek[+val])
+    .join(', ');
 
-  return _cron.join(' ');
+  return _str;
 }
-
-// const quickOptionsObj = {
-//   days: Array(4)
-//     .fill(null)
-//     .map((_, idx) => idx * 2),
-//   hours: Array(14)
-//     .fill(null)
-//     .map((_, idx) => idx + 6)
-// };
-
-// function renderQuickOptions() {}
