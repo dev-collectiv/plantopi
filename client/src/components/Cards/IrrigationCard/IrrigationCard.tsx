@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { SocketContext } from 'context/socket';
 import IIrrigationCardProps from './IIrrigationCard';
 import Select from '../ScheduleCard/Select/Select';
