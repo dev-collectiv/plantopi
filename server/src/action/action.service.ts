@@ -5,7 +5,7 @@ import { MqttRequestDto, MqttStatusDto } from './dto/mqtt.dto';
 import { TimetableService } from '../timetable/timetable.service';
 import { createDurationTracker } from './action.service.helpers';
 
-const trackedController = 6; // As we don't track separate controllers yet time tracking fn always recors time under this controller id. To be assigned to relevant controllers as they become available.
+const trackedController = 12; // As we don't track separate controllers yet time tracking fn always recors time under this controller id. To be assigned to relevant controllers as they become available.
 
 @Injectable()
 export class ActionService {
@@ -13,7 +13,6 @@ export class ActionService {
     mqttService.subscribeToTopic('status');
 
     const durationTracker = createDurationTracker(this.timetableService.create, trackedController);
-
     this.onMqttTopic('status', data => durationTracker(data));
 
     console.log('Subscribed to status');

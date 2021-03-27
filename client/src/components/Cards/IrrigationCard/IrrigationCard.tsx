@@ -1,17 +1,19 @@
-import React, { useContext, useState } from 'react';
-import { SocketContext } from 'context/socket';
+import React, { useState } from 'react';
 import IIrrigationCardProps from './IIrrigationCard';
 import Select from '../ScheduleCard/Select/Select';
 
 import styles from './IrrigationCard.module.scss';
+import io from 'socket.io-client';
+
 import { Stop, Start, IrrigatingPlant, Plant } from 'assets';
+
+let socket = io(`${process.env.REACT_APP_SOCKET_HOST}:${process.env.REACT_APP_SOCKET_PORT}`);
 
 const durationOptions = Array(60)
   .fill(null)
   .map((_, idx) => idx + 1);
 
 const IrrigationCard: React.FC<IIrrigationCardProps> = (props) => {
-  const socket = useContext(SocketContext);
   const { controllerId } = props;
   const [duration, setDuration] = useState<number | string>(5);
 

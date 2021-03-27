@@ -1,6 +1,7 @@
 import { CronActionService } from './cron-action.service';
 import { CreateCronDto } from './dto/create-cron.dto';
 import { Controller, Get, Post, Patch, Delete, Body, Param } from '@nestjs/common';
+import { ActionService } from 'src/action/action.service';
 import { UpdateCronDto } from './dto/update-cron.dto';
 
 @Controller('crons')
