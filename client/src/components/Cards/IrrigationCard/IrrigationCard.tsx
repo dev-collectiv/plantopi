@@ -4,11 +4,11 @@ import Select from '../ScheduleCard/Select/Select';
 import { gsap } from 'gsap';
 
 import styles from './IrrigationCard.module.scss';
-// import io from 'socket.io-client';
+import io from 'socket.io-client';
 
-import { Stop, Start, IrrigatingPlant, Plant } from 'assets';
+import { Stop, Start, Plant } from 'assets';
 
-// let socket = io(`${process.env.REACT_APP_SOCKET_HOST}:${process.env.REACT_APP_SOCKET_PORT}`);
+let socket = io(`${process.env.REACT_APP_SOCKET_HOST}:${process.env.REACT_APP_SOCKET_PORT}`);
 
 const durationOptions = Array(60)
   .fill(null)
@@ -26,12 +26,12 @@ const IrrigationCard: React.FC<IIrrigationCardProps> = (props) => {
 
   function clickHandler(e: React.FormEvent) {
     e.preventDefault();
-    // socket.emit('action', { id: controllerId, action: 'on', duration: duration });
+    socket.emit('action', { id: controllerId, action: 'on', duration: duration });
     setIrrigating(true); // TODO receive web socket with response before changing 'irrigating' variable
   }
 
   function abortIrrigation() {
-    // socket.emit('action', { id: controllerId, action: 'off', duration: 0 });
+    socket.emit('action', { id: controllerId, action: 'off', duration: 0 });
     setIrrigating(false); // TODO receive web socket with response before changing 'irrigating' variable
   }
 
@@ -65,17 +65,7 @@ const IrrigationCard: React.FC<IIrrigationCardProps> = (props) => {
       ease: 'Sine.easeInOut'
     });
 
-    // .trunk
-    // .bowl
-    // .top-dark-leaves
-    // .bottom-light-leaves
-    // .drop
-    // .left-drop
-    // .center-drop
-    // .right-drop
-
     return () => {
-      // tl.kill();
       gsap.killTweensOf('*');
     };
   }, []);
