@@ -13,6 +13,8 @@ import { CronActionModule } from './cron-action/cron-action.module';
 import { TimetableModule } from './timetable/timetable.module';
 import * as dotenv from 'dotenv';
 import { MqttModule } from './mqtt/mqtt.module';
+import { APP_INTERCEPTOR } from '@nestjs/core';
+import { MorganModule, MorganInterceptor } from 'nest-morgan';
 
 dotenv.config();
 const dbName = process.env.NODE_ENV === 'test' ? 'test' : 'development';
@@ -30,10 +32,17 @@ const dbName = process.env.NODE_ENV === 'test' ? 'test' : 'development';
     ControllersModule,
     MqttModule,
     ScheduleModule.forRoot(),
-    TimetableModule
+    TimetableModule,
+    MorganModule
   ],
   controllers: [AppController],
-  providers: [AppService]
+  providers: [
+    AppService,
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: MorganInterceptor('dev')
+    }
+  ]
 })
 export class AppModule {
   constructor(private connection: Connection) {}

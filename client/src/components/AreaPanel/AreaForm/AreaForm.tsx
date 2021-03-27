@@ -10,8 +10,8 @@ const AddArea: any = (props: any) => {
     userId: '',
     isActive: false,
     sensors: []
-  });
-
+  }); 
+ 
   const handleEvent = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewArea({
       ...newArea,

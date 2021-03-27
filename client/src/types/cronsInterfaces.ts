@@ -15,7 +15,7 @@ export interface IGetCrons {
   time: string;
   action: string;
   isActive: boolean;
-}
+} 
 
 export interface IPostCronsRes {
   identifiers: IPostRes[];

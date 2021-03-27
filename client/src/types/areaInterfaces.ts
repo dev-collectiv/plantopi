@@ -14,7 +14,7 @@ interface IControllers {
 interface IRespond {
   id: number;
   isActive?: boolean;
-}
+} 
 export interface IAddArea {
   user: string;
   isActive: boolean;

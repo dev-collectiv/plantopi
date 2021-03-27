@@ -8,3 +8,4 @@ export function apiRequest(method: string, option?: RequestInit): Promise<any> {
       console.log(e);
     });
 }
+ 

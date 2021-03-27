@@ -1,5 +1,5 @@
 import styles from './AreasDisplay.module.scss';
-const AreasDisplay: any = ({ areas }: any) => {
+const AreasDisplay: any = ({ areas, deleteArea }: any) => {
   console.log(areas);
   if (areas) {
     return (
@@ -9,10 +9,11 @@ const AreasDisplay: any = ({ areas }: any) => {
             <h2>Area id: {area.id}</h2>
             <h2>Area id: {area.id}</h2>
             <h2>Area id: {area.id}</h2>
+            <button onClick={() => deleteArea(area.id)}> x </button>
           </div>
-        ))}
+        ))} 
       </div>
-    );
+    ); 
   }
 };
 export default AreasDisplay;
