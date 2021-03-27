@@ -33,7 +33,9 @@ export const mockUsers = {
                             "isActive": true
                         }
                     ],
-                    "isActive": true
+                    "isActive": true,
+                    "latitude": "41.3851",
+                    "longitude": "2.1734",
                 },
                 {
                     "id": 2,
@@ -51,7 +53,9 @@ export const mockUsers = {
                             "isActive": true
                         }
                     ],
-                    "isActive": true
+                    "isActive": true,
+                    "latitude": "41.3851",
+                    "longitude": "2.1734",
                 }
             ],
             "isActive": true
@@ -77,7 +81,9 @@ export const mockUsers = {
                             "isActive": true
                         }
                     ],
-                    "isActive": true
+                    "isActive": true,
+                    "latitude": "41.3851",
+                    "longitude": "2.1734",
                 }
             ],
             "isActive": true
@@ -113,7 +119,9 @@ export const mockUsers = {
                             "isActive": true
                         }
                     ],
-                    "isActive": true
+                    "isActive": true,
+                    "latitude": "41.3851",
+                    "longitude": "2.1734",
                 }
             ],
             "isActive": true
@@ -167,7 +175,9 @@ export const mockUsers = {
                             "isActive": true
                         }
                     ],
-                    "isActive": true
+                    "isActive": true,
+                    "latitude": "41.3851",
+                    "longitude": "2.1734",
                 },
                 {
                     "id": 2,
@@ -185,7 +195,9 @@ export const mockUsers = {
                             "isActive": true
                         }
                     ],
-                    "isActive": true
+                    "isActive": true,
+                    "latitude": "41.3851",
+                    "longitude": "2.1734",
                 }
             ],
             "isActive": true
@@ -221,7 +233,9 @@ export const mockUsers = {
                             "isActive": true
                         }
                     ],
-                    "isActive": true
+                    "isActive": true,
+                    "latitude": "41.3851",
+                    "longitude": "2.1734",
                 }
             ],
             "isActive": true

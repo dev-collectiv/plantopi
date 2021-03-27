@@ -6,7 +6,9 @@ export const mockSensors = {
             "id": 1,
             "area": {
                 "id": 1,
-                "isActive": true
+                "isActive": true,
+                "latitude": "41.3851",
+                "longitude": "2.1734",
             },
             "type": "TestieHumid",
             "isActive": true
@@ -15,7 +17,9 @@ export const mockSensors = {
             "id": 2,
             "area": {
                 "id": 1,
-                "isActive": true
+                "isActive": true,
+                "latitude": "41.3851",
+                "longitude": "2.1734",
             },
             "type": "TestieLight",
             "isActive": true
@@ -24,7 +28,9 @@ export const mockSensors = {
             "id": 3,
             "area": {
                 "id": 2,
-                "isActive": true
+                "isActive": true,
+                "latitude": "41.3851",
+                "longitude": "2.1734",
             },
             "type": "TestieLight2",
             "isActive": true
@@ -33,7 +39,9 @@ export const mockSensors = {
             "id": 4,
             "area": {
                 "id": 3,
-                "isActive": true
+                "isActive": true,
+                "latitude": "41.3851",
+                "longitude": "2.1734",
             },
             "type": "RemoveHumid",
             "isActive": true
@@ -42,7 +50,9 @@ export const mockSensors = {
             "id": 5,
             "area": {
                 "id": 4,
-                "isActive": true
+                "isActive": true,
+                "latitude": "41.3851",
+                "longitude": "2.1734",
             },
             "type": "DarthHumid",
             "isActive": true
@@ -51,7 +61,9 @@ export const mockSensors = {
             "id": 6,
             "area": {
                 "id": 4,
-                "isActive": true
+                "isActive": true,
+                "latitude": "41.3851",
+                "longitude": "2.1734",
             },
             "type": "DarthLight",
             "isActive": true
@@ -67,7 +79,9 @@ export const mockSensors = {
         "id": 3,
         "area": {
             "id": 4,
-            "isActive": true
+            "isActive": true,
+            "latitude": "41.3851",
+            "longitude": "2.1734",
         },
         "type": "NowLatersSensor",
         "isActive": true
@@ -77,7 +91,9 @@ export const mockSensors = {
         "id": 7,
         "area": {
             "id": 2,
-            "isActive": true
+            "isActive": true,
+            "latitude": "41.3851",
+            "longitude": "2.1734",
         },
         "type": "TestiesNewSensor",
         "isActive": true

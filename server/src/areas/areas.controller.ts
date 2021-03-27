@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, NotFoundException } from '@nestjs/common';
 import { AreasService } from './areas.service';
 import { CreateAreaDto } from './dto/create-area.dto';
 import { UpdateAreaDto } from './dto/update-area.dto';
@@ -20,6 +20,15 @@ export class AreasController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.areasService.findOne(+id);
+  }
+
+  @Get('weather/:id')
+  async getWeather(@Param('id') id: string) {
+    const area = await this.findOne(id);
+    if (!area) throw new NotFoundException;
+
+    const {latitude, longitude} = area;
+    return await this.areasService.fetchWeather(latitude, longitude);
   }
 
   @Patch(':id')
