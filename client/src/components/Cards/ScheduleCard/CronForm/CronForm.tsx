@@ -21,7 +21,10 @@ const CronForm: React.FC = () => {
   const [duration, setDuration] = useState<number | string>(5);
 
   useEffect(() => {
-    getCrons().then((crons) => setScheduledCrons(crons));
+    getCrons().then((crons) => {
+      if (!crons) return;
+      else setScheduledCrons(crons);
+    });
   }, []);
 
   function handleSelectDayFn(dayIdx: number, active: boolean) {
