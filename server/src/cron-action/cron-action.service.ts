@@ -51,6 +51,7 @@ export class CronActionService {
     const cronActions = await this.cronActionRepository.find({});
 
     return cronActions.map((cronAction) => {
+      console.log(cronAction.action);
       const action = JSON.parse(cronAction.action);
       return { ...cronAction, action };
     });
@@ -80,9 +81,8 @@ export class CronActionService {
       if (!cronAction.isActive) return;
 
       const { id, time, action } = cronAction;
-      const parsedAction = JSON.parse(action);
 
-      this.scheduleCronAction(id, time, parsedAction);
+      this.scheduleCronAction(id, time, action);
     });
   }
 
@@ -99,7 +99,8 @@ export class CronActionService {
     }
   }
 
-  private scheduleCronAction(id: string, time: string, action: MqttRequestDto): void {
+  //TODO - fix action any
+  private scheduleCronAction(id: string, time: string, action: any): void {
     const cb: CronCallbackType = () => this.actionService.publishActionToIOT(action);
 
     const job = new CronJob(time, () => {
