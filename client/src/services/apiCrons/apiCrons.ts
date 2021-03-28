@@ -1,4 +1,4 @@
-import { IGetCrons, IAddCrons, ICron, IPatchCronsRes, IPatchCrons } from '../../types/cronsInterfaces';
+import { IGetCrons, IAddCrons, ICron, IPatchCronsRes, IPatchCrons, IDeleteCron } from '../../types/cronsInterfaces';
 import { apiRequest } from '../apiService';
 
 function getCrons(): Promise<IGetCrons[]> {
@@ -13,13 +13,12 @@ function postCrons(body: IAddCrons): Promise<ICron> {
   });
 }
 
-function deleteCrons(id: string): Promise<void> {
+function deleteCrons(id: string): Promise<IDeleteCron> {
   const httpOptions = {
     method: 'DELETE',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(id)
+    headers: { 'Content-Type': 'application/json' }
   };
-  return apiRequest(`/crons/:${id}`, httpOptions);
+  return apiRequest(`/crons/${id}`, httpOptions);
 }
 
 function patchCrons(body: IPatchCrons, id: string): Promise<IPatchCronsRes> {
@@ -28,7 +27,7 @@ function patchCrons(body: IPatchCrons, id: string): Promise<IPatchCronsRes> {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body)
   };
-  return apiRequest(`/crons/:${id}`, httpOptions);
+  return apiRequest(`/crons/${id}`, httpOptions);
 }
 
 export { getCrons, postCrons, deleteCrons, patchCrons };

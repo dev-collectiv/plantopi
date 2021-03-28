@@ -76,17 +76,32 @@ const CronForm: React.FC = () => {
     });
   }
 
+  function handleDeleteCron(id: string) {
+    deleteCrons(id).then((res) => {
+      if (!res) return;
+      if (res.affected === 1) {
+        const _scheduledCrons = scheduledCrons.filter((cron) => cron.id !== id);
+        setScheduledCrons(_scheduledCrons);
+      }
+    });
+  }
+
   function renderScheduledCrons() {
     return scheduledCrons.map((cron) => {
-      // TODO - id will be used for deleting scheduled actions
       const { time, id, action } = cron;
       const timeArr = time.split(' ');
       const { duration } = action;
 
-      //TODO - parse json of duration
       const parsedString = parseCronSchedule(timeArr, duration);
 
-      return <h3 className={styles.scheduledCron}>{parsedString}</h3>;
+      return (
+        <span className={styles.scheduledCron} key={id}>
+          <h3>{parsedString}</h3>
+          <button className={styles.deleteCron} onClick={() => handleDeleteCron(id)}>
+            X
+          </button>
+        </span>
+      );
     });
   }
 
@@ -128,7 +143,7 @@ const CronForm: React.FC = () => {
         </span>
       </div>
 
-      <div className={styles.cronPanelModule}>
+      <div className={`${styles.cronPanelModule} ${styles.scrollPanelModule}`}>
         <h2>Scheduled Actions</h2>
         {renderScheduledCrons()}
       </div>

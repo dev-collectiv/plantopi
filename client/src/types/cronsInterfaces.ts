@@ -61,3 +61,7 @@ export interface IPatchCronsRes {
   controller?: string;
   action?: string;
 }
+
+export interface IDeleteCron {
+  affected: number;
+}
