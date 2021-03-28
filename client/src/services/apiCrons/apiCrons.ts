@@ -21,7 +21,7 @@ function deleteCrons(id: string): Promise<IDeleteCron> {
   return apiRequest(`/crons/${id}`, httpOptions);
 }
 
-function patchCrons(body: IPatchCrons, id: string): Promise<IPatchCronsRes> {
+function patchCrons(id: string, body: IPatchCrons): Promise<IPatchCronsRes> {
   const httpOptions = {
     method: 'PATCH',
     headers: { 'Content-Type': 'application/json' },

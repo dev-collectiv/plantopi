@@ -33,13 +33,6 @@
     left: 0;
     top: 0;
   }
-
-  & h3 {
-    border-radius: 20px;
-    padding: 0.5rem 1rem;
-    background-color: $bg;
-    font-family: $titleFont;
-  }
 }
 
 .scrollPanelModule {
@@ -54,22 +47,6 @@
   margin: 0.5rem 0;
   & > * {
     margin: 0 0.5rem;
-  }
-}
-
-@mixin cron-button {
-  @include button-hover;
-  background-color: $bg;
-  border: none;
-  font-family: $titleFont;
-  outline: none;
-  font-size: 1rem;
-  & span {
-    transition: all 0.05s ease;
-  }
-
-  &:hover span {
-    border-bottom: 2px solid $red;
   }
 }
 
@@ -145,23 +122,4 @@
   & > * {
     color: $bg;
   }
-}
-
-.scheduledCron {
-  position: relative;
-  margin: 0.25rem 0;
-  max-width: 100%;
-
-  & > * {
-    text-overflow: ellipsis;
-  }
-}
-
-.deleteCron {
-  @include cron-button;
-  position: absolute;
-  right: 5px;
-  top: 2px;
-  background-color: transparent;
-  border: none;
 }

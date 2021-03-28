@@ -38,3 +38,19 @@
   max-width: 25px;
   max-height: 25px;
 }
+
+@mixin cron-button {
+  @include button-hover;
+  background-color: $bg;
+  border: none;
+  font-family: $titleFont;
+  outline: none;
+  font-size: 1rem;
+  & span {
+    transition: all 0.05s ease;
+  }
+
+  &:hover span {
+    border-bottom: 2px solid $red;
+  }
+}

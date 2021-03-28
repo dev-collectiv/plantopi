@@ -2,13 +2,17 @@ import React, { useEffect, useState } from 'react';
 
 import { postCrons, getCrons, patchCrons, deleteCrons } from 'services/apiCrons/apiCrons';
 import Select from '../Select/Select';
-import { IAddCrons, ICron } from 'types/cronsInterfaces';
+import { IAddCrons, ICron, IPatchCrons } from 'types/cronsInterfaces';
 
 import { Settings } from 'assets/index';
 import styles from './CronForm.module.scss';
+import ScheduledCron from '../ScheduledCron/ScheduledCron';
 
 const daysInWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const refArr = ['minutes', 'hours', 'weeks', 'months', 'days'];
+
+//for dev purposes only
+let mockData: any = [];
 
 const durationOptions = Array(60)
   .fill(null)
@@ -17,7 +21,7 @@ const durationOptions = Array(60)
 const CronForm: React.FC = () => {
   const [cron, setCron] = useState<string[]>(Array(5).fill('*'));
   const [activeDays, setActiveDays] = useState<number[]>([]);
-  const [scheduledCrons, setScheduledCrons] = useState<ICron[]>([]);
+  const [scheduledCrons, setScheduledCrons] = useState<ICron[]>([...mockData]);
   const [duration, setDuration] = useState<number | string>(5);
   const [error, setError] = useState<boolean>(false);
 
@@ -51,9 +55,7 @@ const CronForm: React.FC = () => {
     setCron(_cron);
   }
 
-  async function handleScheduleCron() {
-    parseCronSchedule(cron, duration);
-
+  function handleScheduleCron() {
     const _cronTimeString = cron.join(' ');
 
     const addCronObj: IAddCrons = {
@@ -76,6 +78,10 @@ const CronForm: React.FC = () => {
     });
   }
 
+  function handlePatchCron(id: string, updateObj: IPatchCrons) {
+    patchCrons(id, updateObj);
+  }
+
   function handleDeleteCron(id: string) {
     deleteCrons(id).then((res) => {
       if (!res) return;
@@ -88,26 +94,11 @@ const CronForm: React.FC = () => {
 
   function renderScheduledCrons() {
     return scheduledCrons.map((cron) => {
-      const { time, id, action } = cron;
-      const timeArr = time.split(' ');
-      const { duration } = action;
-
-      const parsedString = parseCronSchedule(timeArr, duration);
-
-      return (
-        <span className={styles.scheduledCron} key={id}>
-          <h3>{parsedString}</h3>
-          <button className={styles.deleteCron} onClick={() => handleDeleteCron(id)}>
-            X
-          </button>
-        </span>
-      );
+      return <ScheduledCron key={cron.id} cron={cron} handlePatchCron={handlePatchCron} handleDeleteCron={handleDeleteCron} />;
     });
   }
 
-  function handleDuration(label: string, value: number | string) {
-    setDuration(value);
-  }
+  const handleDuration = (label: string, value: number | string) => setDuration(value);
 
   function renderCustomOptions() {
     return daysInWeek.map((day, idx) => {
@@ -172,38 +163,12 @@ function convertToCronArray(label: string, values: (string | number)[], currCron
   return newCron;
 }
 
-function parseCronSchedule(cron: string[], duration: string | number) {
-  const _cron = [...cron];
-  const cronObj: { [key: string]: string } = {};
-
-  refArr.forEach((key, idx) => (cronObj[key] = _cron[idx]));
-
-  // the dot is a placeholder for the label [hours, days, etc]
-  const customTag: { [key: string]: string } = {
-    minutes: '.hrs',
-    hours: '@ .:',
-    days: 'Every . '
-  };
-
-  const parsedSchedule = Object.entries(cronObj).map(([key, value], idx) => {
-    if (value === '*') return `${idx === 0 ? '' : 'of'} every ${refArr[idx].slice(0, refArr[idx].length - 1)} `;
-    if (key === 'days') value = parseStringOfDays(value);
-
-    const [left, right] = customTag[key].split('.');
-
-    return `${left}${value}${right}`;
-  });
-
-  const scheduleString = parsedSchedule.reverse().join('') + ` for ${duration} secs`;
-
-  return scheduleString;
-}
-
-function parseStringOfDays(str: string): string {
-  const _str = str
-    .split(',')
-    .map((val) => daysInWeek[+val])
-    .join(', ');
-
-  return _str;
-}
+mockData = [
+  {
+    id: '9a38622e-9949-462b-bf8e-082890beee66',
+    time: '36 19 * * 0,3,6',
+    action: { id: 'pump1', action: 'on', duration: 5 },
+    isActive: true
+  },
+  { id: '4bcdbf4c-85d7-4fc8-aeb3-046d04954f27', time: '36 19 * * *', action: { id: 'pump1', action: 'on', duration: 5 }, isActive: true }
+];
