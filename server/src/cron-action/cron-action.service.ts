@@ -51,7 +51,6 @@ export class CronActionService {
     const cronActions = await this.cronActionRepository.find({});
 
     return cronActions.map((cronAction) => {
-      console.log(cronAction.action);
       const action = JSON.parse(cronAction.action);
       return { ...cronAction, action };
     });
