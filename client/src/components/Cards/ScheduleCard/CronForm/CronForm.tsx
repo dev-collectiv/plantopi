@@ -67,7 +67,10 @@ const CronForm: React.FC = () => {
     };
 
     postCrons(addCronObj).then((res) => {
-      if (!res) setError(true);
+      if (!res) {
+        setError(true);
+        return;
+      }
       const id = res.identifiers[0].id;
       const addedCron: IGetCrons = { ...addCronObj, id, isActive: true };
       setScheduledCrons([...scheduledCrons, addedCron]);
@@ -136,6 +139,12 @@ const CronForm: React.FC = () => {
       <button className={styles.cronScheduleButton} onClick={handleScheduleCron}>
         <span>Schedule</span>
       </button>
+
+      {error && (
+        <div className={styles.error}>
+          <h3>There has been an error, please try again</h3>
+        </div>
+      )}
     </div>
   );
 };
