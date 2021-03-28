@@ -129,5 +129,17 @@
   position: absolute;
   bottom: 0;
   width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
   background-color: rgba($dark, 0.2);
+  border-bottom-left-radius: $borderRadius;
+  border-bottom-right-radius: $borderRadius;
+  & > * {
+    color: $bg;
+  }
+}
+
+.scheduledCron {
 }

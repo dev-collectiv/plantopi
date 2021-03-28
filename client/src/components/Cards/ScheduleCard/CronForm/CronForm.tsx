@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
-import { postCrons, getCrons } from 'services/apiCrons/apiCrons';
+import { postCrons, getCrons, patchCrons, deleteCrons } from 'services/apiCrons/apiCrons';
 import Select from '../Select/Select';
-import { IAddCrons, IGetCrons } from 'types/cronsInterfaces';
+import { IAddCrons, ICron } from 'types/cronsInterfaces';
 
 import { Settings } from 'assets/index';
 import styles from './CronForm.module.scss';
@@ -17,7 +17,7 @@ const durationOptions = Array(60)
 const CronForm: React.FC = () => {
   const [cron, setCron] = useState<string[]>(Array(5).fill('*'));
   const [activeDays, setActiveDays] = useState<number[]>([]);
-  const [scheduledCrons, setScheduledCrons] = useState<IGetCrons[]>([]);
+  const [scheduledCrons, setScheduledCrons] = useState<ICron[]>([]);
   const [duration, setDuration] = useState<number | string>(5);
   const [error, setError] = useState<boolean>(false);
 
@@ -66,14 +66,13 @@ const CronForm: React.FC = () => {
       }
     };
 
-    postCrons(addCronObj).then((res) => {
-      if (!res) {
+    postCrons(addCronObj).then((cron) => {
+      if (!cron) {
         setError(true);
         return;
       }
-      const id = res.identifiers[0].id;
-      const addedCron: IGetCrons = { ...addCronObj, id, isActive: true };
-      setScheduledCrons([...scheduledCrons, addedCron]);
+
+      setScheduledCrons([...scheduledCrons, cron]);
     });
   }
 
@@ -81,15 +80,13 @@ const CronForm: React.FC = () => {
     return scheduledCrons.map((cron) => {
       // TODO - id will be used for deleting scheduled actions
       const { time, id, action } = cron;
-
-      //parseCronSchedule takes in an array
-      //will see later if there is a more feasible way to do this
       const timeArr = time.split(' ');
+      const { duration } = action;
 
       //TODO - parse json of duration
-      const parsedString = parseCronSchedule(timeArr, action.duration);
+      const parsedString = parseCronSchedule(timeArr, duration);
 
-      return <h3>{parsedString}</h3>;
+      return <h3 className={styles.scheduledCron}>{parsedString}</h3>;
     });
   }
 
@@ -165,8 +162,6 @@ function parseCronSchedule(cron: string[], duration: string | number) {
   const cronObj: { [key: string]: string } = {};
 
   refArr.forEach((key, idx) => (cronObj[key] = _cron[idx]));
-
-  console.log(cronObj);
 
   // the dot is a placeholder for the label [hours, days, etc]
   const customTag: { [key: string]: string } = {
