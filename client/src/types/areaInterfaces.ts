@@ -16,8 +16,9 @@ interface IRespond {
   isActive?: boolean;
 } 
 export interface IAddArea {
-  user: string;
-  isActive: boolean;
+  userId: number;
+  isActive?: boolean;
+  sensors:string[]
 }
 
 export interface IGetArea {

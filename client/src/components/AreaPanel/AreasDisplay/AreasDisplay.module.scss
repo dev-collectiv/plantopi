@@ -1,18 +1,51 @@
+@import 'styles/main.scss';
+ 
 .componentAreaContainer {
-  width: 100%;
-  max-height: 60%;
+  width: 85%;
+  max-height: 54%;
   margin-left: 20px;
-  overflow-x: scroll;
+  overflow-x: hidden;
+  overflow-y:scroll;
+  outline:none;
   margin-right: 20px;
+  font-family: $titleFont;
+  font-size: larger;
+}
+.componentAreaContainer2 {
+  width: 85%;
+  max-height: 87%;
+  margin-left: 20px;
+  overflow-x: hidden;
+  overflow-y:scroll;
+  outline:none;
+  margin-right: 20px;
+  font-family: $titleFont;
+  font-size: larger;
 }
 .areasContainer {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: 6.5rem;
-  background-color: lawngreen;
+  width: 90%;
+  height: 7.5rem;
+  background-color: #a1bc97;
   margin: 10px;
   border-radius: 5px;
   justify-content: center;
   align-items: center;
-}
+
+  button{
+    margin-top: 10px;
+    background-color: #ed8977;
+    width: 40%;
+    max-height: 2rem;
+    min-height: 1.7rem;
+    border-radius: $borderRadius;
+    border: none;
+    font-family: $titleFont;
+    outline:none;
+    color: rgb(0, 61, 0);
+    box-shadow: 4px 4px 10px #666;
+    cursor: pointer
+  }
+  }
+

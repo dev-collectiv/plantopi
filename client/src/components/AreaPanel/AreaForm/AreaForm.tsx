@@ -1,16 +1,12 @@
 import { useState } from 'react';
-
-export interface INewArea {
-  userId: string;
-  isActive: boolean;
-  sensors: [];
-}
-const AddArea: any = (props: any) => {
-  const [newArea, setNewArea] = useState<any>({
-    userId: '',
+import {IAddArea} from '../../../types/areaInterfaces';
+import styles from './AreaForm.module.scss';
+const AddArea: any= (props: IAddArea | any) => {
+  const [newArea, setNewArea] = useState<IAddArea>({
+    userId: 0,
     isActive: false,
     sensors: []
-  }); 
+  });  
  
   const handleEvent = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewArea({
@@ -27,8 +23,8 @@ const AddArea: any = (props: any) => {
   };
 
   return (
-    <form className="formsContainer" onSubmit={() => props.addingArea(newArea)}>
-      <h3>New Area</h3>
+    <form className={styles.formsContainer} onSubmit={() => props.addingArea(newArea)}>
+      <h4>New Area</h4>
       <label>
         <h3> User Id:</h3>
         <input value={newArea.userId} name="userId" type="text" onChange={handleEvent} />
@@ -37,12 +33,12 @@ const AddArea: any = (props: any) => {
         <h3> sensors:</h3>
         <input value={newArea.sensors} name="sensors" type="text" onChange={handleEvent} />
       </label>
-      <div>
+      <div  className={styles.isactive}>
         <h3>Is Active?</h3>
         <input value={newArea.isActive} name="isActive" type="checkbox" onChange={handleActivity} />
       </div>
       <div>
-        <button className="btn" type="submit">
+        <button className={styles.btn} type="submit">
           submit
         </button>
       </div>
