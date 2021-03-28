@@ -19,6 +19,7 @@ const CronForm: React.FC = () => {
   const [activeDays, setActiveDays] = useState<number[]>([]);
   const [scheduledCrons, setScheduledCrons] = useState<IGetCrons[]>([]);
   const [duration, setDuration] = useState<number | string>(5);
+  const [error, setError] = useState<boolean>(false);
 
   useEffect(() => {
     getCrons().then((crons) => {
@@ -65,13 +66,12 @@ const CronForm: React.FC = () => {
       }
     };
 
-    const res = await postCrons(addCronObj);
-
-    const id = res.identifiers[0].id;
-
-    const addedCron: IGetCrons = { ...addCronObj, id, isActive: true };
-
-    setScheduledCrons([...scheduledCrons, addedCron]);
+    postCrons(addCronObj).then((res) => {
+      if (!res) setError(true);
+      const id = res.identifiers[0].id;
+      const addedCron: IGetCrons = { ...addCronObj, id, isActive: true };
+      setScheduledCrons([...scheduledCrons, addedCron]);
+    });
   }
 
   function renderScheduledCrons() {
@@ -112,6 +112,8 @@ const CronForm: React.FC = () => {
 
   return (
     <div className={styles.container}>
+      <Settings className={styles.svg} />
+
       <div className={styles.cronPanelModule}>
         <h2>New Action</h2>
         <span className={styles.actionSelection}>
@@ -134,8 +136,6 @@ const CronForm: React.FC = () => {
       <button className={styles.cronScheduleButton} onClick={handleScheduleCron}>
         <span>Schedule</span>
       </button>
-
-      <Settings className={styles.svg} />
     </div>
   );
 };
@@ -168,10 +168,10 @@ function parseCronSchedule(cron: string[], duration: string | number) {
 
   const parsedSchedule = Object.entries(cronObj).map(([key, value], idx) => {
     if (value === '*') return `${idx === 0 ? '' : 'of'} every ${refArr[idx].slice(0, refArr[idx].length - 1)} `;
+    if (key === 'days') value = parseStringOfDays(value);
 
     const [left, right] = customTag[key].split('.');
 
-    if (key === 'days') value = parseStringOfDays(value);
     return `${left}${value}${right}`;
   });
 
