@@ -9,17 +9,27 @@ interface MqttRequestDto {
   action: string;
   duration: number;
 }
-interface IAction{
-  id:string;
-  action:string;
-  duration:string}
+
+export interface ICron {
+  id: string;
+  action: MqttRequestDto;
+  time: string;
+  isActive: boolean;
+  controllerId?: string;
+}
+
+interface IAction {
+  id: string;
+  action: string;
+  duration: string;
+}
 
 export interface IGetCrons {
   id: string;
   time: string;
-  action: MqttRequestDto;
+  action: MqttRequestDto; //mqttrequestdto once parsed
   isActive: boolean;
-} 
+}
 
 export interface IPostCronsRes {
   identifiers: IPostRes[];
@@ -50,4 +60,8 @@ export interface IPatchCronsRes {
   time?: string;
   controller?: string;
   action?: string;
+}
+
+export interface IDeleteCron {
+  affected: number;
 }

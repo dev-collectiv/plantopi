@@ -1,0 +1,56 @@
+@import 'styles/main';
+
+.scheduledCron {
+  @include cron-button;
+  position: relative;
+  margin: 0.25rem 0;
+  border-radius: 20px;
+  padding: 0.5rem 1rem;
+  background-color: $bg;
+  font-family: $titleFont;
+
+  min-width: 80%;
+  max-width: 80%;
+
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+
+  & > * {
+    text-overflow: ellipsis;
+  }
+}
+
+.deleteCron {
+  @include cron-button;
+  position: absolute;
+  right: 5px;
+  top: 2px;
+  background-color: transparent;
+  border: none;
+}
+
+.timeSelect {
+  background-color: $bg;
+  border: none;
+  border-radius: 10px;
+  padding: 0 0.5rem;
+  outline: none;
+
+  &::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+  }
+
+  &::focus {
+    background-color: $bg;
+  }
+  &::-webkit-datetime-edit-fields-wrapper {
+    background-color: $bg !important;
+    background: $bg !important;
+  }
+
+  &::-webkit-datetime-edit-ampm-field {
+    background-color: $bg;
+    background: $bg;
+  }
+}
