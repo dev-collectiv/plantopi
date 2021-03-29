@@ -5,18 +5,20 @@ import { MqttRequestDto, MqttStatusDto } from './dto/mqtt.dto';
 import { TimetableService } from '../timetable/timetable.service';
 import { createDurationTracker, createSensorReadingHandler } from './action.service.helpers';
 import { SensorsService } from '../sensors/sensors.service';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 
 const trackedController = '6'; // As we don't track separate controllers yet time tracking fn always recors time under this controller id. To be assigned to relevant controllers as they become available.
 const trackedSensor = '1';
-const readingCountToRecord = 100;
+const readingCountToRecord = 10;
 
 @Injectable()
 export class ActionService {
-  constructor(public mqttService: MqttService, private timetableService: TimetableService, private sensorService: SensorsService) {
-    mqttService.subscribeToTopic('status');
+  constructor(public mqttService: MqttService, private timetableService: TimetableService, private sensorService: SensorsService, public sensorEventEmitter: EventEmitter2) {
 
+    mqttService.subscribeToTopic('status');
+    mqttService.subscribeToTopic('sensors');
     const durationTracker = createDurationTracker(this.timetableService.create, trackedController);
-    const sensorReadingHandler = createSensorReadingHandler(this.sensorService.createReading, trackedSensor, readingCountToRecord);
+    const sensorReadingHandler = createSensorReadingHandler(this.sensorService.createReading, trackedSensor, readingCountToRecord, sensorEventEmitter);
 
     this.onMqttTopic('status', data => durationTracker(data));
     this.onMqttTopic('sensors', data => sensorReadingHandler(data));

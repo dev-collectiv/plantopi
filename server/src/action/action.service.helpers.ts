@@ -1,6 +1,7 @@
 import { MqttStatusDto, MqttSensorDto } from './dto/mqtt.dto';
 import { CreateTimetableDto } from '../timetable/dto/create-timetable.dto';
 import { CreateSensorReadingDto } from '../sensors/dto/create-sensor-reading.dto';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 
 export function createDurationTracker (dbHandler: (timetable: CreateTimetableDto) => void, controllerId: string) {
   let previousStatus: null | 'on' | 'off' = null;
@@ -42,7 +43,7 @@ export function createDurationTracker (dbHandler: (timetable: CreateTimetableDto
   };
 }
 
-export function createSensorReadingHandler (dbHandler: (sensorReadingDto: CreateSensorReadingDto) => void, sensorId: string, readingCountToRecord: number) {
+export function createSensorReadingHandler (dbHandler: (sensorReadingDto: CreateSensorReadingDto) => void, sensorId: string, readingCountToRecord: number, sensorEventEmitter: EventEmitter2) {
   let counter = 0;
 
   return (data: MqttSensorDto) => {
@@ -57,11 +58,16 @@ export function createSensorReadingHandler (dbHandler: (sensorReadingDto: Create
     }
 
     if (counter === 0) {
-      dbHandler({
+
+      const sensorData = {
         sensorId: sensorId,
         timestamp: new Date(Date.now()),
         value: reading
-      });
+      };
+
+      dbHandler(sensorData);
+      sensorEventEmitter.emit('readingSaved', sensorData);
+      console.log('sensor data saved to Db');
     }
     counter++;
   };
