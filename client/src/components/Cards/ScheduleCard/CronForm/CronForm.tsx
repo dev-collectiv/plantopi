@@ -9,6 +9,8 @@ import styles from './CronForm.module.scss';
 import ScheduledCron from '../ScheduledCron/ScheduledCron';
 
 import Day from './Days/Days';
+import { ICurrentWeather } from 'types/weatherInterfaces';
+
 
 const daysInWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const refArr = ['minutes', 'hours', 'weeks', 'months', 'days'];
@@ -20,7 +22,12 @@ const durationOptions = Array(60)
   .fill(null)
   .map((_, idx) => idx + 1);
 
-const CronForm: React.FC = () => {
+interface Props{
+  currentWeather?: ICurrentWeather;
+}
+
+
+const CronForm: React.FC<Props> = ({currentWeather}) => {
   const [cron, setCron] = useState<string[]>(Array(5).fill('*'));
   const [activeDays, setActiveDays] = useState<number[]>([]);
   const [scheduledCrons, setScheduledCrons] = useState<ICron[]>([...mockData]);
@@ -110,7 +117,7 @@ const CronForm: React.FC = () => {
         <h2>New Action</h2>
         <span className={styles.actionSelection}>
           <h4 className={styles.selectionTags}>Day</h4>
-          <Day activeDays={activeDays} daysInWeek={daysInWeek} handleSelectDayFn={handleSelectDayFn}/>
+          <Day activeDays={activeDays} daysInWeek={daysInWeek} handleSelectDayFn={handleSelectDayFn} currentWeather={currentWeather}/>
         </span>
         <span className={styles.actionSelection}>
           <h4 className={styles.selectionTags}>Time</h4>

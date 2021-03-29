@@ -30,7 +30,7 @@ const DashboardInfo: React.FC = () => {
         <SensorCard id="2" name="Temperature" type="temperature" reading={30} />
       </TopCard>
       <BottomCard>
-        <CronForm />
+        <CronForm currentWeather={currentWeather}/>
       </BottomCard>
     </div>
   );
