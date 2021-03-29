@@ -31,6 +31,15 @@ export class AreasController {
     return await this.areasService.fetchWeather(latitude, longitude);
   }
 
+  @Get('weather/:id/:unixDate')
+  async getHistoricalWeather(@Param('id') id: string, @Param('unixDate') unixDate: string) {
+    const area = await this.findOne(id);
+    if (!area) throw new NotFoundException;
+
+    const {latitude, longitude} = area;
+    return await this.areasService.fetchHistoricalWeather(latitude, longitude, unixDate);
+  }
+
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateAreaDto: UpdateAreaDto) {
     return this.areasService.update(+id, updateAreaDto);

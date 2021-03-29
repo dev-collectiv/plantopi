@@ -35,6 +35,13 @@ export class AreasService {
       .then(res => res.json());
   }
 
+  fetchHistoricalWeather(latitude: string, longitude: string, unixDate: string) {
+    const apiKey = process.env.WEATHER_API_KEY;
+
+    return fetch(`https://api.openweathermap.org/data/2.5/onecall/timemachine?lat=${latitude}&lon=${longitude}&dt=${unixDate}&appid=${apiKey}&units=metric`)
+      .then(res => res.json());
+  }
+
   async remove(id: number): Promise<void> {
     await this.areaRepository.delete(id);
   }
