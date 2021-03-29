@@ -10,21 +10,8 @@ const AreaPanel: React.FC<{
   areas: any;
   addingArea: (area: IAddArea) => void;
   deleteArea: (id: number) => void;
-}> = ({ user, areas, deleteArea }) => {
+}> = ({ user, areas, deleteArea, addingArea }) => {
   const [showAreaForm, setShowAreaForm] = useState<boolean>(false);
-
-  //TODO - ser areas : find where it is coming from
-  // useEffect(() => {
-  //   apiArea.getArea().then((area) => {
-  //     setAreas(area);
-  //   });
-  // }, []);
-
-  const addArea = (area: IAddArea) => {
-    apiArea.postArea(area).then((area) => {
-      // setAreas((prevAreas: any) => [...prevAreas, area]);
-    });
-  };
 
   function renderAreas() {
     return areas.map((area: IGetArea) => {
@@ -40,7 +27,7 @@ const AreaPanel: React.FC<{
 
       <div className={styles.areasContainer}>
         {renderAreas()}
-        {showAreaForm && <AddArea addArea={addArea} />}
+        {showAreaForm && <AddArea addArea={addingArea} />}
       </div>
 
       <button onClick={() => setShowAreaForm(!showAreaForm)} className={styles.newAreaButton}>
