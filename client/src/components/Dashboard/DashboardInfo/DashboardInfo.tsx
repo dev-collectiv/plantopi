@@ -1,13 +1,19 @@
-import ScheduleCard from 'components/Cards/ScheduleCard/ScheduleCard';
+import TopCard from 'components/Cards/TopCard/TopCard';
+import BottomCard from 'components/Cards/BottomCard/BottomCard';
 import SensorCard from 'components/Cards/SensorCard/SensorCard';
-import style from './DashboardInfo.module.scss';
+import styles from './DashboardInfo.module.scss';
+import CronForm from 'components/Cards/ScheduleCard/CronForm/CronForm';
 
 const DashboardInfo: React.FC = () => {
   return (
-    <div className={style.container}>
-      <SensorCard id="1" name="Humidity" type="humidity" reading={25} position="smallFirst" />
-      <SensorCard id="2" name="Temperature" type="temperature" reading={30} position="smallSecond" />
-      <ScheduleCard position="bigCard" controllerId="pump1" />
+    <div className={styles.container}>
+      <TopCard>
+        <SensorCard id="1" name="Humidity" type="humidity" reading={25} />
+        <SensorCard id="2" name="Temperature" type="temperature" reading={30} />
+      </TopCard>
+      <BottomCard>
+        <CronForm />
+      </BottomCard>
     </div>
   );
 };

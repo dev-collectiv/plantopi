@@ -2,9 +2,10 @@
 
 .card {
   @include card;
+  grid-area: top-card;
   border-radius: $borderRadius;
   display: flex;
-  flex-flow: column nowrap;
+  flex-flow: row nowrap;
   align-items: center;
   justify-content: center;
 
@@ -16,9 +17,4 @@
 
   padding: 1rem;
   font-weight: 600;
-}
-
-.bigCard {
-  grid-area: big;
-  background-color: $yellow;
 }
