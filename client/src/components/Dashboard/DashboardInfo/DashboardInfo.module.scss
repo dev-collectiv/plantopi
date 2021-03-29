@@ -1,62 +1,13 @@
 @import 'styles/main.scss';
 
 .container {
+  @include dashboard-panel;
   grid-area: info;
-  padding: 2.5rem;
-  height: 100%;
-  width: 100%;
 
   display: grid;
+  row-gap: $grid-gap;
   grid-template-rows: 4fr 6fr;
   grid-template-areas:
     'top-card'
     'bottom-card';
-}
-
-// .card {
-//   display: flex;
-//   flex-flow: column nowrap;
-//   align-items: center;
-//   justify-content: center;
-//   position: relative;
-
-//   padding: 1rem;
-//   font-weight: 600;
-// }
-
-.topCard {
-  grid-area: top-card;
-  display: flex;
-  flex-flow: row nowrap;
-}
-
-// .smallCardContainer {
-//   display: flex;
-//   flex-flow: column nowrap;
-//   align-items: center;
-//   justify-content: center;
-//   height: 6rem;
-//   width: 6rem;
-//   border-radius: 50px;
-//   background-color: $bg;
-// }
-
-// .smallFirst {
-//   z-index: 10;
-//   grid-area: smallFirst;
-//   background-color: $yellow;
-// }
-
-// .smallSecond {
-//   grid-area: smallSecond;
-//   background-color: $yellow;
-// }
-
-.cardTitle {
-  @include card-title;
-}
-
-.cardReading {
-  font-family: $titleFont;
-  border-bottom: 2px solid $red;
 }

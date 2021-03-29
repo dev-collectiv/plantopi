@@ -1,7 +1,46 @@
 @import 'styles/main.scss';
 
 .container {
-  @include dashboardPanels;
-  grid-template-columns: 1fr;
-  grid-template-areas: 'big';
+  @include dashboard-panel;
+  grid-area: illustration;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex;
+  justify-content: center;
+}
+
+.illustrationContainer {
+  @include card;
+  height: 100%;
+  background-color: $bg-illustration;
+
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.plant {
+  align-self: flex-end;
+  height: 100%;
+  min-width: 100%;
+}
+
+.form {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  & > * {
+    margin-top: 0.5rem;
+  }
+}
+
+.formElement {
+}
+
+.button {
+  @include button-hover;
+  max-width: 40px;
+  max-height: 40px;
+  margin: 0 0.5rem;
 }
