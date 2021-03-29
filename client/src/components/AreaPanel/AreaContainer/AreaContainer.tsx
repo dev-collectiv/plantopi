@@ -7,8 +7,11 @@ import styles from './AreaContainer.module.scss';
 const AreasDisplay: React.FC<{ area: IGetArea; deleteArea: Function; patchArea:Function }> = ({ area, deleteArea, patchArea }) => {
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
 
+  function goToAreasPanel() {
+    setIsUpdating(false);
+  }
   if (isUpdating) {
-    return <UpdateArea area={area} patchArea={patchArea}/>;
+    return <UpdateArea area={area} patchArea={patchArea} goToAreasPanel={goToAreasPanel}/>;
   } else
     return (
       <div className={styles.areaContainer} key={area.id}>

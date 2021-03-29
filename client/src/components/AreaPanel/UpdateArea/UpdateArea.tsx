@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { IAddArea, IGetArea } from 'types/areaInterfaces';
 
-const AreaUpdate: React.FC<{ area: IGetArea, patchArea : Function }> = ({ area, patchArea }) => {
+const AreaUpdate: React.FC<{ area: IGetArea, patchArea : Function; goToAreasPanel: Function }> = ({ area, patchArea, goToAreasPanel }) => {
   //TODO - IPatchArea
   const [areaToUpdate, setAreaToUpdate] = useState<IGetArea>({ ...area });
 
-  const { id, isActive, longitude, latitude } = areaToUpdate;
+  const { id, isActive, longitude, latitude, user, sensors } = areaToUpdate;
 
   const handleEvent = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAreaToUpdate({
@@ -25,14 +25,14 @@ const AreaUpdate: React.FC<{ area: IGetArea, patchArea : Function }> = ({ area, 
     <form onClick={() => patchArea(areaToUpdate, areaToUpdate.id)}>  
       <h4>Update Area</h4>
       <h3>Area id: {id}</h3>
-      <h3>User: 'codeworks'</h3>
-      <h3>Sensors: ['humidity', 'therm']</h3>
+      <h3>User: {user}</h3>
+      <h3>Sensors: [{sensors}]</h3>
       <label>
         <h3> Longitude:</h3>
         <input value={longitude} name="longitude" type="text" onChange={handleEvent} />
       </label>
       <label>
-        <h3> Latitude: {isActive}</h3>
+        <h3> Latitude: </h3>
         <input value={latitude} name="latitude" type="text" onChange={handleEvent} />
       </label>
       <div>
@@ -41,7 +41,7 @@ const AreaUpdate: React.FC<{ area: IGetArea, patchArea : Function }> = ({ area, 
       </div>
       <div>
         <button type="submit" onClick={() => patchArea(areaToUpdate, areaToUpdate.id)}>SUbMIT</button>
-        <button  > GO BACK </button>
+        <button  onClick={() => goToAreasPanel()}> GO BACK </button>
       </div>
     </form>
   );
