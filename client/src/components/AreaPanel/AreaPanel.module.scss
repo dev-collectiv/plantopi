@@ -5,11 +5,31 @@
   @include dashboard-panel;
   grid-area: areas;
   background-color: $bg-light;
+  padding: 1rem;
+  position: relative;
 }
 
-.title {
+.panelTop {
   width: 100%;
-  button {
-    @include button-hover;
-  }
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-around;
+  border-bottom: 1px solid $highlights;
+  padding-bottom: 1rem;
+}
+
+.panelTitle {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: $highlights;
+}
+
+.newAreaButton {
+  @include main-button;
+  background-color: $highlights;
+  color: $highlights-font-color;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
 }

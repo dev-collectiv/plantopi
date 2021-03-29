@@ -1,51 +1,26 @@
 @import 'styles/main.scss';
- 
-.componentAreaContainer {
-  width: 85%;
-  max-height: 54%;
-  margin-left: 20px;
-  overflow-x: hidden;
-  overflow-y:scroll;
-  outline:none;
-  margin-right: 20px;
-  font-family: $titleFont;
-  font-size: larger;
-}
-.componentAreaContainer2 {
-  width: 85%;
-  max-height: 87%;
-  margin-left: 20px;
-  overflow-x: hidden;
-  overflow-y:scroll;
-  outline:none;
-  margin-right: 20px;
-  font-family: $titleFont;
-  font-size: larger;
-}
-.areasContainer {
+
+.areaContainer {
   display: flex;
-  flex-direction: column;
-  width: 90%;
-  height: 7.5rem;
-  background-color: #a1bc97;
-  margin: 10px;
+  flex-flow: column nowrap;
+  height: 150px;
+  max-height: 150px;
+  background-color: $bg;
+  margin-top: 0.5rem;
   border-radius: 5px;
   justify-content: center;
   align-items: center;
+  width: 75%;
 
-  button{
-    margin-top: 10px;
-    background-color: #ed8977;
-    width: 40%;
-    max-height: 2rem;
-    min-height: 1.7rem;
-    border-radius: $borderRadius;
-    border: none;
-    font-family: $titleFont;
-    outline:none;
-    color: rgb(0, 61, 0);
-    box-shadow: 4px 4px 10px #666;
-    cursor: pointer
-  }
+  & > * {
+    font-family: $main-font;
+    font-weight: 400;
+    margin-top: 0.25rem;
   }
 
+  button {
+    @include main-button;
+    background-color: $highlights;
+    color: $highlights-font-color;
+  }
+}

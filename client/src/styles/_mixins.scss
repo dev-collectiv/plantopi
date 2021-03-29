@@ -21,7 +21,20 @@
   }
 }
 
-@mixin card-title {
+@mixin main-button {
+  @include button-hover;
+  height: 2.5rem;
+  max-height: 2.5rem;
+  width: 7.5rem;
+  max-width: 7.5rem;
+  padding: 0.5rem;
+  border: none;
+  outline: none;
+  border-radius: $border-radius;
+  font-weight: 700;
+}
+
+@mixin panel-title {
   text-transform: uppercase;
   font-family: $titleFont;
   color: rgb(44, 44, 44);
