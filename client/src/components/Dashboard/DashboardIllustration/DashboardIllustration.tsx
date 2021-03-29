@@ -5,7 +5,7 @@ import { gsap } from 'gsap';
 
 import styles from './DashboardIllustration.module.scss';
 
-import { Stop, Drop, Plant } from 'assets';
+import { Drop, Plant } from 'assets';
 
 const durationOptions = Array(60)
   .fill(null)
