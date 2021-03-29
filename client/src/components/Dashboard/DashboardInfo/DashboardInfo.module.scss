@@ -1,59 +1,56 @@
 @import 'styles/main.scss';
 
 .container {
-  @include dashboardPanels;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 2fr;
-  column-gap: 1rem;
-  row-gap: 1rem;
   grid-area: info;
+  padding: 2.5rem;
+  height: 100%;
+  width: 100%;
+
+  display: grid;
+  grid-template-rows: 4fr 6fr;
+  grid-template-areas:
+    'top-card'
+    'bottom-card';
 }
 
-.card {
-  @include card;
+// .card {
+//   display: flex;
+//   flex-flow: column nowrap;
+//   align-items: center;
+//   justify-content: center;
+//   position: relative;
+
+//   padding: 1rem;
+//   font-weight: 600;
+// }
+
+.topCard {
+  grid-area: top-card;
   display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  justify-content: center;
-
-  min-width: 100%;
-  max-width: 100%;
-  min-height: 100%;
-  max-height: 100%;
-  position: relative;
-
-  padding: 1rem;
-  font-weight: 600;
+  flex-flow: row nowrap;
 }
 
-.smallCard {
-}
+// .smallCardContainer {
+//   display: flex;
+//   flex-flow: column nowrap;
+//   align-items: center;
+//   justify-content: center;
+//   height: 6rem;
+//   width: 6rem;
+//   border-radius: 50px;
+//   background-color: $bg;
+// }
 
-.smallCardContainer {
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  justify-content: center;
-  height: 6rem;
-  width: 6rem;
-  border-radius: 50px;
-  background-color: $bg;
-}
+// .smallFirst {
+//   z-index: 10;
+//   grid-area: smallFirst;
+//   background-color: $yellow;
+// }
 
-.smallFirst {
-  grid-area: smallFirst;
-  background-color: $yellow;
-}
-
-.smallSecond {
-  grid-area: smallSecond;
-  background-color: $yellow;
-}
-
-.bigCard {
-  grid-area: big;
-  background-color: $yellow;
-}
+// .smallSecond {
+//   grid-area: smallSecond;
+//   background-color: $yellow;
+// }
 
 .cardTitle {
   @include card-title;

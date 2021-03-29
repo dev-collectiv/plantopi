@@ -1,13 +1,12 @@
 @import 'styles/main';
 
 .container {
+  grid-area: bottom-card;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
   justify-content: space-between;
-
   overflow: hidden;
-
   width: 100%;
   height: 100%;
 }
