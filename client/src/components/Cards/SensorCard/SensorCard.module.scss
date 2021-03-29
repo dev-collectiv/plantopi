@@ -1,5 +1,41 @@
 @import 'styles/main.scss';
 
+$svg-size: 200px;
+$container-size: 200px;
+
+.background {
+  min-height: $svg-size;
+  min-width: $svg-size;
+  max-width: $svg-size;
+  max-height: $svg-size;
+  fill: white;
+  stroke: white;
+  border: 1px solid blue;
+}
+
+.container {
+  position: relative;
+  border: 1px solid red;
+  height: $container-size;
+  max-height: $container-size;
+  width: $container-size;
+  max-width: $container-size;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+.readingContainer {
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  border: 1px solid red;
+
+  & > * {
+    color: $highlights;
+  }
+}
+
 // .smallCardContainer {
 //   display: flex;
 //   flex-flow: column nowrap;
