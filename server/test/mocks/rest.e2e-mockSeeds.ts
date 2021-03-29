@@ -22,14 +22,14 @@ export const mockCronSeed = [
   {
     controller: '5',
     time: '5 * * * * *',
-    action: {id: 'pump1', action: 'on', duration: '3'}
+    action: { id: 'pump1', action: 'on', duration: '3' }
   },
   {
     controller: '2',
     time: '3 * * * * *',
-    action: {id: 'pump1', action: 'on', duration: '5'}
+    action: { id: 'pump1', action: 'on', duration: '5' }
   }
-]
+];
 
 export const mockAreaSeed = [
   {

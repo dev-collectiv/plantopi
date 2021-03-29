@@ -26,22 +26,25 @@ const Dashboard = () => {
 
   useEffect(() => {
     apiUser.getUser().then((user) => {
-      setUsers(user);
+      user && setUsers(user);
     });
+
     apiArea.getAreas().then((area) => {
-      setAreas(area);
+      area && setAreas(area);
     });
+
     apiControllers.getControllers().then((controller) => {
-      setControllers(controller);
+      controller && setControllers(controller);
     });
+
     apiSensors.getSensors().then((sensor) => {
-      setSensors(sensor);
+      sensor && setSensors(sensor);
     });
   }, []);
 
   const addingArea = (area: IAddArea): void => {
     apiArea.postArea(area).then((area) => {
-      setAreas((prevAreas: any) => [...prevAreas, area]);
+      area && setAreas((prevAreas: any) => [...prevAreas, area]);
     });
   };
 
@@ -60,7 +63,7 @@ const Dashboard = () => {
         {/* TODO controllerId={areas[selectedArea].controllers[0].id} type issue */}
         <DashboardIllustration controllerId="pump1" />
         {/* TODO area={areas[selectedArea]} */}
-        <DashboardInfo area={areas && areas[0]} />
+        <DashboardInfo area={areas ? areas[0] : undefined} />
         {/* TODO user={users[selectedUser].id} */}
         <AreaPanel user="0" areas={areas} addingArea={addingArea} deleteArea={deleteArea} />
       </div>

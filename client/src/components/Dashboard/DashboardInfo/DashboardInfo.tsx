@@ -6,7 +6,7 @@ import TopCard from 'components/Cards/TopCard/TopCard';
 import BottomCard from 'components/Cards/BottomCard/BottomCard';
 import SensorCard from 'components/Cards/SensorCard/SensorCard';
 import styles from './DashboardInfo.module.scss';
-import CronForm from 'components/Cards/ScheduleCard/CronForm/CronForm';
+import ScheduleCard from 'components/Cards/ScheduleCard/ScheduleCard';
 import { fetchCurrentWeather } from 'services/apiWeather/apiWeather';
 import { useEffect, useState } from 'react';
 import { ICurrentWeather } from 'types/weatherInterfaces';
@@ -15,7 +15,7 @@ import { ISensorReading } from 'types/sensorsInterfaces';
 
 
 interface Props{
-  area: IGetArea
+  area: IGetArea | undefined
 }
 
 const DashboardInfo: React.FC<Props> = ({ area }) => {
@@ -26,7 +26,7 @@ const DashboardInfo: React.FC<Props> = ({ area }) => {
 
   useEffect(() => {
     const initializeWeather = async () => {
-      const weather = await fetchCurrentWeather ('1');
+      const weather = await fetchCurrentWeather('1');
       setCurrentWeather(weather);
     };
 
@@ -45,9 +45,10 @@ const DashboardInfo: React.FC<Props> = ({ area }) => {
       </TopCard>
       <BottomCard>
         {/* TODO controllerId={areas[selectedArea].controllers[0].id} type issue */}
-        <CronForm controllerId="1" controllerTopic="pump1" currentWeather={currentWeather} />
+        <ScheduleCard controllerId="1" controllerTopic="pump1" currentWeather={currentWeather} />
       </BottomCard>
     </div>
   );
 };
+
 export default DashboardInfo;

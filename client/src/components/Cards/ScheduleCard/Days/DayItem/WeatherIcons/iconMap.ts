@@ -8,11 +8,11 @@ import sunalt from 'assets/icons/weather/sunalt.svg';
 import sunny from 'assets/icons/weather/sunny.svg';
 import wave from 'assets/icons/weather/wave.svg';
 
-type stringIndexed = {[key: string]: string}
+type stringIndexed = { [key: string]: string };
 
 // icons names can be found at: https://openweathermap.org/weather-conditions
 const iconMap: stringIndexed = {
-  '01d':  sunalt,
+  '01d': sunalt,
   '02d': sunny,
   '03d': cloudy,
   '04d': clouds,

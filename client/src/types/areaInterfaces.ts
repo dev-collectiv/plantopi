@@ -27,6 +27,8 @@ export interface IGetArea {
   isActive: boolean;
   sensors: ISensors[];
   controllers: IControllers[];
+  latitude?: string;
+  longitude?: string;
 }
 
 export interface IArea {
