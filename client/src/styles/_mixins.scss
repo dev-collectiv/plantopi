@@ -88,5 +88,6 @@
     @include main-button;
     background-color: $highlights;
     color: $highlights-font-color;
+    border-radius: 5px;
   }
 }

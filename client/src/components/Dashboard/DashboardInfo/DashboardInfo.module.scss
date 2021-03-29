@@ -3,6 +3,7 @@
 .container {
   @include dashboard-panel;
   grid-area: info;
+  position: relative;
 
   display: grid;
   row-gap: $grid-gap;

@@ -62,10 +62,11 @@
 }
 
 .cronScheduleButton {
-  @include cron-button;
+  @include main-button;
+  background-color: $highlights;
+  color: $highlights-font-color;
   border-radius: 5px;
-  height: 40px;
-  width: 80px;
+  margin-bottom: 1rem;
 }
 
 .svg {
@@ -81,11 +82,13 @@
   color: $highlights;
 }
 
+$bg-time: $bg;
+
 .timeSelect {
-  background-color: $bg-light;
+  background-color: $bg-time;
   border: none;
   border-radius: 10px;
-  padding: 0 1rem;
+  padding: 0.5rem 1rem;
   outline: none;
 
   &::-webkit-calendar-picker-indicator {
@@ -93,16 +96,16 @@
   }
 
   &::focus {
-    background-color: $bg;
+    background-color: $bg-time;
   }
   &::-webkit-datetime-edit-fields-wrapper {
-    background-color: $bg !important;
-    background: $bg !important;
+    background-color: $bg-time;
+    background: $bg-time;
   }
 
   &::-webkit-datetime-edit-ampm-field {
-    background-color: $bg;
-    background: $bg;
+    background: $bg-time;
+    background-color: $bg-time;
   }
 }
 
