@@ -1,21 +1,12 @@
 @import 'styles/main.scss';
 
-$svg-size: 200px;
+$svg-size: 150px;
+$svg-color: $bg-illustration;
 $container-size: 200px;
-
-.background {
-  min-height: $svg-size;
-  min-width: $svg-size;
-  max-width: $svg-size;
-  max-height: $svg-size;
-  fill: white;
-  stroke: white;
-  border: 1px solid blue;
-}
 
 .container {
   position: relative;
-  border: 1px solid red;
+
   height: $container-size;
   max-height: $container-size;
   width: $container-size;
@@ -23,51 +14,39 @@ $container-size: 200px;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
+  justify-content: center;
+}
+
+.background {
+  min-height: $svg-size;
+  min-width: $svg-size;
+  max-width: $svg-size;
+  max-height: $svg-size;
+  fill: $svg-color;
+  stroke: $svg-color;
+  stroke-width: 6;
+  filter: saturate(1);
+  stroke-miterlimit: 10;
+
+  margin-top: 0.5rem;
 }
 
 .readingContainer {
   position: absolute;
   top: 50%;
-  right: 50%;
-  border: 1px solid red;
+  z-index: 1;
 
   & > * {
     color: $highlights;
   }
 }
 
-// .smallCardContainer {
-//   display: flex;
-//   flex-flow: column nowrap;
-//   align-items: center;
-//   justify-content: center;
-//   height: 6rem;
-//   width: 6rem;
-//   border-radius: 50px;
-//   background-color: $bg;
-// }
+.cardTitle {
+  text-transform: uppercase;
+  color: $highlights;
+  font-weight: 700;
+}
 
-// .smallFirst {
-//   grid-area: smallFirst;
-//   background-color: $yellow;
-// }
-
-// .smallSecond {
-//   grid-area: smallSecond;
-//   background-color: $yellow;
-// }
-
-// .cardTitle {
-//   text-transform: uppercase;
-//   font-family: $titleFont;
-//   position: absolute;
-//   font-size: 1.25rem;
-//   font-weight: 600;
-//   left: 10px;
-//   top: 10px;
-// }
-
-// .cardReading {
-//   font-family: $titleFont;
-//   border-bottom: 2px solid $red;
-// }
+.reading {
+  color: $highlights-font-color;
+}

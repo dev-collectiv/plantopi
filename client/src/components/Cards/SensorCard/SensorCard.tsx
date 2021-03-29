@@ -17,7 +17,7 @@ const SensorCard: React.FC<ISensorCardProps> = (props) => {
       <h2 className={styles.cardTitle}>{name}</h2>
       <BGLogo className={styles.background} />
       <span className={styles.readingContainer}>
-        <h2 className={styles.cardReading}>{reading_data[type]}</h2>
+        <h2 className={styles.reading}>{reading_data[type]}</h2>
       </span>
     </div>
   );

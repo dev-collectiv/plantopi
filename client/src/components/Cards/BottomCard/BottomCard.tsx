@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './BottonCard.module.scss';
+import styles from './BottomCard.module.scss';
 
 const BottomCard: React.FC = ({ children }) => {
   return <div className={`${styles.card}`}>{children}</div>;

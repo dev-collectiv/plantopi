@@ -1,9 +1,12 @@
 @import 'styles/main.scss';
 
 .card {
+  @include dashboard-panel;
   @include card;
+  background-color: $bg-light;
+  position: relative;
+
   grid-area: top-card;
-  border-radius: $borderRadius;
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
