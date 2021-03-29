@@ -22,7 +22,7 @@ const AreaUpdate: React.FC<{ area: IGetArea, patchArea : Function; goToAreasPane
   };
 
   return (
-    <form onClick={() => patchArea(areaToUpdate, areaToUpdate.id)}>  
+    <form >  
       <h4>Update Area</h4>
       <h3>Area id: {id}</h3>
       <h3>User: {user}</h3>
@@ -40,7 +40,7 @@ const AreaUpdate: React.FC<{ area: IGetArea, patchArea : Function; goToAreasPane
         <input name="isActive" type="checkbox" onChange={handleActivity} />
       </div>
       <div>
-        <button type="submit" onClick={() => patchArea(areaToUpdate, areaToUpdate.id)}>SUbMIT</button>
+        <button type="submit" onClick={() => patchArea(areaToUpdate, areaToUpdate.id)}>SUBMIT</button>
         <button  onClick={() => goToAreasPanel()}> GO BACK </button>
       </div>
     </form>

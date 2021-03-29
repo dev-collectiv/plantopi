@@ -10,6 +10,7 @@ const AreasDisplay: React.FC<{ area: IGetArea; deleteArea: Function; patchArea:F
   function goToAreasPanel() {
     setIsUpdating(false);
   }
+  console.log(isUpdating);
   if (isUpdating) {
     return <UpdateArea area={area} patchArea={patchArea} goToAreasPanel={goToAreasPanel}/>;
   } else
