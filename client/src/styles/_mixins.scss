@@ -65,3 +65,28 @@
     border-bottom: 2px solid $red;
   }
 }
+
+@mixin area-container {
+  display: flex;
+  flex-flow: column nowrap;
+  height: 150px;
+  max-height: 150px;
+  background-color: $bg;
+  margin-top: 0.5rem;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  width: 75%;
+
+  & > * {
+    font-family: $main-font;
+    font-weight: 400;
+    margin-top: 0.25rem;
+  }
+
+  button {
+    @include main-button;
+    background-color: $highlights;
+    color: $highlights-font-color;
+  }
+}

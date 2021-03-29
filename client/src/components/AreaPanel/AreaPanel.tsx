@@ -43,7 +43,7 @@ const AreaPanel: any = () => {
       </div>
       <div className={styles.areasContainer}>
         {renderAreas()}
-        {showAreaForm && <AddArea addingArea={addArea} />}
+        {showAreaForm && <AddArea addArea={addArea} />}
       </div>
 
       <button onClick={() => setShowAreaForm(!showAreaForm)} className={styles.newAreaButton}>
