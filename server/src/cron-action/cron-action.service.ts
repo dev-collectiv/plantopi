@@ -3,10 +3,10 @@ import { Injectable, Logger } from '@nestjs/common';
 import { SchedulerRegistry } from '@nestjs/schedule';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CronAction } from './entities/cron-action.entity';
-import { DeleteResult, InsertResult, Repository } from 'typeorm';
-import { MqttRequestDto } from '../action/dto/mqtt.dto';
+import { DeleteResult, Repository } from 'typeorm';
 import { ActionService } from '../action/action.service';
 import { UpdateCronDto } from './dto/update-cron.dto';
+import { CreateCronDto } from './dto/create-cron.dto';
 
 type CronCallbackType = (args?: any[]) => void;
 
@@ -22,18 +22,24 @@ export class CronActionService {
     this.setInitialCronActions();
   }
 
-  //TODO - make a dto so we don't have any
-  async create(time: string, action: MqttRequestDto): Promise<any> {
-    const stringifiedAction = JSON.stringify(action);
-    const cronAction = await this.cronActionRepository.create({ time, action: stringifiedAction });
+  async create(createCronDto: CreateCronDto): Promise<any> {
+    // Need to stringify action when saving to db, but return non stringified object to front end.
+
+    const initialAction = createCronDto.action;
+    const stringifiedAction = JSON.stringify(createCronDto.action);
+
+    createCronDto.action = stringifiedAction;
+    const cronAction = await this.cronActionRepository.create(createCronDto);
     const savedCronAction = await this.cronActionRepository.save(cronAction);
+
+    savedCronAction.action = initialAction;
     const { id } = savedCronAction;
 
-    this.scheduleCronAction(id, time, action);
+    this.scheduleCronAction(id, createCronDto.time, initialAction);
 
     //the fact that cron action is a string gave an error on the FE
     //because the JSON parser cannot parse it for some apparent reason
-    return { ...savedCronAction, action };
+    return savedCronAction;
   }
 
   //TODO - save action as JSON
@@ -48,7 +54,7 @@ export class CronActionService {
   }
 
   async findAll(): Promise<CronAction[]> {
-    const cronActions = await this.cronActionRepository.find({});
+    const cronActions = await this.cronActionRepository.find();
 
     return cronActions.map((cronAction) => {
       const action = JSON.parse(cronAction.action);

@@ -18,11 +18,15 @@ export class CronAction {
   @OneToOne(() => Controller, (controller) => controller.cronAction)
   controller: Controller;
 
-  constructor(id: string, time: string, action: string, isActive: boolean, controller: Controller) {
+  @Column()
+  controllerId: string;
+
+  constructor(id: string, time: string, action: string, isActive: boolean, controller: Controller, controllerId: string) {
     this.id = id;
     this.time = time;
     this.action = action;
     this.isActive = isActive;
     this.controller = controller;
+    this.controllerId = controllerId;
   }
 }
