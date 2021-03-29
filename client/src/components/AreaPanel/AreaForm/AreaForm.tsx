@@ -19,11 +19,11 @@ const AddArea: React.FC<{ addArea: Function }> = ({ addArea }) => {
     <div className={styles.container}>
       <label>
         <h3> User ID:</h3>
-        <input value={newArea.userId} name="userId" type="text" onChange={handleEvent} />
+        <input className={styles.input} value={newArea.userId} name="userId" type="text" onChange={handleEvent} />
       </label>
       <label>
         <h3> Sensors:</h3>
-        <input value={newArea.sensors} name="sensors" type="text" onChange={handleEvent} />
+        <input className={styles.input} value={newArea.sensors} name="sensors" type="text" onChange={handleEvent} />
       </label>
       <button className={styles.btn} type="submit" onClick={() => addArea(newArea)}>
         CREATE

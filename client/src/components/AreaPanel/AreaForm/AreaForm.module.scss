@@ -7,3 +7,10 @@
     margin: 2px;
   }
 }
+
+.input {
+  border: none;
+  border-radius: $border-radius;
+  color: $font-color;
+  font-family: $main-font;
+}
