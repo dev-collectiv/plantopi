@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { IAddArea } from '../../../types/areaInterfaces';
 import styles from './AreaForm.module.scss';
-const AddArea: any = (props: IAddArea | any) => {
+const AreaForm: React.FC<{ user: string; addingArea: (area: IAddArea) => void }> = ({ user, addingArea }) => {
   const [newArea, setNewArea] = useState<IAddArea>({
     userId: 0,
     isActive: false,
@@ -23,7 +23,7 @@ const AddArea: any = (props: IAddArea | any) => {
   };
 
   return (
-    <form className={styles.formsContainer} onSubmit={() => props.addingArea(newArea)}>
+    <form className={styles.formsContainer} onSubmit={() => addingArea(newArea)}>
       <h4>New Area</h4>
       <label>
         <h3> User Id:</h3>
@@ -46,4 +46,4 @@ const AddArea: any = (props: IAddArea | any) => {
   );
 };
 
-export default AddArea;
+export default AreaForm;

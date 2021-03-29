@@ -1,12 +1,17 @@
 import styles from './AreasDisplay.module.scss';
-import {IGetArea} from '../../../types/areaInterfaces';
-const AreasDisplay: any = ({ areas, deleteArea, showAreaForm }: any) => {
-   
+import React from 'react';
+import { IGetArea } from '../../../types/areaInterfaces';
+const AreasDisplay: any = ({ user, areas, deleteArea, showAreaForm }: any) => {
+  // React.FC < {
+  //   areas: any;
+  //   deleteArea: (id: number) => void;
+  //   showAreaForm: boolean;
+  // }>
   let styleContainer;
   if (showAreaForm) {
     styleContainer = styles.componentAreaContainer;
   } else {
-    styleContainer=styles.componentAreaContainer2;
+    styleContainer = styles.componentAreaContainer2;
   }
   if (areas) {
     return (
@@ -18,9 +23,9 @@ const AreasDisplay: any = ({ areas, deleteArea, showAreaForm }: any) => {
             <h2>Area id: {area.id}</h2>
             <button onClick={() => deleteArea(area.id)}>delete </button>
           </div>
-        ))} 
+        ))}
       </div>
-    ); 
+    );
   }
 };
 export default AreasDisplay;
