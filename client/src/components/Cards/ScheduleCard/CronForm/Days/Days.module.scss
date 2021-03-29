@@ -1,0 +1,12 @@
+@import 'styles/main';
+
+.dayContainer {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+  margin: 0.5rem 0;
+  & > * {
+    margin: 0 0.5rem;
+  }
+}

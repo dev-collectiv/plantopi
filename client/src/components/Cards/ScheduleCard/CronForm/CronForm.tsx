@@ -8,6 +8,10 @@ import { Settings } from 'assets/index';
 import styles from './CronForm.module.scss';
 import ScheduledCron from '../ScheduledCron/ScheduledCron';
 
+import Day from './Days/Days';
+import { ICurrentWeather } from 'types/weatherInterfaces';
+
+
 const daysInWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const refArr = ['minutes', 'hours', 'weeks', 'months', 'days'];
 
@@ -18,7 +22,14 @@ const durationOptions = Array(60)
   .fill(null)
   .map((_, idx) => idx + 1);
 
-const CronForm: React.FC<{ controllerId: string; controllerTopic: string }> = ({ controllerId, controllerTopic }) => {
+interface Props{
+  currentWeather?: ICurrentWeather;
+  controllerId: string;
+  controllerTopic: string
+}
+
+
+const CronForm: React.FC<Props> = ({currentWeather, controllerId, controllerTopic}) => {
   const [cron, setCron] = useState<string[]>(Array(5).fill('*'));
   const [activeDays, setActiveDays] = useState<number[]>([]);
   const [scheduledCrons, setScheduledCrons] = useState<ICron[]>([...mockData]);
@@ -100,22 +111,6 @@ const CronForm: React.FC<{ controllerId: string; controllerTopic: string }> = ({
 
   const handleDuration = (label: string, value: number | string) => setDuration(value);
 
-  function renderCustomOptions() {
-    return daysInWeek.map((day, idx) => {
-      const active: boolean = activeDays.includes(idx);
-
-      return (
-        <button
-          key={day + idx}
-          className={`${styles.dayButton} ${active && styles.activeButton}`}
-          onClick={() => handleSelectDayFn(idx, active)}
-        >
-          {day.slice(0, 1)}
-        </button>
-      );
-    });
-  }
-
   return (
     <div className={styles.container}>
       <Settings className={styles.svg} />
@@ -124,7 +119,7 @@ const CronForm: React.FC<{ controllerId: string; controllerTopic: string }> = ({
         <h2>New Action</h2>
         <span className={styles.actionSelection}>
           <h4 className={styles.selectionTags}>Day</h4>
-          {renderCustomOptions()}
+          <Day activeDays={activeDays} daysInWeek={daysInWeek} handleSelectDayFn={handleSelectDayFn} currentWeather={currentWeather}/>
         </span>
         <span className={styles.actionSelection}>
           <h4 className={styles.selectionTags}>Time</h4>
