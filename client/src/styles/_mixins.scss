@@ -2,7 +2,7 @@
 
 @mixin card {
   border-radius: $borderRadius;
-  box-shadow: 0px 0px 10px 1px rgba($dark, 0.3);
+  box-shadow: 0px 0px 10px 1px rgba($dark, 0.1);
 }
 
 @mixin dashboard-panel {
@@ -21,7 +21,20 @@
   }
 }
 
-@mixin card-title {
+@mixin main-button {
+  @include button-hover;
+  height: 2.5rem;
+  max-height: 2.5rem;
+  width: 7.5rem;
+  max-width: 7.5rem;
+  padding: 0.5rem;
+  border: none;
+  outline: none;
+  border-radius: $border-radius;
+  font-weight: 700;
+}
+
+@mixin panel-title {
   text-transform: uppercase;
   font-family: $titleFont;
   color: rgb(44, 44, 44);
@@ -50,5 +63,30 @@
 
   &:hover span {
     border-bottom: 2px solid $red;
+  }
+}
+
+@mixin area-container {
+  display: flex;
+  flex-flow: column nowrap;
+  height: 150px;
+  max-height: 150px;
+  background-color: $bg;
+  margin-top: 0.5rem;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  width: 75%;
+
+  & > * {
+    font-family: $main-font;
+    font-weight: 400;
+    margin-top: 0.25rem;
+  }
+
+  button {
+    @include main-button;
+    background-color: $highlights;
+    color: $highlights-font-color;
   }
 }
