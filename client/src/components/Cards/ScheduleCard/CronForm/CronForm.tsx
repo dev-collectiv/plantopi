@@ -18,7 +18,7 @@ const durationOptions = Array(60)
   .fill(null)
   .map((_, idx) => idx + 1);
 
-const CronForm: React.FC = () => {
+const CronForm: React.FC<{ controllerId: string; controllerTopic: string }> = ({ controllerId, controllerTopic }) => {
   const [cron, setCron] = useState<string[]>(Array(5).fill('*'));
   const [activeDays, setActiveDays] = useState<number[]>([]);
   const [scheduledCrons, setScheduledCrons] = useState<ICron[]>([...mockData]);
@@ -60,9 +60,9 @@ const CronForm: React.FC = () => {
 
     const addCronObj: IAddCrons = {
       time: _cronTimeString,
-      controllerId: '1',
+      controllerId: controllerId,
       action: {
-        id: 'pump1',
+        id: controllerTopic,
         action: 'on',
         duration: +duration
       }

@@ -11,7 +11,8 @@ export class ControllersService {
   constructor(@InjectRepository(Controller) private controllerRepository: Repository<Controller>) {}
 
   create(createControllerDto: CreateControllerDto) {
-    return this.controllerRepository.insert(createControllerDto);
+    const newController =  this.controllerRepository.create(createControllerDto);
+    return this.controllerRepository.save(newController);
   }
 
   findAll() {

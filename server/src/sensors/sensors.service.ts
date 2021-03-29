@@ -13,7 +13,8 @@ export class SensorsService {
   constructor(@InjectRepository(Sensor) private sensorRepository: Repository<Sensor>, @InjectRepository(SensorReading) private sensorReadingRepository: Repository<SensorReading>) {}
 
   create(createSensorDto: CreateSensorDto) {
-    return this.sensorRepository.insert(createSensorDto);
+    const newSensor = this.sensorRepository.create(createSensorDto);
+    return this.sensorRepository.save(newSensor);
   }
 
   findAll() {

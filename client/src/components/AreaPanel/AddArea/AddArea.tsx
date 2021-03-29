@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { IAddArea } from '../../../types/areaInterfaces';
-import styles from './AreaForm.module.scss';
+import { IAddArea } from 'types/areaInterfaces';
+import styles from './AddArea.module.scss';
+
 const AddArea: React.FC<{ addArea: Function }> = ({ addArea }) => {
   const [newArea, setNewArea] = useState<IAddArea>({
     userId: 0,
@@ -17,6 +18,8 @@ const AddArea: React.FC<{ addArea: Function }> = ({ addArea }) => {
 
   return (
     <div className={styles.container}>
+      <h4>New Area</h4>
+
       <label>
         <h3> User ID:</h3>
         <input className={styles.input} value={newArea.userId} name="userId" type="text" onChange={handleEvent} />

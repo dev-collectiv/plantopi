@@ -1,38 +1,35 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './AreaPanel.module.scss';
-import AreasDisplay from './AreaContainer/AreaContainer';
-import AddArea from './AreaForm/AreaForm';
-import { apiArea } from '../../services/apiArea/apiArea';
-import { IGetArea, IAddArea } from '../../types/areaInterfaces';
-import { useEffect, useState } from 'react';
+import AreaContainer from './AreaContainer/AreaContainer';
+import AddArea from './AreaForm/AddArea';
+import { apiArea } from 'services/apiArea/apiArea';
+import { IGetArea, IAddArea } from 'types/areaInterfaces';
 
-const AreaPanel: any = () => {
-  const [areas, setAreas] = useState<IGetArea[]>([]);
+import AreaForm from './AreaForm/AddArea';
+
+const AreaPanel: React.FC<{
+  user: string;
+  areas: any;
+  addingArea: (area: IAddArea) => void;
+  deleteArea: (id: number) => void;
+}> = ({ user, areas, deleteArea }) => {
   const [showAreaForm, setShowAreaForm] = useState<boolean>(false);
 
-  useEffect(() => {
-    apiArea.getArea().then((area) => {
-      setAreas(area);
-    });
-  }, []);
+  // useEffect(() => {
+  //   apiArea.getArea().then((area) => {
+  //     setAreas(area);
+  //   });
+  // }, []);
 
   const addArea = (area: IAddArea) => {
     apiArea.postArea(area).then((area) => {
-      setAreas((prevAreas: any) => [...prevAreas, area]);
+      // setAreas((prevAreas: any) => [...prevAreas, area]);
     });
-  };
-
-  const deleteArea = (id: number) => {
-    apiArea.deleteArea(id);
-    const _areas = areas.filter((el: IGetArea) => {
-      return el.id !== id;
-    });
-    setAreas(_areas);
   };
 
   function renderAreas() {
-    return areas.map((area) => {
-      return <AreasDisplay area={area} deleteArea={deleteArea} />;
+    return areas.map((area: IGetArea) => {
+      return <AreaContainer area={area} deleteArea={deleteArea} />;
     });
   }
 
@@ -41,6 +38,7 @@ const AreaPanel: any = () => {
       <div className={styles.panelTop}>
         <h2 className={styles.panelTitle}>AREAS</h2>
       </div>
+
       <div className={styles.areasContainer}>
         {renderAreas()}
         {showAreaForm && <AddArea addArea={addArea} />}

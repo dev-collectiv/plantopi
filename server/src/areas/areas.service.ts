@@ -12,7 +12,8 @@ export class AreasService {
   constructor(@InjectRepository(Area) private areaRepository: Repository<Area>) {}
 
   create(createAreaDto: CreateAreaDto) {
-    return this.areaRepository.insert(createAreaDto);
+    const newArea = this.areaRepository.create(createAreaDto);
+    return this.areaRepository.save(newArea);
   }
 
   findAll() {

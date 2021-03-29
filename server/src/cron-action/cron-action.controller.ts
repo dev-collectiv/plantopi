@@ -9,8 +9,7 @@ export class CronActionController {
 
   @Post()
   create(@Body() createCronDto: CreateCronDto) {
-    const { time, action } = createCronDto;
-    return this.cronActionService.create(time, action);
+    return this.cronActionService.create(createCronDto);
   }
 
   @Get()

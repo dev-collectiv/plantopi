@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { SocketContext } from 'context/socket';
-import IDashboardIllustrationProps from './IDashboardIllustration';
 import Select from 'components/Select/Select';
 import { gsap } from 'gsap';
 
@@ -12,7 +11,7 @@ const durationOptions = Array(60)
   .fill(null)
   .map((_, idx) => idx + 1);
 
-const DashboardIllustration: React.FC<IDashboardIllustrationProps> = (props) => {
+const DashboardIllustration: React.FC<{ controllerId: string }> = (props) => {
   const socket = useContext(SocketContext);
   const { controllerId } = props;
   const [duration, setDuration] = useState<number | string>(5);
