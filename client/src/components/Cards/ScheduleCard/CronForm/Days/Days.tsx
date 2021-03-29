@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
-import styles from './Day.module.scss';
+import styles from './Days.module.scss';
 import DayItem from './DayItem/DayItem';
 
 export interface Props {

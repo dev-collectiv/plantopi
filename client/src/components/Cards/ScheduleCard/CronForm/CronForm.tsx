@@ -8,7 +8,7 @@ import { Settings } from 'assets/index';
 import styles from './CronForm.module.scss';
 import ScheduledCron from '../ScheduledCron/ScheduledCron';
 
-import Day from './Day/Day';
+import Day from './Days/Days';
 
 const daysInWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const refArr = ['minutes', 'hours', 'weeks', 'months', 'days'];
