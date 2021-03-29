@@ -1,15 +1,14 @@
 import styles from './Dashboard.module.scss';
-import DashboardTop from './DashboardTitle/DashboardTitle';
 import DashboardIllustration from './DashboardIllustration/DashboardIllustration';
 import DashboardInfo from './DashboardInfo/DashboardInfo';
+import AreaPanel from 'components/AreaPanel/AreaPanel';
+
 const Dashboard = () => {
   return (
     <div className={styles.container}>
-      <DashboardTop />
-      <div className={styles.contentContainer}>
-        <DashboardIllustration />
-        <DashboardInfo />
-      </div>
+      <DashboardIllustration controllerId="1" />
+      <DashboardInfo />
+      <AreaPanel />
     </div>
   );
 };

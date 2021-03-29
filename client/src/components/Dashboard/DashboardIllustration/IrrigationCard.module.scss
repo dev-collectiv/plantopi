@@ -1,5 +1,10 @@
 @import 'styles/main.scss';
 
+.container {
+  // @include dashboardPanels;
+  grid-area: illustration;
+}
+
 .card {
   @include card;
   padding: 1rem;

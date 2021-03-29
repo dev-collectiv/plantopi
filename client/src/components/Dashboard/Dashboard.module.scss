@@ -1,15 +1,20 @@
 @import 'styles/main.scss';
 
 .container {
-  display: flex;
-  flex-direction: column;
   grid-area: main;
+  display: grid;
+  grid-template-columns: 4fr 6fr 4fr;
+  grid-template-areas: 'illustration info areas';
   min-width: 100%;
+  padding: 1rem;
+  & > * {
+    border: 1px solid red;
+  }
 }
 
-.contentContainer {
-  display: flex;
-  flex-direction: row;
-  height: 85%;
-  width: 100%;
-}
+// .contentContainer {
+//   display: flex;
+//   flex-direction: row;
+//   height: 85%;
+//   width: 100%;
+// }

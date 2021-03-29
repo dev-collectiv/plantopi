@@ -3,8 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { SocketContext, socket } from 'context/socket';
 import NavBar from 'components/NavBar/NavBar';
 import Dashboard from 'components/Dashboard/Dashboard';
-import DetailBar from 'components/DetailBar/DetailBar';
-import AreaPanel from 'components/AreaPanel/AreaPanel';
 
 import { apiUser } from './services/apiUser/apiUser';
 import { apiArea } from './services/apiArea/apiArea';
@@ -21,7 +19,7 @@ const App: React.FC = () => {
   const [areas, setAreas] = useState<IGetArea[]>([]);
   const [controllers, setControllers] = useState<IGetControllers[]>([]);
   const [sensors, setSensors] = useState<IGetSensors[]>([]);
- 
+
   useEffect(() => {
     apiUser.getUser().then((user) => {
       setUsers(user);
@@ -51,8 +49,6 @@ const App: React.FC = () => {
       <div className={styles.container}>
         <NavBar />
         <Dashboard />
-        <DetailBar />
-        <AreaPanel />
       </div>
     </SocketContext.Provider>
   );

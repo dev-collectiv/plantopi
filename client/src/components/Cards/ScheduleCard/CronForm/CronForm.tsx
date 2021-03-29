@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { postCrons, getCrons, patchCrons, deleteCrons } from 'services/apiCrons/apiCrons';
-import Select from '../Select/Select';
+import Select from 'components/Select/Select';
 import { IAddCrons, ICron, IPatchCrons } from 'types/cronsInterfaces';
 
 import { Settings } from 'assets/index';

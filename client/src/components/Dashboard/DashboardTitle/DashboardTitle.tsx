@@ -1,5 +1,6 @@
 import styles from './DashboardTitle.module.scss';
 
+// TODO - delete comp
 const DashboardTitle: React.FC = () => {
   return (
     <div className={styles.container}>
