@@ -24,10 +24,12 @@ const durationOptions = Array(60)
 
 interface Props{
   currentWeather?: ICurrentWeather;
+  controllerId: string;
+  controllerTopic: string
 }
 
 
-const CronForm: React.FC<Props> = ({currentWeather}) => {
+const CronForm: React.FC<Props> = ({currentWeather, controllerId, controllerTopic}) => {
   const [cron, setCron] = useState<string[]>(Array(5).fill('*'));
   const [activeDays, setActiveDays] = useState<number[]>([]);
   const [scheduledCrons, setScheduledCrons] = useState<ICron[]>([...mockData]);
@@ -69,9 +71,9 @@ const CronForm: React.FC<Props> = ({currentWeather}) => {
 
     const addCronObj: IAddCrons = {
       time: _cronTimeString,
-      controllerId: '1',
+      controllerId: controllerId,
       action: {
-        id: 'pump1',
+        id: controllerTopic,
         action: 'on',
         duration: +duration
       }
