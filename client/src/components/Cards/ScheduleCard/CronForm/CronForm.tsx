@@ -112,15 +112,20 @@ const CronForm: React.FC<Props> = ({ currentWeather, controllerId, controllerTop
 
       <div className={styles.cronPanelModule}>
         <h2>New Action</h2>
-        <span className={styles.actionSelection}>
+        <div className={styles.actionSelection}>
           <Day activeDays={activeDays} daysInWeek={daysInWeek} handleSelectDayFn={handleSelectDayFn} currentWeather={currentWeather} />
-        </span>
-        <span className={styles.actionSelection}>
-          <h4 className={styles.selectionTags}>Time</h4>
-          <input type="time" className={styles.timeSelect} onChange={handleSelectTimeFn}></input>
-          <h4 className={styles.selectionTags}>Duration</h4>
-          <Select options={durationOptions} onChangeFn={handleDuration} label="duration" initialOption={duration} />
-        </span>
+        </div>
+
+        <div className={styles.timeAndDurationSelection}>
+          <div>
+            <h4 className={styles.selectionTags}>Time</h4>
+            <input type="time" className={styles.timeSelect} onChange={handleSelectTimeFn}></input>
+          </div>
+          <div>
+            <h4 className={styles.selectionTags}>Duration</h4>
+            <Select options={durationOptions} onChangeFn={handleDuration} label="duration" initialOption={duration} />
+          </div>
+        </div>
       </div>
 
       <div className={`${styles.cronPanelModule} ${styles.scrollPanelModule}`}>

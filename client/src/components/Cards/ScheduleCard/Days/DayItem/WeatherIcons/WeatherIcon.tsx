@@ -8,6 +8,7 @@ export interface Props {
 }
 
 const WeatherIcon: React.FC<Props> = ({ weatherData }) => {
+  console.log(iconMap[weatherData.icon]);
   return (
     <div className={styles.iconContainer}>
       <img src={iconMap[weatherData.icon]} alt={`${weatherData.temperature} celsius`} />
