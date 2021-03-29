@@ -8,6 +8,8 @@ import { Settings } from 'assets/index';
 import styles from './CronForm.module.scss';
 import ScheduledCron from '../ScheduledCron/ScheduledCron';
 
+import Day from './Day/Day';
+
 const daysInWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const refArr = ['minutes', 'hours', 'weeks', 'months', 'days'];
 
@@ -100,22 +102,6 @@ const CronForm: React.FC = () => {
 
   const handleDuration = (label: string, value: number | string) => setDuration(value);
 
-  function renderCustomOptions() {
-    return daysInWeek.map((day, idx) => {
-      const active: boolean = activeDays.includes(idx);
-
-      return (
-        <button
-          key={day + idx}
-          className={`${styles.dayButton} ${active && styles.activeButton}`}
-          onClick={() => handleSelectDayFn(idx, active)}
-        >
-          {day.slice(0, 1)}
-        </button>
-      );
-    });
-  }
-
   return (
     <div className={styles.container}>
       <Settings className={styles.svg} />
@@ -124,7 +110,7 @@ const CronForm: React.FC = () => {
         <h2>New Action</h2>
         <span className={styles.actionSelection}>
           <h4 className={styles.selectionTags}>Day</h4>
-          {renderCustomOptions()}
+          <Day activeDays={activeDays} daysInWeek={daysInWeek} handleSelectDayFn={handleSelectDayFn}/>
         </span>
         <span className={styles.actionSelection}>
           <h4 className={styles.selectionTags}>Time</h4>

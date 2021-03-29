@@ -49,20 +49,6 @@
   }
 }
 
-.dayButton {
-  @include cron-button;
-  border-radius: 50px;
-  width: 40px;
-  height: 40px;
-}
-
-.activeButton {
-  background-color: $red;
-  &:hover span {
-    border-bottom: 2px solid $bg;
-  }
-}
-
 .cronScheduleButton {
   @include cron-button;
   border-radius: 5px;
