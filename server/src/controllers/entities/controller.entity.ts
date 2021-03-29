@@ -1,6 +1,6 @@
 import { Area } from '../../areas/entities/area.entity';
 import { CronAction } from '../../cron-action/entities/cron-action.entity';
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToOne, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToOne, OneToMany, JoinColumn } from 'typeorm';
 import { Timetable } from '../../timetable/entities/timetable.entity';
 
 @Entity()
@@ -20,7 +20,7 @@ export class Controller {
   @Column({ default: true })
   isActive: boolean;
 
-  @OneToOne(() => CronAction, (cronAction) => cronAction.controller)
+  @OneToOne(() => CronAction)
   cronAction?: CronAction;
 
   constructor(id: number, area: Area, timetables: Timetable[], type: string, isActive: boolean, cronAction: CronAction) {

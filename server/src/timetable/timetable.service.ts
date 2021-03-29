@@ -11,8 +11,10 @@ export class TimetableService {
 
   create = async (createTimetableDto: CreateTimetableDto) => {
     try {
-      await this.timetableRepository.insert(createTimetableDto);
+      const newEntry = this.timetableRepository.create(createTimetableDto);
+      const savedEntry = await this.timetableRepository.save(newEntry);
       console.log('Time entry created.');
+      return savedEntry;
     } catch (err) {
       console.log('Time entry could not be created - check if associated controller exists in the database.');
     }
