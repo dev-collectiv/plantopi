@@ -10,15 +10,14 @@ import { fetchCurrentWeather } from 'services/apiWeather/apiWeather';
 import { useEffect, useState } from 'react';
 import { ICurrentWeather } from 'types/weatherInterfaces';
 
-const DashboardInfo: React.FC<{ area: IGetArea }> = ({ area }) => {
+const DashboardInfo: React.FC<{ area: IGetArea | undefined }> = ({ area }) => {
   let [currentWeather, setCurrentWeather] = useState<ICurrentWeather>();
-
 
   // AREA ID HARDCODED IN CURRENT WEATHER FETCH BELOW - SWAP WITH AREAID LATER
 
   useEffect(() => {
     const initializeWeather = async () => {
-      const weather = await fetchCurrentWeather ('1');
+      const weather = await fetchCurrentWeather('1');
       setCurrentWeather(weather);
     };
 
