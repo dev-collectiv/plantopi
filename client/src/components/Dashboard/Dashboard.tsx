@@ -28,12 +28,15 @@ const Dashboard = () => {
     apiUser.getUser().then((user) => {
       setUsers(user);
     });
+
     apiArea.getAreas().then((area) => {
       setAreas(area);
     });
+
     apiControllers.getControllers().then((controller) => {
       setControllers(controller);
     });
+
     apiSensors.getSensors().then((sensor) => {
       setSensors(sensor);
     });
