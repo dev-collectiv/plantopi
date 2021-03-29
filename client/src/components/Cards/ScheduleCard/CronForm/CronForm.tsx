@@ -8,31 +8,26 @@ import { Settings } from 'assets/index';
 import styles from './CronForm.module.scss';
 import ScheduledCron from '../ScheduledCron/ScheduledCron';
 
-import Day from './Days/Days';
+import Day from '../Days/Days';
 import { ICurrentWeather } from 'types/weatherInterfaces';
-
 
 const daysInWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const refArr = ['minutes', 'hours', 'weeks', 'months', 'days'];
-
-//for dev purposes only
-let mockData: any = [];
 
 const durationOptions = Array(60)
   .fill(null)
   .map((_, idx) => idx + 1);
 
-interface Props{
+interface Props {
   currentWeather?: ICurrentWeather;
   controllerId: string;
-  controllerTopic: string
+  controllerTopic: string;
 }
 
-
-const CronForm: React.FC<Props> = ({currentWeather, controllerId, controllerTopic}) => {
+const CronForm: React.FC<Props> = ({ currentWeather, controllerId, controllerTopic }) => {
   const [cron, setCron] = useState<string[]>(Array(5).fill('*'));
   const [activeDays, setActiveDays] = useState<number[]>([]);
-  const [scheduledCrons, setScheduledCrons] = useState<ICron[]>([...mockData]);
+  const [scheduledCrons, setScheduledCrons] = useState<ICron[]>([]);
   const [duration, setDuration] = useState<number | string>(5);
   const [error, setError] = useState<boolean>(false);
 
@@ -119,7 +114,7 @@ const CronForm: React.FC<Props> = ({currentWeather, controllerId, controllerTopi
         <h2>New Action</h2>
         <span className={styles.actionSelection}>
           <h4 className={styles.selectionTags}>Day</h4>
-          <Day activeDays={activeDays} daysInWeek={daysInWeek} handleSelectDayFn={handleSelectDayFn} currentWeather={currentWeather}/>
+          <Day activeDays={activeDays} daysInWeek={daysInWeek} handleSelectDayFn={handleSelectDayFn} currentWeather={currentWeather} />
         </span>
         <span className={styles.actionSelection}>
           <h4 className={styles.selectionTags}>Time</h4>
@@ -157,13 +152,3 @@ function convertToCronArray(label: string, values: (string | number)[], currCron
 
   return newCron;
 }
-
-mockData = [
-  {
-    id: '9a38622e-9949-462b-bf8e-082890beee66',
-    time: '36 19 * * 0,3,6',
-    action: { id: 'pump1', action: 'on', duration: 5 },
-    isActive: true
-  },
-  { id: '4bcdbf4c-85d7-4fc8-aeb3-046d04954f27', time: '36 19 * * *', action: { id: 'pump1', action: 'on', duration: 5 }, isActive: true }
-];
