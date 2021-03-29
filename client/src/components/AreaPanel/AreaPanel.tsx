@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import styles from './AreaPanel.module.scss';
 import AreaContainer from './AreaContainer/AreaContainer';
-import AddArea from './AreaForm/AddArea';
+import AddArea from './AddArea/AddArea';
 import { apiArea } from 'services/apiArea/apiArea';
 import { IGetArea, IAddArea } from 'types/areaInterfaces';
-
-import AreaForm from './AreaForm/AddArea';
 
 const AreaPanel: React.FC<{
   user: string;
@@ -15,6 +13,7 @@ const AreaPanel: React.FC<{
 }> = ({ user, areas, deleteArea }) => {
   const [showAreaForm, setShowAreaForm] = useState<boolean>(false);
 
+  //TODO - ser areas : find where it is coming from
   // useEffect(() => {
   //   apiArea.getArea().then((area) => {
   //     setAreas(area);
