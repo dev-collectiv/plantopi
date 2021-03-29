@@ -4,27 +4,40 @@
   @include card;
   @include dashboard-panel;
   grid-area: areas;
+  background-color: $bg-light;
+  padding: 1rem;
+  position: relative;
 }
 
-.title {
+.areasContainer {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  max-height: 100%;
+}
+
+.panelTop {
   width: 100%;
   display: flex;
-  flex-direction: row;
+  flex-flow: row nowrap;
   align-items: center;
   justify-content: space-around;
-  margin: 10px;
-  button {
-    @include button-hover;
-    background-color: #fce08d;
-    border: none;
-    max-width: 2.5rem;
-    min-width: 2.5rem;
-    max-height: 2.5rem;
-    min-height: 2.5rem;
-    border-radius: $borderRadius;
-    font-weight: 1000%;
-    font-size: x-large;
-    color: rgb(0, 61, 0);
-    outline: none;
-  }
+  border-bottom: 1px solid $highlights;
+  padding-bottom: 1rem;
+}
+
+.panelTitle {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: $highlights;
+}
+
+.newAreaButton {
+  @include main-button;
+  background-color: $highlights;
+  color: $highlights-font-color;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
 }
