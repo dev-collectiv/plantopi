@@ -1,4 +1,4 @@
-import { ICurrentWeather } from 'types/weatherInterfaces';
+import { ICurrentWeather, IWeatherSummary } from 'types/weatherInterfaces';
 import { fetchHistoricalWeather } from 'services/apiWeather/apiWeather';
 
 // FETCHING FOR HARDCODED AREA 1 ONLY - SWAP WITH AREAID LATER
@@ -17,7 +17,7 @@ async function _getWeatherForPastDays (currentWeather: ICurrentWeather) {
 
     const weatherData = await fetchHistoricalWeather('1', (todayInUnix - unixSecondsAgo).toString());
 
-    weatherForPastDays.push({temperature: weatherData.current.temp, icon: weatherData.current.weather[0].icon});
+    weatherForPastDays.push({temperature: Math.round(weatherData.current.temp), icon: weatherData.current.weather[0].icon});
   }
 
   return weatherForPastDays;
@@ -29,7 +29,7 @@ function _getWeatherForNextDays (currentWeather: ICurrentWeather) {
   const weatherForNextDays = [];
 
   for (let i = 1; i < daysInWeek - currentDay; i++) {
-    const temperature = currentWeather.daily[i].temp.day;
+    const temperature = Math.round(currentWeather.daily[i].temp.day);
     const icon = currentWeather.daily[i].weather[0].icon;
     weatherForNextDays.push({temperature, icon});
   }
@@ -37,9 +37,9 @@ function _getWeatherForNextDays (currentWeather: ICurrentWeather) {
   return weatherForNextDays;
 }
 
-export async function getWeatherForTheWeek (currentWeather: ICurrentWeather) {
+export async function getWeatherForTheWeek (currentWeather: ICurrentWeather): Promise<IWeatherSummary[]> {
   const weatherForPastDays = await _getWeatherForPastDays(currentWeather);
-  const weatherForCurrentDay = {temperature: currentWeather.current.temp, icon: currentWeather.current.weather[0].icon};
+  const weatherForCurrentDay = {temperature: Math.round(currentWeather.current.temp), icon: currentWeather.current.weather[0].icon};
   const weatherForNextDays = _getWeatherForNextDays(currentWeather);
 
   return [...weatherForPastDays, weatherForCurrentDay, ...weatherForNextDays];

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import styles from './Days.module.scss';
 import DayItem from './DayItem/DayItem';
-import { ICurrentWeather } from 'types/weatherInterfaces';
+import { ICurrentWeather, IWeatherSummary } from 'types/weatherInterfaces';
 import { getWeatherForTheWeek } from './Days.helper';
 
 export interface Props {
@@ -13,22 +13,22 @@ export interface Props {
 }
 
 const Day: React.FC<Props> = ({daysInWeek, activeDays, handleSelectDayFn, currentWeather}) => {
+  let [weatherData, setWeatherData] = useState<IWeatherSummary[]>();
+
   useEffect(() => {
-    async function logggieeeto (currentWeather: ICurrentWeather) {
+    async function initializeWeatherData (currentWeather: ICurrentWeather) {
       const weatherForTheWeek = await getWeatherForTheWeek(currentWeather);
       console.log(weatherForTheWeek);
-      return weatherForTheWeek;
+      setWeatherData(weatherForTheWeek);
     }
-    if (currentWeather) logggieeeto(currentWeather);
-    console.log('neler ölüyö yea');
-
-  }, []);
+    if (currentWeather) initializeWeatherData(currentWeather);
+  }, [currentWeather]);
 
   return (
     <div className={styles.dayContainer}>
       {daysInWeek.map((day, idx) => {
         const active: boolean = activeDays.includes(idx);
-        return (<DayItem active={active} day={day} idx={idx} handleSelectDayFn={handleSelectDayFn}/>);
+        return (<DayItem active={active} day={day} idx={idx} weatherData={weatherData && weatherData[idx]} handleSelectDayFn={handleSelectDayFn}/>);
       })}
     </div>
   );

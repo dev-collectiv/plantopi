@@ -17,3 +17,8 @@ export interface IHistoricalWeather {
   current: any,
   hourly: any
 }
+
+export interface IWeatherSummary {
+  temperature: number,
+  icon: string
+}
