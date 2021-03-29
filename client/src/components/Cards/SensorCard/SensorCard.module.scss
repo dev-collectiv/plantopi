@@ -1,7 +1,7 @@
 @import 'styles/main.scss';
 
 $svg-size: 150px;
-$svg-color: $bg-illustration;
+$svg-color: $bg;
 $container-size: 200px;
 
 .container {
@@ -24,7 +24,7 @@ $container-size: 200px;
   max-height: $svg-size;
   fill: $svg-color;
   stroke: $svg-color;
-  stroke-width: 6;
+  stroke-width: 4;
   filter: saturate(1);
   stroke-miterlimit: 10;
 
@@ -48,5 +48,6 @@ $container-size: 200px;
 }
 
 .reading {
-  color: $highlights-font-color;
+  color: $highlights;
+  font-size: 1.1rem;
 }
