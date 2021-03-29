@@ -38,6 +38,7 @@ export interface IArea {
   isActive?: boolean;
   sensors: string[] | ISensors[];
   controllers?: IControllers[];
+   
 }
 
 export interface IPatchArea {
@@ -46,6 +47,8 @@ export interface IPatchArea {
   isActive?: boolean;
   sensors?: ISensors[];
   controllers?: IControllers[];
+  latitude?: string;
+  longitude?: string;
 }
 
 export interface IPostRes {
