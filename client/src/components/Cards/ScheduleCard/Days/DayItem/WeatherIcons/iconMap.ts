@@ -8,11 +8,11 @@ import sunalt from 'assets/icons/weather/sunalt.svg';
 import sunny from 'assets/icons/weather/sunny.svg';
 import wave from 'assets/icons/weather/wave.svg';
 
-type stringIndexed = {[key: string]: string}
+type stringIndexed = { [key: string]: string };
 
 // icons names can be found at: https://openweathermap.org/weather-conditions
 const iconMap: stringIndexed = {
-  '01d':  sunalt,
+  '01d': sunalt,
   '02d': sunny,
   '03d': cloudy,
   '04d': clouds,
@@ -24,3 +24,30 @@ const iconMap: stringIndexed = {
 };
 
 export default iconMap;
+
+// import { ReactComponent as Clouds } from 'assets/icons/weather/clouds.svg';
+// import { ReactComponent as Cloudy } from 'assets/icons/weather/cloudy.svg';
+// import { ReactComponent as Rainy } from 'assets/icons/weather/rainy.svg';
+// import { ReactComponent as Rainysunny } from 'assets/icons/weather/rainysunny.svg';
+// import { ReactComponent as Rainythunder } from 'assets/icons/weather/rainythunder.svg';
+// import { ReactComponent as Snowalt } from 'assets/icons/weather/snowalt.svg';
+// import { ReactComponent as Sunalt } from 'assets/icons/weather/sunalt.svg';
+// import { ReactComponent as Sunny } from 'assets/icons/weather/sunny.svg';
+// import { ReactComponent as Wave } from 'assets/icons/weather/wave.svg';
+
+// type stringIndexed = { [key: string]: React.FC<React.SVGProps<SVGSVGElement>> };
+
+// // icons names can be found at: https://openweathermap.org/weather-conditions
+// const iconMap: stringIndexed = {
+//   '01d': Sunalt,
+//   '02d': Sunny,
+//   '03d': Cloudy,
+//   '04d': Clouds,
+//   '09d': Rainy,
+//   '10d': Rainysunny,
+//   '11d': Rainythunder,
+//   '13d': Snowalt,
+//   '50d': Wave
+// };
+
+// export default iconMap;
