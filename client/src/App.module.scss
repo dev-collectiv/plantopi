@@ -7,8 +7,8 @@
 .container {
   display: grid;
   background-color: $bg;
-
-  grid-template-columns: 0fr 10fr 2fr;
+  grid-template-rows: 1fr 11fr;
+  grid-template-columns: 1fr;
   //if navbar
   // grid-template-columns: 0.5fr 10fr 2fr;
 
@@ -17,5 +17,10 @@
   column-gap: 0;
   height: 100vh;
   width: 100vw;
-  grid-template-areas: 'left-panel main right-panel';
+  grid-template-areas:
+    'logo'
+    'main';
+  & > div {
+    border: 1px solid red;
+  }
 }
