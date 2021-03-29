@@ -15,6 +15,7 @@ import * as dotenv from 'dotenv';
 import { MqttModule } from './mqtt/mqtt.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { MorganModule, MorganInterceptor } from 'nest-morgan';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 
 dotenv.config();
 const dbName = process.env.NODE_ENV === 'test' ? 'test' : 'development';
@@ -33,7 +34,8 @@ const dbName = process.env.NODE_ENV === 'test' ? 'test' : 'development';
     MqttModule,
     ScheduleModule.forRoot(),
     TimetableModule,
-    MorganModule
+    MorganModule,
+    EventEmitterModule.forRoot()
   ],
   controllers: [AppController],
   providers: [
