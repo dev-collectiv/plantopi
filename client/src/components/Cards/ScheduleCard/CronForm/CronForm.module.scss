@@ -15,7 +15,7 @@
   display: flex;
   flex-flow: column nowrap;
   position: relative;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   height: 40%;
   min-width: 100%;
@@ -38,14 +38,26 @@
   overflow: scroll;
 }
 
-.actionSelection {
+@mixin cron-selection {
   display: flex;
   flex-flow: row nowrap;
-  align-items: center;
-  justify-content: center;
+  min-width: 100%;
   margin: 0.5rem 0;
+  align-items: center;
   & > * {
     margin: 0 0.5rem;
+  }
+}
+
+.actionSelection {
+  @include cron-selection;
+  justify-content: center;
+}
+
+.timeAndDurationSelection {
+  @include cron-selection;
+  justify-content: space-around;
+  & > * {
   }
 }
 
@@ -65,14 +77,15 @@
 }
 
 .selectionTags {
-  color: $red;
+  font-weight: 500;
+  color: $highlights;
 }
 
 .timeSelect {
-  background-color: $bg;
+  background-color: $bg-light;
   border: none;
   border-radius: 10px;
-  padding: 0 0.5rem;
+  padding: 0 1rem;
   outline: none;
 
   &::-webkit-calendar-picker-indicator {

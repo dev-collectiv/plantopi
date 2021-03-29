@@ -4,14 +4,14 @@ import styles from './DayItem.module.scss';
 import { IWeatherSummary } from 'types/weatherInterfaces';
 
 export interface Props {
-  active: boolean,
-  day: string,
-  idx: number,
-  handleSelectDayFn: (idx: number, active: boolean) => void,
+  active: boolean;
+  day: string;
+  idx: number;
+  handleSelectDayFn: (idx: number, active: boolean) => void;
   weatherData?: IWeatherSummary;
 }
 
-const DayItem: React.FC<Props> = ({active, day, idx, handleSelectDayFn, weatherData}) => {
+const DayItem: React.FC<Props> = ({ active, day, idx, handleSelectDayFn, weatherData }) => {
   return (
     <div className={styles.dayContainer}>
       <button
@@ -21,7 +21,7 @@ const DayItem: React.FC<Props> = ({active, day, idx, handleSelectDayFn, weatherD
       >
         {day.slice(0, 1)}
       </button>
-      {weatherData && <WeatherIcon weatherData={weatherData}/>}
+      {weatherData && <WeatherIcon weatherData={weatherData} />}
     </div>
   );
 };
