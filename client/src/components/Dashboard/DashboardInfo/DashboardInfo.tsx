@@ -5,7 +5,7 @@ import TopCard from 'components/Cards/TopCard/TopCard';
 import BottomCard from 'components/Cards/BottomCard/BottomCard';
 import SensorCard from 'components/Cards/SensorCard/SensorCard';
 import styles from './DashboardInfo.module.scss';
-import CronForm from 'components/Cards/ScheduleCard/CronForm/CronForm';
+import ScheduleCard from 'components/Cards/ScheduleCard/ScheduleCard';
 import { fetchCurrentWeather } from 'services/apiWeather/apiWeather';
 import { useEffect, useState } from 'react';
 import { ICurrentWeather } from 'types/weatherInterfaces';
@@ -34,7 +34,7 @@ const DashboardInfo: React.FC<{ area: IGetArea | undefined }> = ({ area }) => {
       </TopCard>
       <BottomCard>
         {/* TODO controllerId={areas[selectedArea].controllers[0].id} type issue */}
-        <CronForm controllerId="1" controllerTopic="pump1" currentWeather={currentWeather} />
+        <ScheduleCard controllerId="1" controllerTopic="pump1" currentWeather={currentWeather} />
       </BottomCard>
     </div>
   );
