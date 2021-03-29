@@ -31,7 +31,7 @@ const DashboardInfo: React.FC<{ area: IGetArea }> = ({ area }) => {
         {/*TODO <SensorCard id={area.sensors[0].id} name={area.sensors[0].name} type={area.sensors[0].type} reading={area.sensors[0].value} /> */}
         <SensorCard id="1" name="Humidity" type="humidity" reading={25} />
         {/*TODO <SensorCard id={area.sensors[1].id} name={area.sensors[1].name} type={area.sensors[1].type} reading={area.sensors[1].value} /> */}
-        <SensorCard id="2" name="Temperature" type="temperature" reading={30} />
+        <SensorCard id="2" name="Temperature" type="temperature" reading={Math.round(currentWeather?.current.temp)} />
       </TopCard>
       <BottomCard>
         {/* TODO controllerId={areas[selectedArea].controllers[0].id} type issue */}
