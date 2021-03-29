@@ -14,11 +14,11 @@ interface IControllers {
 interface IRespond {
   id: number;
   isActive?: boolean;
-} 
+}
 export interface IAddArea {
   userId: number;
   isActive?: boolean;
-  sensors:string[]
+  sensors: string[];
 }
 
 export interface IGetArea {
@@ -27,6 +27,15 @@ export interface IGetArea {
   isActive: boolean;
   sensors: ISensors[];
   controllers: IControllers[];
+}
+
+export interface IArea {
+  id: number;
+  userId: number;
+  user: string | null;
+  isActive?: boolean;
+  sensors: string[] | ISensors[];
+  controllers?: IControllers[];
 }
 
 export interface IPatchArea {
