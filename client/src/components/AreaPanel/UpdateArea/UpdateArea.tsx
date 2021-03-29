@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { IAddArea, IGetArea } from 'types/areaInterfaces';
 
-const AreaUpdate: React.FC<{ area: IGetArea }> = ({ area }) => {
+const AreaUpdate: React.FC<{ area: IGetArea, patchArea : Function }> = ({ area, patchArea }) => {
   //TODO - IPatchArea
   const [areaToUpdate, setAreaToUpdate] = useState<IGetArea>({ ...area });
 
-  const { id, isActive, longitude, latitude } = area;
+  const { id, isActive, longitude, latitude } = areaToUpdate;
 
   const handleEvent = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAreaToUpdate({
@@ -22,7 +22,7 @@ const AreaUpdate: React.FC<{ area: IGetArea }> = ({ area }) => {
   };
 
   return (
-    <form>
+    <form onClick={() => patchArea(areaToUpdate, areaToUpdate.id)}>  
       <h4>Update Area</h4>
       <h3>Area id: {id}</h3>
       <h3>User: 'codeworks'</h3>
@@ -40,7 +40,8 @@ const AreaUpdate: React.FC<{ area: IGetArea }> = ({ area }) => {
         <input name="isActive" type="checkbox" onChange={handleActivity} />
       </div>
       <div>
-        <button type="submit">submit</button>
+        <button type="submit" onClick={() => patchArea(areaToUpdate, areaToUpdate.id)}>SUbMIT</button>
+        <button  > GO BACK </button>
       </div>
     </form>
   );

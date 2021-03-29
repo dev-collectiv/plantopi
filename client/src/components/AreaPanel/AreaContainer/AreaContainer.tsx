@@ -4,11 +4,11 @@ import { IGetArea } from 'types/areaInterfaces';
 
 import styles from './AreaContainer.module.scss';
 
-const AreasDisplay: React.FC<{ area: IGetArea; deleteArea: Function }> = ({ area, deleteArea }) => {
+const AreasDisplay: React.FC<{ area: IGetArea; deleteArea: Function; patchArea:Function }> = ({ area, deleteArea, patchArea }) => {
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
 
   if (isUpdating) {
-    return <UpdateArea area={area} />;
+    return <UpdateArea area={area} patchArea={patchArea}/>;
   } else
     return (
       <div className={styles.areaContainer} key={area.id}>
