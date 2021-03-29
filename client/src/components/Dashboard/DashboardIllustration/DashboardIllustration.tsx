@@ -3,7 +3,7 @@ import { SocketContext } from 'context/socket';
 import Select from 'components/Select/Select';
 import { gsap } from 'gsap';
 
-import styles from './IrrigationCard.module.scss';
+import styles from './DashboardIllustration.module.scss';
 
 import { Stop, Start, Plant } from 'assets';
 
@@ -96,8 +96,10 @@ const DashboardIllustration: React.FC<{ controllerId: string }> = (props) => {
   }, [irrigating]);
 
   return (
-    <div className={styles.card}>
-      <Plant className={`${styles.picture} ${styles.svg}`} />
+    <div className={styles.container}>
+      <div className={styles.illustrationContainer}>
+        <Plant className={styles.plant} />
+      </div>
 
       <form className={styles.form} action="" onSubmit={clickHandler}>
         <div className={styles.formElement}>
