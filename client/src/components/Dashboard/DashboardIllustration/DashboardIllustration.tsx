@@ -5,7 +5,7 @@ import { gsap } from 'gsap';
 
 import styles from './DashboardIllustration.module.scss';
 
-import { Stop, Drop, Plant } from 'assets';
+import { Drop, Plant } from 'assets';
 
 const durationOptions = Array(60)
   .fill(null)
@@ -68,32 +68,32 @@ const DashboardIllustration: React.FC<{ controllerId: string }> = (props) => {
   //   };
   // }, []);
 
-  useEffect(() => {
-    if (irrigating) {
-      gsap.fromTo(
-        '.drop',
-        {
-          stagger: 0.5,
-          y: -400,
-          opacity: 0.8
-        },
-        {
-          stagger: 0.5,
-          duration: 2,
-          repeat: -1,
-          y: 400,
-          opacity: 0,
-          ease: 'Power1.easeIn'
-        }
-      );
-    } else {
-      gsap.set('.drop', { opacity: 0 });
-    }
+  // useEffect(() => {
+  //   if (irrigating) {
+  //     gsap.fromTo(
+  //       '.drop',
+  //       {
+  //         stagger: 0.5,
+  //         y: -400,
+  //         opacity: 0.8
+  //       },
+  //       {
+  //         stagger: 0.5,
+  //         duration: 2,
+  //         repeat: -1,
+  //         y: 400,
+  //         opacity: 0,
+  //         ease: 'Power1.easeIn'
+  //       }
+  //     );
+  //   } else {
+  //     gsap.set('.drop', { opacity: 0 });
+  //   }
 
-    return () => {
-      gsap.killTweensOf('.drop');
-    };
-  }, [irrigating]);
+  //   return () => {
+  //     gsap.killTweensOf('.drop');
+  //   };
+  // }, [irrigating]);
 
   return (
     <div className={styles.container}>
