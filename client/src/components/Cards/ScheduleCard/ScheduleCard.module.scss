@@ -1,0 +1,19 @@
+@import 'styles/main';
+
+.svg {
+  @include svg-icon;
+  @include cron-button;
+  width: 10px;
+  height: 10px;
+  margin: 0 0.25rem;
+  fill: $secondary;
+}
+
+.active {
+  fill: $highlights;
+}
+
+.panelDotContainer {
+  position: absolute;
+  bottom: 5px;
+}

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import CronForm from './CronForm/CronForm';
 import ScheduledCron from './ScheduledCron/ScheduledCron';
 
+import { Dot } from 'assets';
 import { postCrons, getCrons, patchCrons, deleteCrons } from 'services/apiCrons/apiCrons';
 import { ICurrentWeather } from 'types/weatherInterfaces';
 import { IAddCrons, ICron, IPatchCrons } from 'types/cronsInterfaces';
@@ -16,7 +17,7 @@ interface Props {
 
 const ScheduleCard: React.FC<Props> = ({ currentWeather, controllerId, controllerTopic }) => {
   const [scheduledCrons, setScheduledCrons] = useState<ICron[]>([]);
-
+  const [activePanel, setActivePanel] = useState<number>(0);
   const [error, setError] = useState<boolean>(false);
 
   useEffect(() => {
@@ -71,18 +72,24 @@ const ScheduleCard: React.FC<Props> = ({ currentWeather, controllerId, controlle
 
   return (
     <>
-      <CronForm
-        handleScheduleCron={handleScheduleCron}
-        currentWeather={currentWeather}
-        controllerId={controllerId}
-        controllerTopic={controllerTopic}
-        error={error}
-        scheduledCrons={scheduledCrons}
-      />
-
-      <div className={`${styles.cronPanelModule} ${styles.scrollPanelModule}`}>
-        <h2>Scheduled Actions</h2>
-        {renderScheduledCrons()}
+      {activePanel === 0 ? (
+        <CronForm
+          handleScheduleCron={handleScheduleCron}
+          currentWeather={currentWeather}
+          controllerId={controllerId}
+          controllerTopic={controllerTopic}
+          error={error}
+          scheduledCrons={scheduledCrons}
+        />
+      ) : (
+        <div className={`${styles.cronPanelModule} ${styles.scrollPanelModule}`}>
+          <h2>Scheduled Actions</h2>
+          {renderScheduledCrons()}
+        </div>
+      )}
+      <div className={styles.panelDotContainer}>
+        <Dot className={`${styles.svg} ${activePanel === 0 ? styles.active : null}`} onClick={() => setActivePanel(0)} />
+        <Dot className={`${styles.svg} ${activePanel === 1 ? styles.active : null}`} onClick={() => setActivePanel(1)} />
       </div>
     </>
   );
