@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './AreaPanel.module.scss';
-import AreasDisplay from './AreasDisplay/AreasDisplay';
+import AreasDisplay from './AreaContainer/AreaContainer';
 import AddArea from './AreaForm/AreaForm';
 import { apiArea } from '../../services/apiArea/apiArea';
 import { IGetArea, IAddArea } from '../../types/areaInterfaces';
@@ -41,9 +41,10 @@ const AreaPanel: any = () => {
       <div className={styles.panelTop}>
         <h2 className={styles.panelTitle}>AREAS</h2>
       </div>
-      <div className={styles.areaContainer}></div>
-      {renderAreas()}
-      {showAreaForm && <AddArea addingArea={addArea} />}
+      <div className={styles.areasContainer}>
+        {renderAreas()}
+        {showAreaForm && <AddArea addingArea={addArea} />}
+      </div>
 
       <button onClick={() => setShowAreaForm(!showAreaForm)} className={styles.newAreaButton}>
         NEW AREA
