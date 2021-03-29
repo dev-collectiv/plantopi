@@ -26,21 +26,50 @@
   min-width: 100%;
 }
 
-.form {
+.irrigateOptionsContainer {
+  @include card;
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0;
+  margin-top: 0.5rem;
+  background-color: $highlights;
+  border-radius: $border-radius;
   & > * {
-    margin-top: 0.5rem;
+    margin: 0 0.5rem;
   }
 }
 
-.formElement {
+.durationContainer {
+  background-color: $bg-light;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  color: $highlights;
+  font-weight: 700;
+  padding: 0.75rem 2rem;
+  border-radius: $border-radius;
+  & > * {
+    margin: 0 0.25rem;
+  }
 }
 
-.button {
+.irrigateButton {
   @include button-hover;
-  max-width: 40px;
+  background-color: $highlights;
+
+  height: 40px;
   max-height: 40px;
-  margin: 0 0.5rem;
+  width: 40px;
+  padding: 0.5rem;
+  border-radius: $border-radius;
+  &:hover {
+    background-color: rgba($bg-illustration, 0.1);
+  }
+}
+
+.svg {
+  @include svg-icon;
+  fill: $highlights-font-color;
 }

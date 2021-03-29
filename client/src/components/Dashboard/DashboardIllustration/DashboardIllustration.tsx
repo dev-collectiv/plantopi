@@ -5,7 +5,7 @@ import { gsap } from 'gsap';
 
 import styles from './DashboardIllustration.module.scss';
 
-import { Stop, Start, Plant } from 'assets';
+import { Stop, Drop, Plant } from 'assets';
 
 const durationOptions = Array(60)
   .fill(null)
@@ -22,7 +22,7 @@ const DashboardIllustration: React.FC<{ controllerId: string }> = (props) => {
     setDuration(value);
   }
 
-  function clickHandler(e: React.FormEvent) {
+  function handleIrrigate(e: React.FormEvent) {
     e.preventDefault();
     socket.emit('action', { id: controllerId, action: 'on', duration: duration });
     setIrrigating(true); // TODO receive web socket with response before changing 'irrigating' variable
@@ -101,16 +101,20 @@ const DashboardIllustration: React.FC<{ controllerId: string }> = (props) => {
         <Plant className={styles.plant} />
       </div>
 
-      <form className={styles.form} action="" onSubmit={clickHandler}>
-        <div className={styles.formElement}>
-          <label htmlFor="duration">Duration in seconds:</label>
+      <div className={styles.irrigateOptionsContainer}>
+        <div className={styles.durationContainer}>
+          <label htmlFor="duration" className={styles.label}>
+            DURATION
+          </label>
+          <p>|</p>
           <Select options={durationOptions} onChangeFn={handleDuration} label="duration" initialOption={duration} />
         </div>
-        <div className={`${styles.formElement}`}>
-          <Start onClick={clickHandler} className={`${styles.button} ${styles.svg}`} />
-          <Stop onClick={abortIrrigation} className={`${styles.button} ${styles.svg}`} />
+
+        <div onClick={handleIrrigate} className={styles.irrigateButton}>
+          <Drop className={styles.svg} />
         </div>
-      </form>
+        {/* <Stop onClick={abortIrrigation} className={`${styles.button} ${styles.svg}`} /> */}
+      </div>
     </div>
   );
 };

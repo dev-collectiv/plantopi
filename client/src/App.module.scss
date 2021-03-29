@@ -5,7 +5,7 @@
 }
 
 .container {
-  padding: 1rem 2.5rem;
+  padding: 2.5rem;
   height: 100vh;
   max-height: 100vh;
   width: 100vw;
@@ -16,6 +16,7 @@
   display: grid;
   grid-template-columns: auto;
   grid-template-rows: 1fr 9fr;
+  row-gap: 2.5rem;
   grid-template-areas:
     'logo'
     'dashboard';
