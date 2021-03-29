@@ -1,27 +1,21 @@
 @import 'styles/main';
 
 .select {
+  -webkit-appearance: none;
   font-family: $titleFont;
   font-weight: 600;
   text-transform: uppercase;
-  background: $bg;
-  height: 40px;
-  width: 40px;
-  border-radius: 50px;
+  background: $bg-light;
+  border-radius: $border-radius;
   border: none;
   outline: none;
-  -webkit-appearance: none;
+  color: $font-color;
   text-overflow: ellipsis;
-  color: $fontColor;
-  margin: 0.25rem 0.25rem;
+  text-align: center;
 
   //TODO - fix
-  padding-left: 1rem;
   &:hover {
     cursor: pointer;
-  }
-  & > * {
-    text-align: center;
   }
 }
 
