@@ -25,7 +25,6 @@ export interface IAddArea {
   longitude?: string;
 }
 
-
 export interface IGetArea {
   id: number;
   name: string;
@@ -39,12 +38,12 @@ export interface IGetArea {
 
 export interface IArea {
   id: number;
+  name?: string;
   userId: number;
   user: string | null;
   isActive?: boolean;
   sensors: string[] | ISensors[];
   controllers?: IControllers[];
-   
 }
 
 export interface IPatchArea {

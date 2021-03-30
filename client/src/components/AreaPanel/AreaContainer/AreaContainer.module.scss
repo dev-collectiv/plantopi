@@ -2,4 +2,35 @@
 
 .areaContainer {
   @include area-container;
+  color: $highlights;
+}
+
+.svg {
+  @include svg-icon-small;
+  stroke: $highlights;
+  stroke-width: 0.5;
+}
+
+.settings {
+  @include button-hover;
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+}
+
+.content {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  width: 70%;
+  border: 1px solid red;
+  h1 {
+    @include panel-title;
+    font-size: 1.25rem;
+    font-weight: 500;
+  }
+  p {
+    font-size: 1rem;
+  }
 }
