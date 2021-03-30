@@ -55,7 +55,7 @@ export function createSensorReadingHandler (dbHandler: (sensorReadingDto: Create
 
 
     const sensorData: CreateSensorReadingDto = {
-      sensorId: '1',
+      sensorId: data.id,
       timestamp: new Date(Date.now()),
       value: reading
     };
@@ -68,6 +68,7 @@ export function createSensorReadingHandler (dbHandler: (sensorReadingDto: Create
     }
 
     if (counter === 0) {
+      sensorData.sensorId = '1';
       dbHandler(sensorData);
       console.log('sensor data saved to Db: ' + sensorData.value);
     }
