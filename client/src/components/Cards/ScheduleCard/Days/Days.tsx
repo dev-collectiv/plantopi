@@ -21,7 +21,13 @@ const Day: React.FC<Props> = ({ daysInWeek, activeDays, handleSelectDayFn, curre
       console.log(weatherForTheWeek);
       setWeatherData(weatherForTheWeek);
     }
-    if (currentWeather) initializeWeatherData(currentWeather);
+    if (currentWeather) {
+      try {
+        initializeWeatherData(currentWeather);
+      } catch (err) {
+        console.log('Weekly weather data could not be fetched.');
+      }
+    }
   }, [currentWeather]);
 
   return (
