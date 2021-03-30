@@ -8,22 +8,23 @@
 
   grid-area: top-card;
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: column nowrap;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 
   padding: 1rem;
   font-weight: 600;
 }
 
 .title {
-  text-align: center;
-  width: 80%;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: $highlights;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid $highlights;
-  position: absolute;
-  top: 10px;
+  @include panel-title;
+  text-transform: uppercase;
+}
+
+.container {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
 }

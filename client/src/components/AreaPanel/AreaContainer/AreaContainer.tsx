@@ -16,31 +16,23 @@ const AreasDisplay: React.FC<{
 }> = ({ area, deleteArea, patchArea, cancelCreateArea, cancelUpdateArea, setAreaOnUse }) => {
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
   const [hover, setHover] = useState<boolean>(false);
-  
 
   function goToAreasPanel() {
     setIsUpdating(false);
   }
+
   if (cancelUpdateArea) setIsUpdating(cancelUpdateArea());
+
   if (isUpdating) {
     return <UpdateArea area={area} patchArea={patchArea} goToAreasPanel={goToAreasPanel} />;
   } else
     return (
-      <div
-        onMouseEnter={() => {
-          setHover(true);
-        }}
-        className={styles.areaContainer}
-        key={area.id}
-      >
+      <div onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} className={styles.areaContainer} key={area.id}>
         <div className={styles.content} onClick={() => setAreaOnUse(area)}>
           <h1>{area.name}</h1>
+          <p>Poblenou | Barcelona</p>
           <p>
-            Poblenou - Barcelona
-            {/* {area.latitude}/{area.longitude} */}
-          </p>
-          <p>
-            (Sensor{area.id} - Pump{area.id})
+            (Sensor {area.id} - Pump {area.id})
           </p>
         </div>
         {hover && (
@@ -56,4 +48,4 @@ const AreasDisplay: React.FC<{
       </div>
     );
 };
-export default AreasDisplay; 
+export default AreasDisplay;
