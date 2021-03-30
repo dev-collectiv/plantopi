@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
+import { gsap } from 'gsap';
 import Day from '../Days/Days';
 import Select from 'components/Select/Select';
 
+import { Check } from 'assets';
 import { ICurrentWeather } from 'types/weatherInterfaces';
 import { ICron } from 'types/cronsInterfaces';
 
@@ -22,12 +24,25 @@ interface Props {
   handleScheduleCron: Function;
   scheduledCrons: ICron[];
   error: boolean;
+  added: boolean;
+  setAdded: Function;
 }
 
-const CronForm: React.FC<Props> = ({ currentWeather, controllerId, controllerTopic, handleScheduleCron, scheduledCrons, error }) => {
+const CronForm: React.FC<Props> = ({
+  currentWeather,
+  controllerId,
+  controllerTopic,
+  handleScheduleCron,
+  scheduledCrons,
+  error,
+  added,
+  setAdded
+}) => {
   const [cron, setCron] = useState<string[]>(Array(5).fill('*'));
   const [activeDays, setActiveDays] = useState<number[]>([]);
   const [duration, setDuration] = useState<number | string>(5);
+
+  const checkRef = useRef(null);
 
   function handleSelectDayFn(dayIdx: number, active: boolean) {
     let _activeDays;
@@ -40,6 +55,41 @@ const CronForm: React.FC<Props> = ({ currentWeather, controllerId, controllerTop
     setCron(_cron);
     setActiveDays(_activeDays);
   }
+
+  const handleCompleteAnimation = () => setAdded(false);
+
+  useEffect(() => {
+    if (added) {
+      const tl = gsap.timeline();
+      tl.to(checkRef.current, {
+        opacity: 1,
+        scale: 1,
+        duration: 1
+      });
+
+      tl.to(checkRef.current, {
+        opacity: 1,
+        scale: 1,
+        duration: 2
+      });
+
+      tl.to(checkRef.current, {
+        scale: 0,
+        duration: 1,
+        opacity: 0,
+        onComplete: handleCompleteAnimation
+      });
+    } else {
+      gsap.set(checkRef.current, {
+        opacity: 0,
+        scale: 0
+      });
+    }
+
+    return () => {
+      gsap.killTweensOf(checkRef.current);
+    };
+  }, [added]);
 
   function handleSelectTimeFn(event: any) {
     const [hours, minutes] = event.target.value.split(':');
@@ -56,8 +106,6 @@ const CronForm: React.FC<Props> = ({ currentWeather, controllerId, controllerTop
 
   return (
     <div className={styles.container}>
-      <h2 className={styles.panelTitle}>SCHEDULE AN ACTION</h2>
-
       <div className={styles.actionSelection}>
         <Day activeDays={activeDays} daysInWeek={daysInWeek} handleSelectDayFn={handleSelectDayFn} currentWeather={currentWeather} />
       </div>
@@ -74,9 +122,12 @@ const CronForm: React.FC<Props> = ({ currentWeather, controllerId, controllerTop
         </div>
       </div>
 
-      <button className={styles.cronScheduleButton} onClick={() => handleScheduleCron(cron, duration)}>
-        <span>Schedule</span>
-      </button>
+      <span className={styles.cronScheduleButtonContainer}>
+        <button className={styles.cronScheduleButton} onClick={() => handleScheduleCron(cron, duration)}>
+          Schedule
+        </button>
+        <Check className={styles.check} ref={checkRef} />
+      </span>
 
       {error && (
         <div className={styles.error}>

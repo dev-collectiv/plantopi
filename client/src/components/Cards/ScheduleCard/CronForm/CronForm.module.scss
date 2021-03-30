@@ -41,14 +41,6 @@
   justify-content: space-around;
 }
 
-.svg {
-  @include svg-icon;
-  position: absolute;
-  right: 20px;
-  top: 20px;
-  stroke: black;
-}
-
 .selectionBlock {
   display: flex;
   flex-flow: column nowrap;
@@ -61,12 +53,31 @@
   color: $highlights;
 }
 
+.cronScheduleButtonContainer {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+  width: 35%;
+  position: relative;
+}
+
 .cronScheduleButton {
   @include main-button;
   background-color: $highlights;
   color: $highlights-font-color;
   border-radius: 5px;
-  margin-bottom: 0.75rem;
+  z-index: 1;
+}
+
+.check {
+  @include svg-icon;
+  stroke: $highlights;
+  stroke-width: 2;
+  position: absolute;
+  right: 10px;
+  opacity: 0;
 }
 
 $bg-time: $bg;
@@ -104,5 +115,17 @@ $bg-time: $bg;
   border-bottom-right-radius: $borderRadius;
   & > * {
     color: $bg;
+  }
+}
+
+@keyframes grow {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
   }
 }
