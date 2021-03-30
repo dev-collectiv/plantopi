@@ -11,28 +11,30 @@ const AreaPanel: React.FC<{
   deleteArea: (id: number) => void;
   patchArea: (body: IPatchArea, id: number) => void;
 }> = ({ user, areas, deleteArea, addingArea, patchArea }) => {
-  const [showAreaForm, setShowAreaForm] = useState<boolean>(false);
-
+  const [showAreaNewForm, setShowAreaNewForm] = useState<boolean>(false);
+   
+  function cancelUpdateArea() {
+    return false;
+  }
   function renderAreas() {
+    if (showAreaNewForm) return;
     return areas.map((area: IPatchArea) => {
-      return <AreaContainer area={area} deleteArea={deleteArea} patchArea={patchArea}/>;
+      return <AreaContainer area={area} deleteArea={deleteArea} patchArea={patchArea} cancelCreateArea={cancelCreateArea} />;
     });
   }
   function cancelCreateArea () {
-    setShowAreaForm(false);
+    setShowAreaNewForm(false);
   }
 
   return (
     <div className={styles.container}>
       <h2 className={styles.panelTitle}>AREAS</h2>
-
       <div className={styles.areasContainer}>
         {renderAreas()}
-        {showAreaForm && <AddArea addArea={addingArea} cancelCreateArea={cancelCreateArea}/>}
+        {showAreaNewForm && <AddArea addArea={addingArea} cancelCreateArea={cancelCreateArea}/>}
       </div>
-
       <div className={styles.addAreaContainer}>
-        <button onClick={() => setShowAreaForm(!showAreaForm)} className={styles.addAreaButton}>
+        <button onClick={() => {setShowAreaNewForm(true); cancelUpdateArea();}} className={styles.addAreaButton} >
           NEW AREA
         </button>
       </div>
