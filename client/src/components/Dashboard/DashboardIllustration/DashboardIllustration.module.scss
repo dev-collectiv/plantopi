@@ -56,17 +56,11 @@
 }
 
 .irrigateButton {
-  @include button-hover;
-  background-color: $highlights;
-
+  @include highlight-button-hover;
   height: 40px;
   max-height: 40px;
   width: 40px;
   padding: 0.5rem;
-  border-radius: $border-radius;
-  &:hover {
-    background-color: rgba($bg-illustration, 0.1);
-  }
 }
 
 .svg {

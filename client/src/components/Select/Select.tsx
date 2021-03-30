@@ -1,5 +1,5 @@
 import React, { MutableRefObject, useRef } from 'react';
-import style from './Select.module.scss';
+import styles from './Select.module.scss';
 
 type onChangeFn = (label: string, event: string) => any;
 
@@ -10,9 +10,10 @@ interface ISelect {
   defaultOption?: string;
   initialOption?: string | number;
   maxWidth?: string;
+  optionalStyle?: boolean;
 }
 
-const Select: React.FC<ISelect> = ({ label, options, onChangeFn, defaultOption, initialOption, maxWidth = '80px' }) => {
+const Select: React.FC<ISelect> = ({ label, options, onChangeFn, defaultOption, initialOption, optionalStyle, maxWidth = '80px' }) => {
   const selectRef = useRef() as MutableRefObject<HTMLSelectElement>;
 
   function renderOptions() {
@@ -32,7 +33,14 @@ const Select: React.FC<ISelect> = ({ label, options, onChangeFn, defaultOption, 
 
   return (
     <>
-      <select className={style.select} onChange={handleChange} value={initialOption} ref={selectRef} style={{ maxWidth }} id={label}>
+      <select
+        className={`${styles.select} ${optionalStyle && styles.optionalStyle}`}
+        onChange={handleChange}
+        value={initialOption}
+        ref={selectRef}
+        style={{ maxWidth }}
+        id={label}
+      >
         {renderOptions()}
       </select>
     </>

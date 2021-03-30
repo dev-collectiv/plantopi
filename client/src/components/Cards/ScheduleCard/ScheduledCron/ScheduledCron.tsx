@@ -1,5 +1,8 @@
 import { useState } from 'react';
+
 import { ICron, IPatchCrons } from 'types/cronsInterfaces';
+import { Delete } from 'assets';
+
 import styles from './ScheduledCron.module.scss';
 
 const refArr = ['minutes', 'hours', 'weeks', 'months', 'days'];
@@ -37,26 +40,29 @@ const ScheduledCron: React.FC<IScheduledCron> = ({ cron, handleDeleteCron, handl
     };
 
     handlePatchCron(id, updateObj);
+    setIsUpdating(false);
   }
 
   //TODO - close update panel
   return (
-    <div onClick={() => setIsUpdating(true)} className={styles.scheduledCron}>
-      <h3>{parsedString}</h3>
-      <button className={styles.deleteCron} onClick={() => setIsUpdating(false)}>
-        X
-      </button>
-      {isUpdating && (
-        <div>
-          <input
-            type="time"
-            onChange={handleSelectTimeFn}
-            className={styles.timeSelect}
-            defaultValue={`${cronTimeArr[1]}:${cronTimeArr[0]}`}
-          />
-          <button onClick={handleUpdate}>Update</button>
-        </div>
-      )}
+    <div className={`${styles.container} ${isUpdating && styles.containerUpdating}`}>
+      <div onClick={() => !isUpdating && setIsUpdating(true)} className={styles.scheduledCron}>
+        <h3>{parsedString}</h3>
+
+        {isUpdating && (
+          <div className={styles.updateContainer}>
+            <input
+              type="time"
+              onChange={handleSelectTimeFn}
+              className={styles.timeSelect}
+              defaultValue={`${cronTimeArr[1]}:${cronTimeArr[0]}`}
+            />
+            <button onClick={handleUpdate}>UPDATE</button>
+            <button onClick={() => setIsUpdating(false)}>CANCEL</button>
+          </div>
+        )}
+      </div>
+      <Delete className={styles.svg} onClick={() => handleDeleteCron(id)} />
     </div>
   );
 };

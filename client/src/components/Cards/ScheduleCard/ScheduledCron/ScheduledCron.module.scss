@@ -1,56 +1,92 @@
 @import 'styles/main';
 
-.scheduledCron {
-  @include cron-button;
+.container {
   position: relative;
   margin: 0.25rem 0;
   border-radius: 20px;
-  padding: 0.5rem 1rem;
-  background-color: $bg;
-  font-family: $titleFont;
+  padding: 0.5rem 1.5rem;
+  font-family: $main-font;
+  background-color: $highlights;
+  font-weight: 300;
+  color: $highlights-font-color;
 
-  min-width: 80%;
-  max-width: 80%;
-
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
+  min-width: 100%;
+  max-width: 100%;
 
   & > * {
+    cursor: pointer;
     text-overflow: ellipsis;
   }
 }
 
-.deleteCron {
-  @include cron-button;
+.containerUpdating {
+  border-radius: 50px;
+  & .svg {
+    top: 12px;
+    right: 20px;
+  }
+}
+
+.scheduledCron {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  & > * {
+    margin: 0.25rem 0;
+  }
+}
+
+.svg {
+  @include button-hover;
+  @include svg-icon;
+  height: 11px;
+  width: 11px;
   position: absolute;
-  right: 5px;
-  top: 2px;
+  right: 15px;
+  top: 7px;
+  fill: $highlights-font-color;
   background-color: transparent;
   border: none;
 }
 
-.timeSelect {
-  background-color: $bg;
-  border: none;
-  border-radius: 10px;
-  padding: 0 0.5rem;
-  outline: none;
+.updateContainer {
+  & > * {
+    margin: 0 0.25rem;
+    color: $highlights;
+    font-weight: 700;
+    font-family: $main-font;
+  }
+  & > button {
+    @include highlight-button-hover;
+    background-color: $bg-light;
+    padding: 0.1 1rem;
+    border: 1px solid $bg;
+  }
+}
 
+$bg-time-select: $bg-light;
+
+.timeSelect {
+  @include highlight-button-hover;
+  background-color: $bg-time-select;
+  padding-left: 2rem;
   &::-webkit-calendar-picker-indicator {
+    @include button-hover;
+    filter: invert(1);
     cursor: pointer;
   }
 
   &::focus {
-    background-color: $bg;
+    background-color: $bg-time-select;
   }
   &::-webkit-datetime-edit-fields-wrapper {
-    background-color: $bg !important;
-    background: $bg !important;
+    background-color: $bg-time-select;
+    background: $bg-time-select;
   }
 
   &::-webkit-datetime-edit-ampm-field {
-    background-color: $bg;
-    background: $bg;
+    background-color: $bg-time-select;
+    background: $bg-time-select;
   }
 }
