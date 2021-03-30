@@ -25,6 +25,7 @@ export interface IAddArea {
   longitude?: string;
 }
 
+
 export interface IGetArea {
   id: number;
   name: string;
