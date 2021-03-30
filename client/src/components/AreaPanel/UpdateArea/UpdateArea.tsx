@@ -23,28 +23,22 @@ const AreaUpdate: React.FC<{ area: IPatchArea; patchArea: Function; goToAreasPan
 
   return (
     <div className={styles.areaContainer}>
-      <form>
-        <h4>Update Area</h4>
-        <h3>Area name: {id}</h3>
-        <label>
-          <h3> Longitude:</h3>
-          <input value={longitude} name="longitude" type="text" onChange={handleEvent} />
-        </label>
-        <label>
-          <h3> Latitude: </h3>
-          <input value={latitude} name="latitude" type="text" onChange={handleEvent} />
-        </label>
-        <div>
-          <h3>Active: </h3>
-          <input name="isActive" type="checkbox" onChange={handleActivity} />
-        </div>
-        <div>
-          <button type="submit" onClick={() => patchArea(areaToUpdate, areaToUpdate.id)}>
-            UPDATE
-          </button>
-          <button onClick={() => goToAreasPanel()}> CANCEL </button>
-        </div>
-      </form>
+      <h4>Update Area</h4>
+      <h3>Area name: {name}</h3>
+      <label>
+        <h3> Longitude:</h3>
+        <input value={longitude} name="longitude" type="text" onChange={handleEvent} />
+      </label>
+      <label>
+        <h3> Latitude: </h3>
+        <input value={latitude} name="latitude" type="text" onChange={handleEvent} />
+      </label>
+      <div>
+        <button type="submit" onClick={() => patchArea(areaToUpdate, areaToUpdate.id)}>
+          UPDATE
+        </button>
+        <button onClick={() => goToAreasPanel()}> CANCEL </button>
+      </div>
     </div>
   );
 };

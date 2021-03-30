@@ -70,12 +70,14 @@
   flex-flow: column nowrap;
   height: 150px;
   max-height: 150px;
+  width: 75%;
+  max-width: 75%;
+
   background-color: $bg;
   margin-top: 0.5rem;
   border-radius: 5px;
   justify-content: center;
   align-items: center;
-  width: 75%;
 
   & > * {
     font-family: $main-font;
