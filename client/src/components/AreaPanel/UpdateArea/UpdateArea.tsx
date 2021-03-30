@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { IPatchArea } from 'types/areaInterfaces';
 
-const AreaUpdate: React.FC<{ area: IPatchArea, patchArea : Function; goToAreasPanel: Function }> = ({ area, patchArea, goToAreasPanel }) => {
+const AreaUpdate: React.FC<{ area: IPatchArea, patchArea : Function; goToAreasPanel: Function}> = ({ area, patchArea, goToAreasPanel}) => {
   const [areaToUpdate, setAreaToUpdate] = useState<IPatchArea>({ ...area });
 
   const { id, isActive, longitude, latitude, user, sensors } = areaToUpdate;
