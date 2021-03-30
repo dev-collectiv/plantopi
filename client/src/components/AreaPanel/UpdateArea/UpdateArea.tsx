@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { IAddArea, IGetArea } from 'types/areaInterfaces';
+import { IPatchArea } from 'types/areaInterfaces';
 
-const AreaUpdate: React.FC<{ area: IGetArea, patchArea : Function; goToAreasPanel: Function }> = ({ area, patchArea, goToAreasPanel }) => {
-  //TODO - IPatchArea
-  const [areaToUpdate, setAreaToUpdate] = useState<IGetArea>({ ...area });
+const AreaUpdate: React.FC<{ area: IPatchArea, patchArea : Function; goToAreasPanel: Function }> = ({ area, patchArea, goToAreasPanel }) => {
+  const [areaToUpdate, setAreaToUpdate] = useState<IPatchArea>({ ...area });
 
   const { id, isActive, longitude, latitude, user, sensors } = areaToUpdate;
 
@@ -24,9 +23,7 @@ const AreaUpdate: React.FC<{ area: IGetArea, patchArea : Function; goToAreasPane
   return (
     <form >  
       <h4>Update Area</h4>
-      <h3>Area id: {id}</h3>
-      <h3>User: {user}</h3>
-      <h3>Sensors: [{sensors}]</h3>
+      <h3>Area name: {id}</h3>
       <label>
         <h3> Longitude:</h3>
         <input value={longitude} name="longitude" type="text" onChange={handleEvent} />
@@ -41,7 +38,7 @@ const AreaUpdate: React.FC<{ area: IGetArea, patchArea : Function; goToAreasPane
       </div>
       <div>
         <button type="submit" onClick={() => patchArea(areaToUpdate, areaToUpdate.id)}>SUBMIT</button>
-        <button  onClick={() => goToAreasPanel()}> GO BACK </button>
+        <button  onClick={() => goToAreasPanel()}> CANCEL </button>
       </div>
     </form>
   );
