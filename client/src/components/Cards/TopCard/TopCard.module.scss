@@ -11,8 +11,19 @@
   flex-flow: row nowrap;
   align-items: center;
   justify-content: center;
-  position: relative;
 
   padding: 1rem;
   font-weight: 600;
+}
+
+.title {
+  text-align: center;
+  width: 80%;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: $highlights;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid $highlights;
+  position: absolute;
+  top: 10px;
 }

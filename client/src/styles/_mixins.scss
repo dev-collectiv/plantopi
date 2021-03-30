@@ -34,16 +34,16 @@
   font-weight: 700;
 }
 
-@mixin panel-title {
-  text-transform: uppercase;
-  font-family: $titleFont;
-  color: rgb(44, 44, 44);
-  position: absolute;
-  font-size: 1.25rem;
-  font-weight: 600;
-  left: 10px;
-  top: 10px;
-}
+// @mixin panel-title {
+//   text-transform: uppercase;
+//   font-family: $titleFont;
+//   color: rgb(44, 44, 44);
+//   position: absolute;
+//   font-size: 1.25rem;
+//   font-weight: 600;
+//   left: 10px;
+//   top: 10px;
+// }
 
 @mixin svg-icon {
   max-width: 25px;
