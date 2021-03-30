@@ -22,7 +22,7 @@ export class ActionService {
     const sensorReadingHandler = createSensorReadingHandler(this.sensorService.createReading, trackedSensor, readingCountToRecord, sensorEventEmitter);
 
     this.onMqttTopic('status', (data: MqttStatusDto) => durationTracker(data));
-    this.onMqttTopic('status', (data: MqttStatusDto) => statusEventEmitter.emit('status', data.status));
+    this.onMqttTopic('status', (data: MqttStatusDto) => statusEventEmitter.emit('status', data));
     this.onMqttTopic('sensors', data => sensorReadingHandler(data));
 
     console.log('Subscribed to status');
