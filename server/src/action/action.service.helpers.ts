@@ -48,6 +48,14 @@ export function createSensorReadingHandler (dbHandler: (sensorReadingDto: Create
 
   return (data: MqttSensorDto) => {
     let { reading } = data;
+
+    const sensorData: CreateSensorReadingDto = {
+      sensorId: sensorId,
+      timestamp: new Date(Date.now()),
+      value: reading
+    };
+    sensorEventEmitter.emit('readingReceived', sensorData);
+
     if (reading === -1) return;
     if (reading > 100) reading = 100;
     if (reading < 0) reading = 0;
@@ -58,16 +66,8 @@ export function createSensorReadingHandler (dbHandler: (sensorReadingDto: Create
     }
 
     if (counter === 0) {
-
-      const sensorData = {
-        sensorId: sensorId,
-        timestamp: new Date(Date.now()),
-        value: reading
-      };
-
       dbHandler(sensorData);
-      sensorEventEmitter.emit('readingSaved', sensorData);
-      console.log('sensor data saved to Db');
+      console.log('sensor data saved to Db: ' + sensorData.value);
     }
     counter++;
   };

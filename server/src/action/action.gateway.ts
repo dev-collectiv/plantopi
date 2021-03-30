@@ -21,14 +21,18 @@ export class ActionGateway implements OnGatewayConnection, OnGatewayDisconnect {
     this.logger.log(`Client connected: ${client.id}`);
     client.emit('testTopic', 'hi client, this is server');
 
-    this.actionService.sensorEventEmitter.on('readingSaved', (sensorData: any) => {
+    this.actionService.sensorEventEmitter.on('readingReceived', (sensorData: any) => {
       client.emit('sensors', sensorData);
-      console.log('emitted sensor data to client');
+    });
+
+    this.actionService.statusEventEmitter.on('status', (irrigationStatus: boolean) => {
+      client.emit('status', irrigationStatus);
     });
   }
 
   handleDisconnect(client: Socket) {
     this.logger.log(`Client disconnected: ${client.id}`);
+    // TODO: REMOVE EVENT LISTENERS
   }
 
   @SubscribeMessage('action')
@@ -37,19 +41,5 @@ export class ActionGateway implements OnGatewayConnection, OnGatewayDisconnect {
     client.emit('action', 'Server received duration: ' + payload.duration); // send feedback to front end
 
     this.actionService.publishActionToIOT(payload);
-    this.actionService.giveStatusUpdatesTo(client, payload);
   }
-
-  // @OnEvent('readingSaved')
-  // handleSensorReadingEvent(payload: any, client: Socket) {
-  //   console.log('event noticed');
-  //   console.log('client is:');
-  //   console.log(client);
-  //   console.log('client connected:');
-  //   console.log(client.connected);
-  //   if (client && client.connected) {
-  //     client.emit('sensors', payload);
-  //     console.log('sensor data sent to socket');
-  //   }
-  // }
 }
