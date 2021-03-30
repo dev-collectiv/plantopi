@@ -49,16 +49,18 @@ export function createSensorReadingHandler (dbHandler: (sensorReadingDto: Create
   return (data: MqttSensorDto) => {
     let { reading } = data;
 
+    if (reading === -1) return;
+    if (reading > 100) reading = 100;
+    if (reading < 0) reading = 0;
+
+
     const sensorData: CreateSensorReadingDto = {
       sensorId: '1',
       timestamp: new Date(Date.now()),
       value: reading
     };
-    sensorEventEmitter.emit('readingReceived', sensorData);
 
-    if (reading === -1) return;
-    if (reading > 100) reading = 100;
-    if (reading < 0) reading = 0;
+    sensorEventEmitter.emit('readingReceived', sensorData);
 
     if (counter === readingCountToRecord) {
       counter = 0;
