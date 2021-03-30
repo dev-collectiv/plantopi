@@ -41,7 +41,7 @@ const Dashboard = () => {
       sensor && setSensors(sensor);
     });
   }, []);
-
+ 
   const addingArea = (area: IAddArea): void => {
     apiArea.postArea(area).then((area) => {
       area && setAreas((prevAreas: any) => [...prevAreas, area]);
@@ -62,8 +62,9 @@ const Dashboard = () => {
     });
   };
 
-  const areaOnUse = (area: IGetArea): void => {
+  const setAreaOnUse = (area: IGetArea): void => {
     setSelectedArea(area);
+    console.log(area);
   };
 
   return (
@@ -74,7 +75,7 @@ const Dashboard = () => {
         {/* TODO area={areas[selectedArea]} */}
         <DashboardInfo selectedArea={selectedArea} />
         {/* TODO user={users[selectedUser].id} */}
-        <AreaPanel user="0" areas={areas} addingArea={addingArea} deleteArea={deleteArea} patchArea={patchArea} areaOnUse={areaOnUse} />
+        <AreaPanel user="0" areas={areas} addingArea={addingArea} deleteArea={deleteArea} patchArea={patchArea} setAreaOnUse={setAreaOnUse} />
       </div>
     </SocketContext.Provider>
   );
