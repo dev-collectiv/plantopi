@@ -16,7 +16,7 @@ const char *mqttControllerResTopic = "response";
 
 unsigned long statusInterval = 2000;
 
-bool sensorActive = false;
+bool sensorActive = true;
 unsigned long sensorInterval = 1000;
 const char *sensorId = "sensor1";
 const char *mqttSensorTopic = "sensors";
