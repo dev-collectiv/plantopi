@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 import Day from '../Days/Days';
 import Select from 'components/Select/Select';
-import { Settings } from 'assets/index';
 
 import { ICurrentWeather } from 'types/weatherInterfaces';
 import { ICron } from 'types/cronsInterfaces';
@@ -57,23 +56,21 @@ const CronForm: React.FC<Props> = ({ currentWeather, controllerId, controllerTop
 
   return (
     <div className={styles.container}>
-      <Settings className={styles.svg} />
+      <h2 className={styles.panelTitle}>SCHEDULE AN ACTION</h2>
 
-      <div className={styles.cronPanelModule}>
-        <h2>New Action</h2>
-        <div className={styles.actionSelection}>
-          <Day activeDays={activeDays} daysInWeek={daysInWeek} handleSelectDayFn={handleSelectDayFn} currentWeather={currentWeather} />
+      <div className={styles.actionSelection}>
+        <Day activeDays={activeDays} daysInWeek={daysInWeek} handleSelectDayFn={handleSelectDayFn} currentWeather={currentWeather} />
+      </div>
+
+      <div className={styles.timeAndDurationSelection}>
+        <div className={styles.selectionBlock}>
+          <h4 className={styles.selectionTags}>Time of Day</h4>
+          <input type="time" className={styles.timeSelect} onChange={handleSelectTimeFn}></input>
         </div>
 
-        <div className={styles.timeAndDurationSelection}>
-          <div>
-            <h4 className={styles.selectionTags}>Time</h4>
-            <input type="time" className={styles.timeSelect} onChange={handleSelectTimeFn}></input>
-          </div>
-          <div>
-            <h4 className={styles.selectionTags}>Duration</h4>
-            <Select options={durationOptions} onChangeFn={handleDuration} label="duration" initialOption={duration} />
-          </div>
+        <div className={styles.selectionBlock}>
+          <h4 className={styles.selectionTags}>Duration</h4>
+          <Select options={durationOptions} onChangeFn={handleDuration} label="duration" initialOption={duration} optionalStyle />
         </div>
       </div>
 

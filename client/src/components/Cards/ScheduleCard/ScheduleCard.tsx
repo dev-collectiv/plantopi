@@ -82,8 +82,8 @@ const ScheduleCard: React.FC<Props> = ({ currentWeather, controllerId, controlle
           scheduledCrons={scheduledCrons}
         />
       ) : (
-        <div className={`${styles.cronPanelModule} ${styles.scrollPanelModule}`}>
-          <h2>Scheduled Actions</h2>
+        <div className={`${styles.container} ${styles.scrollPanelModule}`}>
+          <h2 className={styles.panelTitle}>YOUR SCHEDULED ACTIONS</h2>
           {renderScheduledCrons()}
         </div>
       )}

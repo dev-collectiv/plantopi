@@ -19,6 +19,11 @@
   }
 }
 
+.optionalStyle {
+  @include cron-select;
+  padding-left: 45px;
+}
+
 .select::-ms-expand {
   display: none;
 }

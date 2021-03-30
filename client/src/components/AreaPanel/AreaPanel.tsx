@@ -21,9 +21,7 @@ const AreaPanel: React.FC<{
 
   return (
     <div className={styles.container}>
-      <div className={styles.panelTop}>
-        <h2 className={styles.panelTitle}>AREAS</h2>
-      </div>
+      <h2 className={styles.panelTitle}>AREAS</h2>
 
       <div className={styles.areasContainer}>
         {renderAreas()}

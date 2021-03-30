@@ -57,13 +57,6 @@
   font-family: $titleFont;
   outline: none;
   font-size: 1rem;
-  & span {
-    transition: all 0.05s ease;
-  }
-
-  &:hover span {
-    border-bottom: 2px solid $red;
-  }
 }
 
 @mixin area-container {
@@ -90,4 +83,23 @@
     color: $highlights-font-color;
     border-radius: 5px;
   }
+}
+
+@mixin panel-title {
+  text-align: center;
+  width: 100%;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: $highlights;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid $highlights;
+}
+
+@mixin cron-select {
+  background-color: $bg;
+  border: none;
+  border-radius: 10px;
+  padding: 0.5rem 1rem;
+  min-width: 100px;
+  outline: none;
 }
