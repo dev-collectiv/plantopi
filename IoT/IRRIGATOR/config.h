@@ -18,5 +18,5 @@ unsigned long statusInterval = 2000;
 
 bool sensorActive = false;
 unsigned long sensorInterval = 1000;
-const char *sensorId = "humidity1";
+const char *sensorId = "sensor1";
 const char *mqttSensorTopic = "sensors";
