@@ -11,89 +11,102 @@ const durationOptions = Array(60)
   .fill(null)
   .map((_, idx) => idx + 1);
 
-const DashboardIllustration: React.FC<{ controllerId: string }> = (props) => {
+const DashboardIllustration: React.FC<{ controllerId: string }> = ({ controllerId }) => {
   const socket = useContext(SocketContext);
-  const { controllerId } = props;
+
+  const [isIrrigating, setIsIrrigating] = useState<boolean>(false);
   const [duration, setDuration] = useState<number | string>(5);
 
-  let [irrigating, setIrrigating] = useState<boolean>(false);
+  const handleDuration = (label: string, value: number | string): void => setDuration(value);
 
-  function handleDuration(label: string, value: number | string) {
-    setDuration(value);
+  function handleIrrigate(e: React.FormEvent): void {
+    if (!isIrrigating) {
+      socket.emit('action', { id: controllerId, action: 'on', duration: duration });
+      setIsIrrigating(true);
+    } else {
+      socket.emit('action', { id: controllerId, action: 'off', duration: 0 });
+      setIsIrrigating(false);
+    }
+
+    // TODO receive web socket with response before changing 'irrigating' variable
   }
 
-  function handleIrrigate(e: React.FormEvent) {
-    e.preventDefault();
-    socket.emit('action', { id: controllerId, action: 'on', duration: duration });
-    setIrrigating(true); // TODO receive web socket with response before changing 'irrigating' variable
-  }
+  useEffect(() => {
+    gsap.to('.top-leaves', {
+      duration: 2,
+      transformOrigin: 'center center',
+      rotate: '5deg',
+      x: 7,
+      yoyo: true,
+      repeat: -1,
+      ease: 'Sine.easeInOut'
+    });
 
-  function abortIrrigation() {
-    socket.emit('action', { id: controllerId, action: 'off', duration: 0 });
-    setIrrigating(false); // TODO receive web socket with response before changing 'irrigating' variable
-  }
+    gsap.to('.bottom-leaves', {
+      duration: 2,
+      transformOrigin: 'center center',
+      rotate: '-3deg',
+      x: 4,
+      yoyo: true,
+      repeat: -1,
+      ease: 'Sine.easeInOut'
+    });
 
-  // useEffect(() => {
-  //   gsap.to('.top-dark-leaves', {
-  //     duration: 2,
-  //     transformOrigin: 'center center',
-  //     rotate: '5deg',
-  //     x: 7,
-  //     yoyo: true,
-  //     repeat: -1,
-  //     ease: 'Sine.easeInOut'
-  //   });
+    gsap.to('.trunk', {
+      duration: 2,
+      transformOrigin: 'center bottom',
+      rotate: '2deg',
+      yoyo: true,
+      repeat: -1,
+      ease: 'Sine.easeInOut'
+    });
 
-  //   gsap.to('.top-light-leaves', {
-  //     duration: 2,
-  //     transformOrigin: 'center center',
-  //     rotate: '-3deg',
-  //     x: 4,
-  //     yoyo: true,
-  //     repeat: -1,
-  //     ease: 'Sine.easeInOut'
-  //   });
+    return () => {
+      gsap.killTweensOf('*');
+    };
+  }, []);
 
-  //   gsap.to('.trunk', {
-  //     duration: 2,
-  //     transformOrigin: 'center bottom',
-  //     rotate: '2deg',
-  //     yoyo: true,
-  //     repeat: -1,
-  //     ease: 'Sine.easeInOut'
-  //   });
+  useEffect(() => {
+    if (isIrrigating) {
+      gsap.fromTo(
+        '.drop-1',
+        {
+          y: -800,
+          opacity: 1
+        },
+        {
+          stagger: 0.05,
+          duration: 1.75,
+          y: 200,
+          opacity: 0,
+          repeat: -1,
+          ease: 'Sine.easeIn'
+        }
+      );
 
-  //   return () => {
-  //     gsap.killTweensOf('*');
-  //   };
-  // }, []);
+      gsap.fromTo(
+        '.drop-2',
+        {
+          y: -800,
+          opacity: 1
+        },
+        {
+          stagger: 0.05,
+          duration: 2,
+          y: 200,
+          opacity: 0,
+          repeat: -1,
+          ease: 'Sine.easeIn'
+        }
+      );
+    } else {
+      gsap.set('.drop-1, .drop-2', { opacity: 0 });
+    }
 
-  // useEffect(() => {
-  //   if (irrigating) {
-  //     gsap.fromTo(
-  //       '.drop',
-  //       {
-  //         stagger: 0.5,
-  //         y: -400,
-  //         opacity: 0.8
-  //       },
-  //       {
-  //         stagger: 0.5,
-  //         duration: 2,
-  //         repeat: -1,
-  //         y: 400,
-  //         opacity: 0,
-  //         ease: 'Power1.easeIn'
-  //       }
-  //     );
-  //   } else {
-  //     gsap.set('.drop', { opacity: 0 });
-  //   }
-
-  //   return () => {
-  //     gsap.killTweensOf('.drop');
-  //   };
-  // }, [irrigating]);
+    return () => {
+      gsap.killTweensOf('.drop-1, .drop-2');
+    };
+  }, [isIrrigating]);
 
   return (
     <div className={styles.container}>
@@ -113,7 +126,6 @@ const DashboardIllustration: React.FC<{ controllerId: string }> = (props) => {
         <div onClick={handleIrrigate} className={styles.irrigateButton}>
           <Drop className={styles.svg} />
         </div>
-        {/* <Stop onClick={abortIrrigation} className={`${styles.button} ${styles.svg}`} /> */}
       </div>
     </div>
   );
