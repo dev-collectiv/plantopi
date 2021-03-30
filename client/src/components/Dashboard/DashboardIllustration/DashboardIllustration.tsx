@@ -22,16 +22,19 @@ const DashboardIllustration: React.FC<{ controllerId: string }> = ({ controllerI
   function handleIrrigate(e: React.FormEvent): void {
     if (!isIrrigating) {
       socket.emit('action', { id: controllerId, action: 'on', duration: duration });
-      setIsIrrigating(true);
     } else {
       socket.emit('action', { id: controllerId, action: 'off', duration: 0 });
-      setIsIrrigating(false);
     }
-
     // TODO receive web socket with response before changing 'irrigating' variable
   }
 
   useEffect(() => {
+
+    socket.on('status', (irrigatingStatus: 'on' | 'off') => {
+      console.log('received status: ' + irrigatingStatus);
+      setIsIrrigating(irrigatingStatus === 'on' ? true : false);
+    });
+
     gsap.to('.top-leaves', {
       duration: 2,
       transformOrigin: 'center center',
