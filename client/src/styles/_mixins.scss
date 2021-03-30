@@ -103,3 +103,15 @@
   min-width: 100px;
   outline: none;
 }
+
+@mixin highlight-button-hover {
+  @include button-hover;
+  background-color: $highlights;
+  border-radius: $border-radius;
+  border: none;
+  padding: 0 0.5rem;
+  outline: none;
+  &:hover {
+    background-color: rgba($bg-illustration, 0.1);
+  }
+}
