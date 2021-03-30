@@ -1,3 +1,4 @@
+import { EventEmitter2 } from 'eventemitter2';
 import { createSensorReadingHandler } from './action.service.helpers';
 
 describe ('Sensor Reading Handler', () => {
@@ -8,13 +9,15 @@ describe ('Sensor Reading Handler', () => {
     const readingCountToRecord = 100;
 
     const mockHandler = jest.fn();
+    const mockEmitter: any = jest.fn();
+
     const mockReading1 = {id: '1', time: 100, reading: 11};
     const mockReading2 = {id: '1', time: 150, reading: 12};
 
     const mockDbRequest1 = {sensorId: '1', value: 11};
     const mockDbRequest2 = {sensorId: '1', value: 12};
 
-    const sensorReadingHandler = createSensorReadingHandler(mockHandler, trackedSensor, readingCountToRecord);
+    const sensorReadingHandler = createSensorReadingHandler(mockHandler, trackedSensor, readingCountToRecord, mockEmitter);
 
     // CALL HANDLER ONCE
     sensorReadingHandler(mockReading1);

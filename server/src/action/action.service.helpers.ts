@@ -50,7 +50,7 @@ export function createSensorReadingHandler (dbHandler: (sensorReadingDto: Create
     let { reading } = data;
 
     const sensorData: CreateSensorReadingDto = {
-      sensorId: sensorId,
+      sensorId: '1',
       timestamp: new Date(Date.now()),
       value: reading
     };

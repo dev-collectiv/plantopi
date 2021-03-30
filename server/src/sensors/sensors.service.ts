@@ -33,8 +33,15 @@ export class SensorsService {
     await this.sensorRepository.delete(id);
   }
 
-  createReading = (createSensorReadingDto: CreateSensorReadingDto) => {
-    return this.sensorReadingRepository.insert(createSensorReadingDto);
+  createReading = async (createSensorReadingDto: CreateSensorReadingDto) => {
+    try {
+      await this.sensorReadingRepository.insert(createSensorReadingDto);
+    } catch (err) {
+      const sensor = await this.findOne (+createSensorReadingDto.sensorId);
+      let errorMsg = 'Sensor reading could not be saved to Db.';
+      if (!sensor) errorMsg += ` Sensor ${createSensorReadingDto.sensorId} does not exist.`;
+      console.log(errorMsg);
+    }
   }
 
   getReadings = () => {
