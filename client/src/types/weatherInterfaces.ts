@@ -6,7 +6,8 @@ export interface ICurrentWeather {
   current: any,
   minutely: any,
   hourly: any,
-  daily: any
+  daily: any,
+  cod?: number
 }
 
 export interface IHistoricalWeather {

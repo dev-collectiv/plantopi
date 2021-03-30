@@ -13,9 +13,6 @@ import { ICurrentWeather } from 'types/weatherInterfaces';
 import { SocketContext, socket } from 'context/socket';
 import { ISensorReading } from 'types/sensorsInterfaces';
 
-
-
-
 const DashboardInfo: React.FC<{selectedArea: IGetArea}> = ({ selectedArea }) => {
   let [currentWeather, setCurrentWeather] = useState<ICurrentWeather>();
   let [currentHumidity, setCurrentHumidity] = useState<number>(0);
@@ -24,8 +21,13 @@ const DashboardInfo: React.FC<{selectedArea: IGetArea}> = ({ selectedArea }) => 
   console.log('selectedArea',selectedArea );
   useEffect(() => {
     const initializeWeather = async () => {
-      const weather = await fetchCurrentWeather('1');
-      setCurrentWeather(weather);
+      try {
+        const weather = await fetchCurrentWeather('1');
+        if (weather.cod === 401) throw new Error();
+        setCurrentWeather(weather);
+      } catch (err) {
+        console.log('Could not initialize current weather.');
+      }
     };
 
     socket.on('sensors', (sensorData: ISensorReading) => setCurrentHumidity(sensorData.value));
@@ -41,9 +43,8 @@ const DashboardInfo: React.FC<{selectedArea: IGetArea}> = ({ selectedArea }) => 
         {/*TODO <SensorCard id={area.sensors[1].id} name={area.sensors[1].name} type={area.sensors[1].type} reading={area.sensors[1].value} /> */}
 
 
-        { selectedArea && <h1>{selectedArea.name}</h1>}
+        {selectedArea && <h1>{selectedArea.name}</h1>}
 
-        
         <SensorCard id="2" name="Temperature" type="temperature" reading={Math.round(currentWeather?.current.temp)} />
       </TopCard>
       <BottomCard>
