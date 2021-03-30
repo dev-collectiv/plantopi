@@ -50,8 +50,17 @@ async function initalizeTestDb (app: INestApplication) {
 
     await createSeeds('user', mockSeeds.mockUserSeed);
     await createSeeds('area', mockSeeds.mockAreaSeed);
-    await createSeeds('sensor', mockSeeds.mockSensorSeed);
-    await createSeeds('controller', mockSeeds.mockControllerSeed);
+
+    // sensor & controller
+    const mockControllers = await connection.getRepository(Controller).create(mockSeeds.mockControllerSeed);
+    await connection.getRepository(Controller).save(mockControllers);
+
+    const mockSensors = await connection.getRepository(Sensor).create(mockSeeds.mockSensorSeed);
+    await connection.getRepository(Sensor).save(mockSensors);
+
+    // await createSeeds('sensor', mockSeeds.mockSensorSeed);
+    // await createSeeds('controller', mockSeeds.mockControllerSeed);
+
     await createSeeds('cron_action', mockSeeds.mockCronSeed);
     resolve(connection);
   });

@@ -56,54 +56,54 @@ export const mockAreaSeed = [
 
 export const mockSensorSeed = [
   {
-    area: 1,
+    areaId: '1',
     type: 'TestieHumid'
   },
   {
-    area: 1,
+    areaId: '1',
     type: 'TestieLight'
   },
   {
-    area: 2,
+    areaId: '2',
     type: 'TestieLight2'
   },
   {
-    area: 3,
+    areaId: '3',
     type: 'RemoveHumid'
   },
   {
-    area: 4,
+    areaId: '4',
     type: 'DarthHumid'
   },
   {
-    area: 4,
+    areaId: '4',
     type: 'DarthLight'
   }
 ];
 
 export const mockControllerSeed = [
   {
-    area: 1,
+    areaId: '1',
     type: 'TestiePump'
   },
   {
-    area: 1,
+    areaId: '1',
     type: 'TestieMusic'
   },
   {
-    area: 2,
+    areaId: '2',
     type: 'TestieDoor'
   },
   {
-    area: 3,
+    areaId: '3',
     type: 'RemovePump'
   },
   {
-    area: 4,
+    areaId: '4',
     type: 'DarthDoor'
   },
   {
-    area: 4,
+    areaId: '4',
     type: 'DarthPump'
   }
 ];
