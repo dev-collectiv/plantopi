@@ -8,7 +8,8 @@ import IntroAnimation from 'components/IntroAnimation/IntroAnimation';
 const App: React.FC = () => {
   const [isEndOfIntroAnimation, setIsEndOfIntroAnimation] = useState<boolean>(false);
 
-  if (!isEndOfIntroAnimation) {
+  //check the session storage to see if the animation already ran
+  if (!isEndOfIntroAnimation && window.sessionStorage.getItem('firstLoadDone') == null) {
     return <IntroAnimation setIsEndOfIntroAnimation={setIsEndOfIntroAnimation} />;
   } else
     return (
