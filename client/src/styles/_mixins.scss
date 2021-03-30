@@ -50,6 +50,11 @@
   max-height: 25px;
 }
 
+@mixin svg-icon-small {
+  max-width: 15px;
+  max-height: 15px;
+}
+
 @mixin cron-button {
   @include button-hover;
   background-color: $bg;
@@ -60,6 +65,7 @@
 }
 
 @mixin area-container {
+  position: relative;
   display: flex;
   flex-flow: column nowrap;
   height: 150px;
@@ -79,6 +85,35 @@
 
   button {
     @include main-button;
+    background-color: $highlights;
+    color: $highlights-font-color;
+    margin: 0 5px;
+
+    border-radius: 5px;
+  }
+}
+
+@mixin update-area-container {
+  display: flex;
+  flex-flow: column nowrap;
+  height: 250px;
+  max-height: 300px;
+  background-color: $bg;
+  margin-top: 0.5rem;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  width: 75%;
+
+  & > * {
+    font-family: $main-font;
+    font-weight: 400;
+    margin-top: 0.25rem;
+  }
+
+  button {
+    @include main-button;
+    margin: 0 5px;
     background-color: $highlights;
     color: $highlights-font-color;
     border-radius: 5px;
