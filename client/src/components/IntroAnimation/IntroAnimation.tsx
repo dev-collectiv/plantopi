@@ -9,6 +9,8 @@ const IntroAnimation: React.FC<{ setIsEndOfIntroAnimation: Function }> = ({ setI
 
   function handleEndOfIntroAnimation() {
     setIsEndOfIntroAnimation(true);
+
+    window.sessionStorage.setItem('firstLoadDone', 'true');
   }
 
   useEffect(() => {
