@@ -4,15 +4,15 @@ import styles from './AddArea.module.scss';
 
 const AddArea: React.FC<{ addArea: Function;  cancelCreateArea:Function }> = ({ addArea, cancelCreateArea}) => {
   const [newArea, setNewArea] = useState<IAddArea>({
-    userId: 0,
+    name: '',
     isActive: false,
     sensors: []
   });
-
+  
   const handleEvent = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNewArea({
       ...newArea,
-      [event.target.name]: [event.target.value]
+      [event.target.name]: event.target.value
     });
   };
 
@@ -20,12 +20,16 @@ const AddArea: React.FC<{ addArea: Function;  cancelCreateArea:Function }> = ({ 
     <div className={styles.container}>
       <h4>New Area</h4>
       <label>
-        <h3> User ID:</h3>
-        <input className={styles.input} value={newArea.userId} name="userId" type="text" onChange={handleEvent} />
+        <h3> Name:</h3>
+        <input className={styles.input} value={newArea.name} name="name" type="text" onChange={handleEvent} />
       </label>
       <label>
-        <h3> Sensors:</h3>
-        <input className={styles.input} value={newArea.sensors} name="sensors" type="text" onChange={handleEvent} />
+        <h3> Longitude:</h3>
+        <input className={styles.input} value={newArea.longitude} name="longitude" type="text" onChange={handleEvent} />
+      </label>
+      <label>
+        <h3> Latitude:</h3>
+        <input className={styles.input} value={newArea.latitude} name="latitude" type="text" onChange={handleEvent} />
       </label>
       <div>
         <button className={styles.btn} type="submit" onClick={() => {addArea(newArea); cancelCreateArea();} }>

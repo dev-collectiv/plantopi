@@ -1,17 +1,16 @@
 import { useState } from 'react';
 import { IPatchArea } from 'types/areaInterfaces';
-
 import styles from './UpdateArea.module.scss';
 
 const AreaUpdate: React.FC<{ area: IPatchArea; patchArea: Function; goToAreasPanel: Function }> = ({ area, patchArea, goToAreasPanel }) => {
   const [areaToUpdate, setAreaToUpdate] = useState<IPatchArea>({ ...area });
 
-  const { id, isActive, longitude, latitude, user, sensors } = areaToUpdate;
+  const { id, isActive, longitude, latitude, user, sensors, name } = areaToUpdate;
 
   const handleEvent = (event: React.ChangeEvent<HTMLInputElement>) => {
     setAreaToUpdate({
       ...areaToUpdate,
-      [event.target.name]: [event.target.value]
+      [event.target.name]: event.target.value
     });
   };
 

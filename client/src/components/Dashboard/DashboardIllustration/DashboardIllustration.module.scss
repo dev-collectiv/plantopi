@@ -66,4 +66,5 @@
 .svg {
   @include svg-icon;
   fill: $highlights-font-color;
+  stroke: $highlights-font-color;
 }

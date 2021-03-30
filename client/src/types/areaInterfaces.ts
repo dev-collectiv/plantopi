@@ -16,15 +16,18 @@ interface IRespond {
   isActive?: boolean;
 }
 export interface IAddArea {
-  userId: number;
-  name?: string;
+  user?: string;
+  name: string;
+  userId?: number;
   isActive?: boolean;
-  sensors: string[];
+  sensors?: string[];
+  latitude?: string;
+  longitude?: string;
 }
 
 export interface IGetArea {
   id: number;
-  name?: string;
+  name: string;
   user: string | null;
   isActive: boolean;
   sensors: ISensors[];
@@ -46,7 +49,6 @@ export interface IArea {
 export interface IPatchArea {
   id?: number;
   name?: string;
-
   user?: string;
   isActive?: boolean;
   sensors?: ISensors[];
