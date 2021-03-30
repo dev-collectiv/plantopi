@@ -12,11 +12,11 @@ const AreasDisplay: React.FC<{
   patchArea: Function;
   cancelCreateArea: Function;
   cancelUpdateArea?: Function;
-  areaOnUse: Function;
-}> = ({ area, deleteArea, patchArea, cancelCreateArea, cancelUpdateArea, areaOnUse }) => {
+  setAreaOnUse: Function;
+}> = ({ area, deleteArea, patchArea, cancelCreateArea, cancelUpdateArea, setAreaOnUse }) => {
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
   const [hover, setHover] = useState<boolean>(false);
-  area.name = 'Pineapple';
+ 
 
   function goToAreasPanel() {
     setIsUpdating(false);
@@ -33,7 +33,7 @@ const AreasDisplay: React.FC<{
         className={styles.areaContainer}
         key={area.id}
       >
-        <div className={styles.content}>
+        <div className={styles.content} onClick={() => setAreaOnUse(area)}>
           <h1>{area.name}</h1>
           <p>
             Poblenou - Barcelona
