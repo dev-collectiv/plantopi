@@ -11,7 +11,7 @@ const AreaPanel: React.FC<{
   deleteArea: (id: number) => void;
   patchArea: (body: IPatchArea, id: number) => void;
   setAreaOnUse: ( area: IGetArea ) => void;
-}> = ({ user, areas, deleteArea, addingArea, patchArea, setAreaOnUse }) => {
+}> = ({ user, areas, deleteArea, addingArea, patchArea, setAreaOnUse }) => { 
   const [showAreaNewForm, setShowAreaNewForm] = useState<boolean>(false);
    
   function cancelUpdateArea() {

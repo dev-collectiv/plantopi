@@ -16,7 +16,7 @@ const AreasDisplay: React.FC<{
 }> = ({ area, deleteArea, patchArea, cancelCreateArea, cancelUpdateArea, setAreaOnUse }) => {
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
   const [hover, setHover] = useState<boolean>(false);
- 
+  
 
   function goToAreasPanel() {
     setIsUpdating(false);
@@ -56,4 +56,4 @@ const AreasDisplay: React.FC<{
       </div>
     );
 };
-export default AreasDisplay;
+export default AreasDisplay; 

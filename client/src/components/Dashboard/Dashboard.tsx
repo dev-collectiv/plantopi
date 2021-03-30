@@ -41,7 +41,7 @@ const Dashboard = () => {
       sensor && setSensors(sensor);
     });
   }, []);
-
+ 
   const addingArea = (area: IAddArea): void => {
     apiArea.postArea(area).then((area) => {
       area && setAreas((prevAreas: any) => [...prevAreas, area]);
