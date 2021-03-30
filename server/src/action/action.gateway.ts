@@ -9,6 +9,7 @@ import { Socket } from 'socket.io';
 import { ActionService } from './action.service';
 import { MqttRequestDto } from './dto/mqtt.dto';
 
+
 @WebSocketGateway(3002)
 export class ActionGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
@@ -19,6 +20,11 @@ export class ActionGateway implements OnGatewayConnection, OnGatewayDisconnect {
   handleConnection(client: Socket) {
     this.logger.log(`Client connected: ${client.id}`);
     client.emit('testTopic', 'hi client, this is server');
+
+    this.actionService.sensorEventEmitter.on('readingSaved', (sensorData: any) => {
+      client.emit('sensors', sensorData);
+      console.log('emitted sensor data to client');
+    });
   }
 
   handleDisconnect(client: Socket) {
@@ -33,4 +39,17 @@ export class ActionGateway implements OnGatewayConnection, OnGatewayDisconnect {
     this.actionService.publishActionToIOT(payload);
     this.actionService.giveStatusUpdatesTo(client, payload);
   }
+
+  // @OnEvent('readingSaved')
+  // handleSensorReadingEvent(payload: any, client: Socket) {
+  //   console.log('event noticed');
+  //   console.log('client is:');
+  //   console.log(client);
+  //   console.log('client connected:');
+  //   console.log(client.connected);
+  //   if (client && client.connected) {
+  //     client.emit('sensors', payload);
+  //     console.log('sensor data sent to socket');
+  //   }
+  // }
 }

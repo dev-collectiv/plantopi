@@ -3,19 +3,20 @@ import styles from './AreaPanel.module.scss';
 import AreaContainer from './AreaContainer/AreaContainer';
 import AddArea from './AddArea/AddArea';
 import { apiArea } from 'services/apiArea/apiArea';
-import { IGetArea, IAddArea } from 'types/areaInterfaces';
+import { IGetArea, IAddArea, IPatchArea } from 'types/areaInterfaces';
 
 const AreaPanel: React.FC<{
   user: string;
   areas: any;
   addingArea: (area: IAddArea) => void;
   deleteArea: (id: number) => void;
-}> = ({ user, areas, deleteArea, addingArea }) => {
+  patchArea: (body: IPatchArea, id:number) => void
+}>  = ({ user, areas, deleteArea, addingArea, patchArea }) => {
   const [showAreaForm, setShowAreaForm] = useState<boolean>(false);
 
   function renderAreas() {
     return areas.map((area: IGetArea) => {
-      return <AreaContainer area={area} deleteArea={deleteArea} />;
+      return <AreaContainer area={area} deleteArea={deleteArea} patchArea={patchArea}/>;
     });
   }
 

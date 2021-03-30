@@ -9,7 +9,7 @@ import { apiControllers } from 'services/apiControllers/apiControllers';
 import { apiSensors } from 'services/apiSensors/apiSensors';
 
 import { IGetUser } from 'types/userInterfaces';
-import { IAddArea, IGetArea } from 'types/areaInterfaces';
+import { IAddArea, IGetArea, IPatchArea } from 'types/areaInterfaces';
 import { IGetControllers } from 'types/controllersInterfaces';
 import { IGetSensors } from 'types/sensorsInterfaces';
 
@@ -56,7 +56,12 @@ const Dashboard = () => {
     });
     setAreas(areasfiltered);
   };
-
+ 
+  const patchArea=(body: IPatchArea, id:number) : void => {
+    apiArea.patchAreas(body, id).then((area) => {
+      area && setAreas((prevAreas: any) => [...prevAreas, area]);
+    });
+  };
   return (
     <SocketContext.Provider value={socket}>
       <div className={styles.container}>
@@ -65,7 +70,7 @@ const Dashboard = () => {
         {/* TODO area={areas[selectedArea]} */}
         <DashboardInfo area={areas ? areas[0] : undefined} />
         {/* TODO user={users[selectedUser].id} */}
-        <AreaPanel user="0" areas={areas} addingArea={addingArea} deleteArea={deleteArea} />
+        <AreaPanel user="0" areas={areas} addingArea={addingArea} deleteArea={deleteArea} patchArea={patchArea}/>
       </div>
     </SocketContext.Provider>
   );

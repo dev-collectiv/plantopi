@@ -33,15 +33,15 @@ export class SensorsService {
     await this.sensorRepository.delete(id);
   }
 
-  createReading (createSensorReadingDto: CreateSensorReadingDto) {
+  createReading = (createSensorReadingDto: CreateSensorReadingDto) => {
     return this.sensorReadingRepository.insert(createSensorReadingDto);
   }
 
-  getReadings() {
+  getReadings = () => {
     return this.sensorReadingRepository.find({});
   }
 
-  getReadingsById(id: string) {
+  getReadingsById = (id: string) => {
     return this.sensorReadingRepository.find({sensorId: id});
   }
 }

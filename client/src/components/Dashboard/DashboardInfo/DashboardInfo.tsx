@@ -1,5 +1,6 @@
 import React from 'react';
 import { IAddArea, IGetArea } from 'types/areaInterfaces';
+import SocketIOClient from 'socket.io-client';
 
 import TopCard from 'components/Cards/TopCard/TopCard';
 import BottomCard from 'components/Cards/BottomCard/BottomCard';
@@ -9,9 +10,17 @@ import ScheduleCard from 'components/Cards/ScheduleCard/ScheduleCard';
 import { fetchCurrentWeather } from 'services/apiWeather/apiWeather';
 import { useEffect, useState } from 'react';
 import { ICurrentWeather } from 'types/weatherInterfaces';
+import { SocketContext, socket } from 'context/socket';
+import { ISensorReading } from 'types/sensorsInterfaces';
 
-const DashboardInfo: React.FC<{ area: IGetArea | undefined }> = ({ area }) => {
+
+interface Props{
+  area: IGetArea | undefined
+}
+
+const DashboardInfo: React.FC<Props> = ({ area }) => {
   let [currentWeather, setCurrentWeather] = useState<ICurrentWeather>();
+  let [currentHumidity, setCurrentHumidity] = useState<number>(0);
 
   // AREA ID HARDCODED IN CURRENT WEATHER FETCH BELOW - SWAP WITH AREAID LATER
 
@@ -21,6 +30,8 @@ const DashboardInfo: React.FC<{ area: IGetArea | undefined }> = ({ area }) => {
       setCurrentWeather(weather);
     };
 
+    socket.on('sensors', (sensorData: ISensorReading) => setCurrentHumidity(sensorData.value));
+
     initializeWeather();
   }, []);
 
@@ -28,7 +39,7 @@ const DashboardInfo: React.FC<{ area: IGetArea | undefined }> = ({ area }) => {
     <div className={styles.container}>
       <TopCard>
         {/*TODO <SensorCard id={area.sensors[0].id} name={area.sensors[0].name} type={area.sensors[0].type} reading={area.sensors[0].value} /> */}
-        <SensorCard id="1" name="Humidity" type="humidity" reading={25} />
+        <SensorCard id="1" name="Humidity" type="humidity" reading={currentHumidity}/>
         {/*TODO <SensorCard id={area.sensors[1].id} name={area.sensors[1].name} type={area.sensors[1].type} reading={area.sensors[1].value} /> */}
         <SensorCard id="2" name="Temperature" type="temperature" reading={Math.round(currentWeather?.current.temp)} />
       </TopCard>
@@ -39,4 +50,5 @@ const DashboardInfo: React.FC<{ area: IGetArea | undefined }> = ({ area }) => {
     </div>
   );
 };
+
 export default DashboardInfo;

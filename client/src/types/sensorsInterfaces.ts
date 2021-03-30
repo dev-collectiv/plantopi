@@ -13,7 +13,7 @@ export interface IPostRespond {
   generatedMaps: IRespond[];
   raw: IRespond[];
 }
- 
+
 export interface IGetSensors {
   id: number;
   area: {
@@ -29,4 +29,10 @@ export interface IPatchSensors {
   area?: string;
   type?: string;
   isActive?: boolean;
+}
+
+export interface ISensorReading {
+  sensorId: string,
+  timestamp: string,
+  value: number
 }
