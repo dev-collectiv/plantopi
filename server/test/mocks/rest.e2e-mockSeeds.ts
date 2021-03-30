@@ -20,12 +20,12 @@ export const mockUserSeed = [
 
 export const mockCronSeed = [
   {
-    controller: '5',
+    controllerId: '1',
     time: '5 * * * * *',
     action: { id: 'pump1', action: 'on', duration: '3' }
   },
   {
-    controller: '2',
+    controllerId: '2',
     time: '3 * * * * *',
     action: { id: 'pump1', action: 'on', duration: '5' }
   }
@@ -34,18 +34,22 @@ export const mockCronSeed = [
 export const mockAreaSeed = [
   {
     user: 1,
+    name: 'kek',
     isActive: true
   },
   {
     user: 1,
+    name: 'keko',
     isActive: true
   },
   {
     user: 2,
+    name: 'kek',
     isActive: true
   },
   {
     user: 3,
+    name: 'kek',
     isActive: true
   }
 ];
