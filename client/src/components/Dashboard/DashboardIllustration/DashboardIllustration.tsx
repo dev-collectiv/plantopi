@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import { SocketContext } from 'context/socket';
 import Select from 'components/Select/Select';
 import { gsap } from 'gsap';
+import { MqttStatusDto } from 'types/controllersInterfaces';
 
 import styles from './DashboardIllustration.module.scss';
 
@@ -30,9 +31,9 @@ const DashboardIllustration: React.FC<{ controllerId: string }> = ({ controllerI
 
   useEffect(() => {
 
-    socket.on('status', (irrigatingStatus: 'on' | 'off') => {
-      console.log('received status: ' + irrigatingStatus);
-      setIsIrrigating(irrigatingStatus === 'on' ? true : false);
+    socket.on('status', (data: MqttStatusDto) => {
+      console.log('received status: ' + data.status);
+      setIsIrrigating(data.status === 'on' ? true : false);
     });
 
     gsap.to('.top-leaves', {
