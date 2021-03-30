@@ -29,12 +29,10 @@ const AreaPanel: React.FC<{
   return (
     <div className={styles.container}>
       <h2 className={styles.panelTitle}>AREAS</h2>
-
       <div className={styles.areasContainer}>
         {renderAreas()}
         {showAreaNewForm && <AddArea addArea={addingArea} cancelCreateArea={cancelCreateArea}/>}
       </div>
-
       <div className={styles.addAreaContainer}>
         <button onClick={() => {setShowAreaNewForm(true); cancelUpdateArea();}} className={styles.addAreaButton} >
           NEW AREA
