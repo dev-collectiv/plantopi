@@ -20,7 +20,7 @@ import AreaPanel from 'components/AreaPanel/AreaPanel';
 const Dashboard = () => {
   const [users, setUsers] = useState<IGetUser[]>([]);
   const [areas, setAreas] = useState<IGetArea[]>([]);
-  const [selectedArea, setSelectedArea] = useState<number>(0);
+  const [selectedArea, setSelectedArea] = useState<IGetArea>(areas[0]);
   const [controllers, setControllers] = useState<IGetControllers[]>([]);
   const [sensors, setSensors] = useState<IGetSensors[]>([]);
 
@@ -50,27 +50,31 @@ const Dashboard = () => {
 
   const deleteArea = (id: number): void => {
     apiArea.deleteArea(id);
-    let areasfiltered: IGetArea[] = [];
-    areas.map((el: IGetArea) => {
-      if (el.id !== id) areasfiltered.push(el);
+    const areasfiltered: IGetArea[] = areas.filter((el: IGetArea) => {
+      return el.id !== id;
     });
     setAreas(areasfiltered);
   };
- 
-  const patchArea=(body: IPatchArea, id:number) : void => {
+
+  const patchArea = (body: IPatchArea, id: number): void => {
     apiArea.patchAreas(body, id).then((area) => {
       area && setAreas((prevAreas: any) => [...prevAreas, area]);
     });
   };
+
+  const areaOnUse = (area: IGetArea): void => {
+    setSelectedArea(area);
+  };
+
   return (
     <SocketContext.Provider value={socket}>
       <div className={styles.container}>
         {/* TODO controllerId={areas[selectedArea].controllers[0].id} type issue */}
         <DashboardIllustration controllerId="pump1" />
         {/* TODO area={areas[selectedArea]} */}
-        <DashboardInfo area={areas ? areas[0] : undefined} />
+        <DashboardInfo selectedArea={selectedArea} />
         {/* TODO user={users[selectedUser].id} */}
-        <AreaPanel user="0" areas={areas} addingArea={addingArea} deleteArea={deleteArea} patchArea={patchArea}/>
+        <AreaPanel user="0" areas={areas} addingArea={addingArea} deleteArea={deleteArea} patchArea={patchArea} areaOnUse={areaOnUse} />
       </div>
     </SocketContext.Provider>
   );

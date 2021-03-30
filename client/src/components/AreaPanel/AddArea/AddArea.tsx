@@ -8,7 +8,7 @@ const AddArea: React.FC<{ addArea: Function;  cancelCreateArea:Function }> = ({ 
     isActive: false,
     sensors: []
   });
-
+  
   const handleEvent = (event: React.ChangeEvent<HTMLInputElement>) => {
     setNewArea({
       ...newArea,
