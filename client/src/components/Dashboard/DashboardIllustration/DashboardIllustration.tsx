@@ -5,7 +5,7 @@ import { gsap } from 'gsap';
 
 import styles from './DashboardIllustration.module.scss';
 
-import { Drop, Plant } from 'assets';
+import { Drop, Plant, DropStop } from 'assets';
 
 const durationOptions = Array(60)
   .fill(null)
@@ -127,7 +127,7 @@ const DashboardIllustration: React.FC<{ controllerId: string }> = ({ controllerI
         </div>
 
         <div onClick={handleIrrigate} className={styles.irrigateButton}>
-          <Drop className={styles.svg} />
+          {isIrrigating ? <DropStop className={styles.svg}/> : <Drop className={styles.svg} />}
         </div>
       </div>
     </div>
