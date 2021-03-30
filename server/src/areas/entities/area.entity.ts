@@ -22,15 +22,19 @@ export class Area {
   @Column({ default: true })
   isActive: boolean;
 
+  @Column()
+  name: string;
+
   @Column({ default: '41.3851' })
   latitude: string;
 
   @Column({ default: '2.1734' })
   longitude: string;
 
-  constructor(id: number, user: User, sensors: Sensor[], controllers: Controller[], longitude: string, latitude: string, isActive: boolean) {
+  constructor(id: number, name: string, user: User, sensors: Sensor[], controllers: Controller[], longitude: string, latitude: string, isActive: boolean) {
     this.id = id;
     this.user = user;
+    this.name = name;
     this.longitude = longitude;
     this.latitude = latitude;
     this.sensors = sensors;
