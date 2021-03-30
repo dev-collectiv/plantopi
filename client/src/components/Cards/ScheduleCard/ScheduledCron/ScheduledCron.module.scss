@@ -9,7 +9,6 @@
   background-color: $highlights;
   font-weight: 300;
   color: $highlights-font-color;
-
   min-width: 100%;
   max-width: 100%;
 
@@ -38,16 +37,25 @@
 }
 
 .svg {
-  @include button-hover;
   @include svg-icon;
-  height: 11px;
-  width: 11px;
+  height: 10px;
+  width: 10px;
+
   position: absolute;
   right: 15px;
   top: 7px;
   fill: $highlights-font-color;
-  background-color: transparent;
+  stroke: $highlights-font-color;
+}
+
+$bg-time-select: $bg-light;
+
+@mixin update-button {
+  @include button-hover;
+  outline: none;
   border: none;
+  border-radius: $borderRadius;
+  background-color: $bg-time-select;
 }
 
 .updateContainer {
@@ -58,19 +66,17 @@
     font-family: $main-font;
   }
   & > button {
-    @include highlight-button-hover;
+    @include update-button;
     background-color: $bg-light;
     padding: 0.1 1rem;
     border: 1px solid $bg;
   }
 }
 
-$bg-time-select: $bg-light;
-
 .timeSelect {
-  @include highlight-button-hover;
-  background-color: $bg-time-select;
-  padding-left: 2rem;
+  @include update-button;
+  padding-left: 2.25rem;
+
   &::-webkit-calendar-picker-indicator {
     @include button-hover;
     filter: invert(1);

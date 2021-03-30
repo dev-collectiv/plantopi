@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { ICron, IPatchCrons } from 'types/cronsInterfaces';
+import { ICron } from 'types/cronsInterfaces';
 import { Delete } from 'assets';
 
 import styles from './ScheduledCron.module.scss';

@@ -18,6 +18,7 @@ interface Props {
 const ScheduleCard: React.FC<Props> = ({ currentWeather, controllerId, controllerTopic }) => {
   const [scheduledCrons, setScheduledCrons] = useState<ICron[]>([]);
   const [activePanel, setActivePanel] = useState<number>(0);
+  const [added, setAdded] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
 
   useEffect(() => {
@@ -46,6 +47,7 @@ const ScheduleCard: React.FC<Props> = ({ currentWeather, controllerId, controlle
         return;
       }
 
+      setAdded(true);
       setScheduledCrons([...scheduledCrons, cron]);
     });
   }
@@ -73,19 +75,25 @@ const ScheduleCard: React.FC<Props> = ({ currentWeather, controllerId, controlle
   return (
     <>
       {activePanel === 0 ? (
-        <CronForm
-          handleScheduleCron={handleScheduleCron}
-          currentWeather={currentWeather}
-          controllerId={controllerId}
-          controllerTopic={controllerTopic}
-          error={error}
-          scheduledCrons={scheduledCrons}
-        />
+        <>
+          <h2 className={styles.panelTitle}>SCHEDULE AN ACTION</h2>
+
+          <CronForm
+            handleScheduleCron={handleScheduleCron}
+            currentWeather={currentWeather}
+            controllerId={controllerId}
+            controllerTopic={controllerTopic}
+            scheduledCrons={scheduledCrons}
+            added={added}
+            error={error}
+            setAdded={setAdded}
+          />
+        </>
       ) : (
-        <div className={`${styles.container} ${styles.scrollPanelModule}`}>
+        <>
           <h2 className={styles.panelTitle}>YOUR SCHEDULED ACTIONS</h2>
-          {renderScheduledCrons()}
-        </div>
+          <div className={`${styles.scheduledCronsContainer} ${styles.scrollPanelModule}`}>{renderScheduledCrons()}</div>
+        </>
       )}
       <div className={styles.panelDotContainer}>
         <Dot className={`${styles.svg} ${activePanel === 0 ? styles.active : null}`} onClick={() => setActivePanel(0)} />
