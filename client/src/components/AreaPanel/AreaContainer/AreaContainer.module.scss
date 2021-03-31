@@ -23,6 +23,7 @@
 }
 
 .content {
+  @include button-hover;
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;

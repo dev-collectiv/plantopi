@@ -124,7 +124,7 @@ const CronForm: React.FC<Props> = ({
 
       <span className={styles.cronScheduleButtonContainer}>
         <button className={styles.cronScheduleButton} onClick={() => handleScheduleCron(cron, duration)}>
-          Schedule
+          SCHEDULE
         </button>
         <Check className={styles.check} ref={checkRef} />
       </span>
