@@ -12,6 +12,10 @@
   @include area-card-title;
 }
 
+.active {
+  background-color: $highlights;
+}
+
 .deleteIcon {
   @include svg-icon-small;
   @include button-hover;
@@ -49,7 +53,4 @@
   &:last-of-type {
     margin-bottom: 1rem;
   }
-}
-
-.buttonContainer {
 }

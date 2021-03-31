@@ -12,19 +12,21 @@ const AreaPanel: React.FC<{
   patchArea: (body: IPatchArea, id: number) => void;
   selectedArea: IGetArea | undefined;
   setAreaOnUse: (area: IGetArea) => void;
-}> = ({ user, areas, deleteArea, addingArea, patchArea, setAreaOnUse }) => {
+}> = ({ user, areas, deleteArea, addingArea, patchArea, setAreaOnUse, selectedArea }) => {
   const [showAreaNewForm, setShowAreaNewForm] = useState<boolean>(false);
 
   function cancelUpdateArea() {
     return false;
   }
-  
+
   function renderAreas() {
     if (showAreaNewForm) return;
     return areas.map((area: IPatchArea) => {
+      const active = selectedArea?.id === area.id ? true : false;
       return (
         <AreaContainer
           area={area}
+          active={active}
           patchArea={patchArea}
           deleteArea={deleteArea}
           setAreaOnUse={setAreaOnUse}

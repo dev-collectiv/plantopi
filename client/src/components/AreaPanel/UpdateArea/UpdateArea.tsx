@@ -7,8 +7,9 @@ import styles from './UpdateArea.module.scss';
 
 // <button onClick={() => deleteArea(area.id)}>DELETE</button>
 
-const AreaUpdate: React.FC<{ area: IPatchArea; patchArea: Function; goToAreasPanel: Function; deleteArea: Function }> = ({
+const AreaUpdate: React.FC<{ area: IPatchArea; active: boolean; patchArea: Function; goToAreasPanel: Function; deleteArea: Function }> = ({
   area,
+  active,
   patchArea,
   deleteArea,
   goToAreasPanel
@@ -34,7 +35,7 @@ const AreaUpdate: React.FC<{ area: IPatchArea; patchArea: Function; goToAreasPan
 
   return (
     <div className={styles.areaContainer}>
-      <h3 className={styles.cardTitle} onInput={(event) => handleName(event)} contentEditable>
+      <h3 className={`${styles.cardTitle} ${active && styles.active}`} onInput={(event) => handleName(event)} contentEditable>
         {name}
       </h3>
       <Delete className={styles.deleteIcon} onClick={() => deleteArea(id)} />
@@ -51,7 +52,13 @@ const AreaUpdate: React.FC<{ area: IPatchArea; patchArea: Function; goToAreasPan
 
       <div className={styles.buttonContainer}>
         <button onClick={() => goToAreasPanel()}>CANCEL</button>
-        <button type="submit" onClick={() => {patchArea(areaToUpdate, areaToUpdate.id); goToAreasPanel();}}>
+        <button
+          type="submit"
+          onClick={() => {
+            patchArea(areaToUpdate, areaToUpdate.id);
+            goToAreasPanel();
+          }}
+        >
           UPDATE
         </button>
       </div>

@@ -2,6 +2,26 @@ body {
   background-color: rgb(237, 248, 248);
 }
 
+::-webkit-scrollbar {
+  background: transparent;
+  width: 0;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  width: 0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: transparent;
+  width: 0;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+  width: 0;
+}
+
 html,
 body,
 div,

@@ -13,7 +13,8 @@ const AreasDisplay: React.FC<{
   cancelCreateArea: Function;
   cancelUpdateArea?: Function;
   setAreaOnUse: Function;
-}> = ({ area, deleteArea, patchArea, cancelCreateArea, cancelUpdateArea, setAreaOnUse }) => {
+  active: boolean;
+}> = ({ area, deleteArea, patchArea, cancelCreateArea, cancelUpdateArea, setAreaOnUse, active }) => {
   const [isUpdating, setIsUpdating] = useState<boolean>(false);
   const [hover, setHover] = useState<boolean>(false);
 
@@ -21,17 +22,16 @@ const AreasDisplay: React.FC<{
     setIsUpdating(false);
   }
 
-
   if (cancelUpdateArea) setIsUpdating(cancelUpdateArea());
 
   if (isUpdating) {
-    return <UpdateArea area={area} patchArea={patchArea} goToAreasPanel={goToAreasPanel} deleteArea={deleteArea}/>;
+    return <UpdateArea active={active} area={area} patchArea={patchArea} goToAreasPanel={goToAreasPanel} deleteArea={deleteArea} />;
   } else
     return (
       <div onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} className={styles.areaContainer} key={area.id}>
-        <h3 className={styles.cardTitle}>{area.name}</h3>
+        <h3 className={`${styles.cardTitle}  ${active && styles.active}`}>{area.name}</h3>
         <div className={styles.content} onClick={() => setAreaOnUse(area)}>
-          <p>Poblenou | Barcelona</p>
+          <h3>Poblenou | Barcelona</h3>
           <p>
             (Sensor {area.id} - Pump {area.id})
           </p>
