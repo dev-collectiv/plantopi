@@ -10,7 +10,6 @@ import { AreasModule } from './areas/areas.module';
 import { SensorsModule } from './sensors/sensors.module';
 import { ControllersModule } from './controllers/controllers.module';
 import { CronActionModule } from './cron-action/cron-action.module';
-import { MqttService } from './mqtt/mqtt.service';
 import { TimetableModule } from './timetable/timetable.module';
 import * as dotenv from 'dotenv';
 import { MqttModule } from './mqtt/mqtt.module';
@@ -32,6 +31,7 @@ const dbName = process.env.NODE_ENV === 'test' ? 'test' : 'development';
     AreasModule,
     SensorsModule,
     ControllersModule,
+    MqttModule,
     ScheduleModule.forRoot(),
     TimetableModule,
     MorganModule,

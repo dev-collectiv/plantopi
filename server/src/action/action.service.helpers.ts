@@ -24,6 +24,7 @@ export function createDurationTracker (dbHandler: (timetable: CreateTimetableDto
     case 'on':
       if (status === 'off') {
         endTime = new Date(Date.now());
+        previousStatus = status;
       }
       break;
     }

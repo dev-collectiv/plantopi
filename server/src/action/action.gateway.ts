@@ -17,7 +17,7 @@ export class ActionGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
   private logger: Logger = new Logger('ActionGateway');
 
-  handleConnection(client: Socket, ...args: any[]) {
+  handleConnection(client: Socket) {
     this.logger.log(`Client connected: ${client.id}`);
     client.emit('testTopic', 'hi client, this is server');
 

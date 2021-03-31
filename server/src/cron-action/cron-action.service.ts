@@ -5,7 +5,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CronAction } from './entities/cron-action.entity';
 import { DeleteResult, Repository } from 'typeorm';
 import { ActionService } from '../action/action.service';
-import { CreateCronDto } from './dto/create-cron.dto';
 import { UpdateCronDto } from './dto/update-cron.dto';
 import { CreateCronDto } from './dto/create-cron.dto';
 

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, NotFoundException } from '@nestjs/common';
+import { Controller, Get, Param, Delete, NotFoundException } from '@nestjs/common';
 import { TimetableService } from './timetable.service';
 
 @Controller('timetable')

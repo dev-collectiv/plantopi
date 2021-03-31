@@ -14,26 +14,16 @@ const readingCountToRecord = 10;
 
 @Injectable()
 export class ActionService {
-  constructor(
-    public mqttService: MqttService,
-    private timetableService: TimetableService,
-    private sensorService: SensorsService,
-    public sensorEventEmitter: EventEmitter2,
-    public statusEventEmitter: EventEmitter2
-  ) {
+  constructor(public mqttService: MqttService, private timetableService: TimetableService, private sensorService: SensorsService, public sensorEventEmitter: EventEmitter2, public statusEventEmitter: EventEmitter2) {
+
     mqttService.subscribeToTopic('status');
     mqttService.subscribeToTopic('sensors');
     const durationTracker = createDurationTracker(this.timetableService.create, trackedController);
-    const sensorReadingHandler = createSensorReadingHandler(
-      this.sensorService.createReading,
-      trackedSensor,
-      readingCountToRecord,
-      sensorEventEmitter
-    );
+    const sensorReadingHandler = createSensorReadingHandler(this.sensorService.createReading, trackedSensor, readingCountToRecord, sensorEventEmitter);
 
     this.onMqttTopic('status', (data: MqttStatusDto) => durationTracker(data));
     this.onMqttTopic('status', (data: MqttStatusDto) => statusEventEmitter.emit('status', data));
-    this.onMqttTopic('sensors', (data) => sensorReadingHandler(data));
+    this.onMqttTopic('sensors', data => sensorReadingHandler(data));
 
     console.log('Subscribed to status');
   }
