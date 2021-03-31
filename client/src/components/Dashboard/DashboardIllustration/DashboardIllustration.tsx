@@ -22,19 +22,14 @@ const DashboardIllustration: React.FC<{ controllerId: string }> = ({ controllerI
 
   function handleIrrigate(e: React.FormEvent): void {
     if (!isIrrigating) {
-      socket.emit('action', { id: controllerId, action: 'on', duration: duration });
+      socket.emit('action', { id: 'pump' + controllerId, action: 'on', duration: duration });
     } else {
-      socket.emit('action', { id: controllerId, action: 'off', duration: 0 });
+      socket.emit('action', { id: 'pump' + controllerId, action: 'off', duration: 0 });
     }
     // TODO receive web socket with response before changing 'irrigating' variable
   }
 
   useEffect(() => {
-    socket.on('status', (data: MqttStatusDto) => {
-      console.log('received status: ' + data.status);
-      setIsIrrigating(data.status === 'on' ? true : false);
-    });
-
     gsap.to('.top-leaves', {
       duration: 2,
       transformOrigin: 'center center',
@@ -68,6 +63,19 @@ const DashboardIllustration: React.FC<{ controllerId: string }> = ({ controllerI
       gsap.killTweensOf('*');
     };
   }, []);
+
+  useEffect(() => {
+    function statusHandler (data: MqttStatusDto) {
+      let currentControllerId = controllerId;
+      console.log('received status: ' + data.status + ' for ' + data.id);
+      if (data.id === 'pump' + currentControllerId) {
+        setIsIrrigating(data.status === 'on' ? true : false);
+      }
+    }
+    socket.on('status', statusHandler);
+
+    return () => {socket.removeListener('status', statusHandler);};
+  }, [controllerId]);
 
   useEffect(() => {
     if (isIrrigating) {

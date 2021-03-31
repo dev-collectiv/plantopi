@@ -78,8 +78,8 @@ const Dashboard = () => {
   return (
     <SocketContext.Provider value={socket}>
       <div className={styles.container}>
-        {/* TODO controllerId={areas[selectedArea].controllers[0].id} type issue */}
-        <DashboardIllustration controllerId="pump1" />
+        {/* TODO dashboardIllustration should receive controller's iotId instead, which should be created together with the area */}
+        <DashboardIllustration controllerId={selectedArea?.id ? selectedArea?.id.toString() : '1' } />
         {/* TODO area={areas[selectedArea]} */}
         <DashboardInfo selectedArea={selectedArea} />
         {/* TODO user={users[selectedUser].id} */}

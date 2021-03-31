@@ -10,6 +10,7 @@ interface IControllers {
   area?: string;
   type?: string;
   isActive?: boolean;
+  iotId?: string;
 }
 
 interface IRespond {
