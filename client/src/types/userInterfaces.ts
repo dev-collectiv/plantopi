@@ -11,10 +11,11 @@ export interface IGetUser {
   isActive: boolean;
   areas: [];
 }
- 
+
 interface Isensor {
   id: number;
   isActive?: boolean;
+  iotId: string;
 }
 export interface IAddUserRespond {
   identifiers: Isensor[];

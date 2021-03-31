@@ -2,6 +2,7 @@ interface ISensors {
   id?: number;
   type?: string;
   isActive?: boolean;
+  iotId: string;
 }
 
 interface IControllers {
