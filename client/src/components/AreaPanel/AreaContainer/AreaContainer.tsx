@@ -24,12 +24,12 @@ const AreasDisplay: React.FC<{
   if (cancelUpdateArea) setIsUpdating(cancelUpdateArea());
 
   if (isUpdating) {
-    return <UpdateArea area={area} patchArea={patchArea} goToAreasPanel={goToAreasPanel} />;
+    return <UpdateArea area={area} patchArea={patchArea} goToAreasPanel={goToAreasPanel} deleteArea={deleteArea} />;
   } else
     return (
       <div onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} className={styles.areaContainer} key={area.id}>
+        <h3 className={styles.cardTitle}>{area.name}</h3>
         <div className={styles.content} onClick={() => setAreaOnUse(area)}>
-          <h1>{area.name}</h1>
           <p>Poblenou | Barcelona</p>
           <p>
             (Sensor {area.id} - Pump {area.id})
@@ -44,7 +44,6 @@ const AreasDisplay: React.FC<{
             className={`${styles.svg} ${styles.settings}`}
           />
         )}
-        <button onClick={() => deleteArea(area.id)}>DELETE</button>
       </div>
     );
 };

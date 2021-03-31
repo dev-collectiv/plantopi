@@ -1,5 +1,59 @@
 @import 'styles/main.scss';
 
 .areaContainer {
-  @include update-area-container;
+  @include area-container;
+  position: relative;
+  button {
+    border: none;
+    background-color: $highlights;
+    color: $highlights-font-color;
+    margin: 0 5px;
+    border-radius: 5px;
+    padding: 0.5rem 0.75rem;
+  }
+}
+
+.cardTitle {
+  @include area-card-title;
+}
+
+.deleteIcon {
+  @include svg-icon-small;
+  @include button-hover;
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  fill: $highlights-font-color;
+}
+
+.inputContainer {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+  width: 70%;
+
+  font-weight: 500;
+  color: $highlights;
+
+  & input {
+    color: $highlights;
+    margin-left: 0.5rem;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid $highlights;
+    text-align: center;
+    outline: none;
+  }
+
+  &:first-of-type {
+    margin-top: 2rem;
+  }
+
+  &:last-of-type {
+    margin-bottom: 1rem;
+  }
+}
+
+.buttonContainer {
 }
