@@ -18,6 +18,7 @@ const AreaPanel: React.FC<{
   function cancelUpdateArea() {
     return false;
   }
+  
   function renderAreas() {
     if (showAreaNewForm) return;
     return areas.map((area: IPatchArea) => {

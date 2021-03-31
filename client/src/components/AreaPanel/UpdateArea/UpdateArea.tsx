@@ -51,7 +51,7 @@ const AreaUpdate: React.FC<{ area: IPatchArea; patchArea: Function; goToAreasPan
 
       <div className={styles.buttonContainer}>
         <button onClick={() => goToAreasPanel()}>CANCEL</button>
-        <button type="submit" onClick={() => patchArea(areaToUpdate, areaToUpdate.id)}>
+        <button type="submit" onClick={() => {patchArea(areaToUpdate, areaToUpdate.id); goToAreasPanel();}}>
           UPDATE
         </button>
       </div>

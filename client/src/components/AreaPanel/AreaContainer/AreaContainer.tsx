@@ -21,10 +21,11 @@ const AreasDisplay: React.FC<{
     setIsUpdating(false);
   }
 
+
   if (cancelUpdateArea) setIsUpdating(cancelUpdateArea());
 
   if (isUpdating) {
-    return <UpdateArea area={area} patchArea={patchArea} goToAreasPanel={goToAreasPanel} deleteArea={deleteArea} />;
+    return <UpdateArea area={area} patchArea={patchArea} goToAreasPanel={goToAreasPanel} deleteArea={deleteArea}/>;
   } else
     return (
       <div onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} className={styles.areaContainer} key={area.id}>
