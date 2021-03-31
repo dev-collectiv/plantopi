@@ -24,9 +24,6 @@ const Dashboard = () => {
   const [controllers, setControllers] = useState<IGetControllers[]>([]);
   const [sensors, setSensors] = useState<IGetSensors[]>([]);
 
-  console.log('selectedArea per dashboard:');
-  console.log(selectedArea);
-
   useEffect(() => {
     apiUser.getUser().then((user) => {
       user && setUsers(user);
@@ -35,8 +32,7 @@ const Dashboard = () => {
     apiArea.getAreas().then((area) => {
       if (area) {
         setAreas(area);
-        console.log('setting area through dashboard use effect to');
-        console.log(area[0]);
+
         setSelectedArea(area[0]);
       }
     });
@@ -71,9 +67,7 @@ const Dashboard = () => {
   };
 
   const setAreaOnUse = (area: IGetArea): void => {
-    console.log('setting area through click action to:');
     setSelectedArea(area);
-    console.log(area);
   };
 
   return (
