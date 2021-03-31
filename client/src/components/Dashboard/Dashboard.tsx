@@ -61,13 +61,17 @@ const Dashboard = () => {
 
   const patchArea = (body: IPatchArea, id: number): void => {
     apiArea.patchAreas(body, id).then((area) => {
-      area && setAreas((prevAreas: any) => [...prevAreas, area]);
+      const updatedAreas = areas.map(el =>{
+        if (el.id !== area.id) return el;
+        return {...el, ...area};
+      });
+      setAreas(updatedAreas);
     });
+    ;
   };
 
   const setAreaOnUse = (area: IGetArea): void => {
     setSelectedArea(area);
-    console.log(area);
   };
 
   return (
