@@ -26,6 +26,7 @@ const AreaPanel: React.FC<{
       return (
         <AreaContainer
           area={area}
+          key={area.id}
           active={active}
           patchArea={patchArea}
           deleteArea={deleteArea}
