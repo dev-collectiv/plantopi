@@ -20,7 +20,7 @@ import AreaPanel from 'components/AreaPanel/AreaPanel';
 const Dashboard = () => {
   const [users, setUsers] = useState<IGetUser[]>([]);
   const [areas, setAreas] = useState<IGetArea[]>([]);
-  const [selectedArea, setSelectedArea] = useState<IGetArea>(areas[0]);
+  const [selectedArea, setSelectedArea] = useState<IGetArea>();
   const [controllers, setControllers] = useState<IGetControllers[]>([]);
   const [sensors, setSensors] = useState<IGetSensors[]>([]);
 
@@ -31,6 +31,8 @@ const Dashboard = () => {
 
     apiArea.getAreas().then((area) => {
       area && setAreas(area);
+    }).then(() => {
+      if (!selectedArea) setSelectedArea(areas[0]);
     });
 
     apiControllers.getControllers().then((controller) => {
@@ -40,8 +42,8 @@ const Dashboard = () => {
     apiSensors.getSensors().then((sensor) => {
       sensor && setSensors(sensor);
     });
-  }, []);
- 
+  }, [areas]);
+
   const addingArea = (area: IAddArea): void => {
     apiArea.postArea(area).then((area) => {
       area && setAreas((prevAreas: any) => [...prevAreas, area]);
@@ -75,7 +77,7 @@ const Dashboard = () => {
         {/* TODO area={areas[selectedArea]} */}
         <DashboardInfo selectedArea={selectedArea} />
         {/* TODO user={users[selectedUser].id} */}
-        <AreaPanel user="0" areas={areas} addingArea={addingArea} deleteArea={deleteArea} patchArea={patchArea} setAreaOnUse={setAreaOnUse} />
+        <AreaPanel user="0" areas={areas} addingArea={addingArea} deleteArea={deleteArea} patchArea={patchArea} setAreaOnUse={setAreaOnUse} selectedArea={selectedArea} />
       </div>
     </SocketContext.Provider>
   );
