@@ -30,9 +30,10 @@ const Dashboard = () => {
     });
 
     apiArea.getAreas().then((area) => {
-      area && setAreas(area);
-    }).then(() => {
-      if (!selectedArea) setSelectedArea(areas[0]);
+      if (area) {
+        setAreas(area);
+        setSelectedArea(area[0]);
+      }
     });
 
     apiControllers.getControllers().then((controller) => {
@@ -42,7 +43,7 @@ const Dashboard = () => {
     apiSensors.getSensors().then((sensor) => {
       sensor && setSensors(sensor);
     });
-  }, [areas]);
+  }, []);
 
   const addingArea = (area: IAddArea): void => {
     apiArea.postArea(area).then((area) => {
