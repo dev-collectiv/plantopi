@@ -1,4 +1,4 @@
-import React from 'react';
+import { BGLogo } from 'assets';
 import ISensorCardProps from './ISensorCardProps';
 import styles from './SensorCard.module.scss';
 
@@ -13,10 +13,11 @@ const SensorCard: React.FC<ISensorCardProps> = (props) => {
   };
 
   return (
-    <div className={`${position && styles[position]} ${styles.card} ${styles.smallCard}`}>
-      <span className={styles.smallCardContainer}>
-        <h2 className={styles.cardTitle}>{name}</h2>
-        <h2 className={styles.cardReading}>{reading_data[type]}</h2>
+    <div className={styles.container}>
+      <h2 className={styles.cardTitle}>{name}</h2>
+      <BGLogo className={styles.background} />
+      <span className={styles.readingContainer}>
+        <h2 className={styles.reading}>{reading ? reading_data[type] : '--'}</h2>
       </span>
     </div>
   );

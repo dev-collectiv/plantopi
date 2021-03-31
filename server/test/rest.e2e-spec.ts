@@ -18,6 +18,7 @@ import { Sensor } from '../src/sensors/entities/sensor.entity';
 import { Controller } from '../src/controllers/entities/controller.entity';
 import { Area } from '../src/areas/entities/area.entity';
 import { User } from '../src/users/entities/user.entity';
+import { SensorReading } from '../src/sensors/entities/sensor-reading.entity';
 //
 
 
@@ -28,7 +29,7 @@ async function initializeTestApp () {
       imports: [
         TypeOrmModule.forRootAsync(
           {useFactory: async () => Object.assign(await getConnectionOptions('test'), {
-            entities: [CronAction, Controller, Area, User, Sensor, Timetable]})}),
+            entities: [CronAction, Controller, Area, User, Sensor, Timetable, SensorReading]})}),
         AppModule
       ]}).compile();
 
@@ -50,8 +51,17 @@ async function initalizeTestDb (app: INestApplication) {
 
     await createSeeds('user', mockSeeds.mockUserSeed);
     await createSeeds('area', mockSeeds.mockAreaSeed);
-    await createSeeds('sensor', mockSeeds.mockSensorSeed);
-    await createSeeds('controller', mockSeeds.mockControllerSeed);
+
+    // sensor & controller
+    const mockControllers = await connection.getRepository(Controller).create(mockSeeds.mockControllerSeed);
+    await connection.getRepository(Controller).save(mockControllers);
+
+    const mockSensors = await connection.getRepository(Sensor).create(mockSeeds.mockSensorSeed);
+    await connection.getRepository(Sensor).save(mockSensors);
+
+    // await createSeeds('sensor', mockSeeds.mockSensorSeed);
+    // await createSeeds('controller', mockSeeds.mockControllerSeed);
+
     await createSeeds('cron_action', mockSeeds.mockCronSeed);
     resolve(connection);
   });

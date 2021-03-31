@@ -1,24 +1,43 @@
-@import 'styles/main.scss';
+@import 'styles/main';
 
-.card {
-  @include card;
-  border-radius: $borderRadius;
+.scheduledCronsContainer {
+  grid-area: bottom-card;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
-  justify-content: center;
-
-  min-width: 100%;
-  max-width: 100%;
-  min-height: 100%;
-  max-height: 100%;
-  position: relative;
-
+  justify-content: flex-start;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
   padding: 1rem;
-  font-weight: 600;
+  overflow-y: scroll;
 }
 
-.bigCard {
-  grid-area: big;
-  background-color: $yellow;
+.svg {
+  @include svg-icon;
+  @include cron-button;
+  width: 10px;
+  height: 10px;
+  margin: 0 0.25rem;
+  fill: $secondary;
+}
+
+.panelTitle {
+  @include panel-title;
+}
+
+.active {
+  fill: $highlights;
+}
+
+.panelDotContainer {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+  height: 30px;
+  background: $bg-light;
+  bottom: 5px;
 }

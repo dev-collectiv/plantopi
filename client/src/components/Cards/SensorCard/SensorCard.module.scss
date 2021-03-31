@@ -1,55 +1,53 @@
 @import 'styles/main.scss';
 
-.card {
-  @include card;
-  border-radius: $borderRadius;
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  justify-content: center;
+$svg-size: 150px;
+$svg-color: $bg;
+$container-size: 200px;
 
-  min-width: 100%;
-  max-width: 100%;
-  min-height: 100%;
-  max-height: 100%;
+.container {
   position: relative;
 
-  padding: 1rem;
-  font-weight: 600;
-}
-
-.smallCardContainer {
+  height: $container-size;
+  max-height: $container-size;
+  width: $container-size;
+  max-width: $container-size;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
   justify-content: center;
-  height: 6rem;
-  width: 6rem;
-  border-radius: 50px;
-  background-color: $bg;
 }
 
-.smallFirst {
-  grid-area: smallFirst;
-  background-color: $yellow;
+.background {
+  min-height: $svg-size;
+  min-width: $svg-size;
+  max-width: $svg-size;
+  max-height: $svg-size;
+  fill: $svg-color;
+  stroke: $svg-color;
+  stroke-width: 4;
+  filter: saturate(1);
+  stroke-miterlimit: 10;
+
+  margin-top: 0.5rem;
 }
 
-.smallSecond {
-  grid-area: smallSecond;
-  background-color: $yellow;
+.readingContainer {
+  position: absolute;
+  top: 50%;
+  z-index: 1;
+
+  & > * {
+    color: $highlights;
+  }
 }
 
 .cardTitle {
   text-transform: uppercase;
-  font-family: $titleFont;
-  position: absolute;
-  font-size: 1.25rem;
-  font-weight: 600;
-  left: 10px;
-  top: 10px;
+  color: $highlights;
+  font-weight: 700;
 }
 
-.cardReading {
-  font-family: $titleFont;
-  border-bottom: 1px solid $red;
+.reading {
+  color: $highlights;
+  font-size: 1.1rem;
 }

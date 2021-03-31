@@ -4,10 +4,13 @@ import { ActionGateway } from './action.gateway';
 import { ActionController } from './action.controller';
 import { MqttService } from '../mqtt/mqtt.service';
 import { TimetableModule } from '../timetable/timetable.module';
+import { MqttModule } from '../mqtt/mqtt.module';
+import { SensorsModule } from '../sensors/sensors.module';
 
 @Module({
   controllers: [ActionController],
-  providers: [ActionService, ActionGateway, MqttService],
-  imports: [TimetableModule]
+  providers: [ActionService, ActionGateway],
+  imports: [TimetableModule, MqttModule, SensorsModule],
+  exports: [ActionService]
 })
 export class ActionModule {}

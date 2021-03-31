@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 388.43 370.13">
+  <style>
+    .st1-ring{fill:none;}
+  </style>
+  <circle id="circle-center" cx="192.95" cy="178.98" r="148.55" />
+  <circle id="ring ring-1" cx="222.26" cy="165.99" r="157.64" class="st1-ring"/>
+  <circle id="ring ring-2" cx="167.02" cy="165.99" r="157.64" class="st1-ring"/>
+  <circle id="ring ring-3" cx="167.02" cy="204.56" r="157.64" class="st1-ring"/>
+</svg>

@@ -10,7 +10,8 @@ export class UsersService {
   constructor(@InjectRepository(User) private userRepository: Repository<User>) {}
 
   create(createUserDto: CreateUserDto) {
-    return this.userRepository.insert(createUserDto);
+    const newUser = this.userRepository.create(createUserDto);
+    return this.userRepository.save(newUser);
   }
 
   findAll(): Promise<User[]> {

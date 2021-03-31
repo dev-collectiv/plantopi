@@ -5,8 +5,6 @@ import { TimetableService } from './timetable.service';
 export class TimetableController {
   constructor(private readonly timetableService: TimetableService) {}
 
-  //TODO: Add option to get by controller id, and another one that calculates daily duration from timestamps
-
   @Get()
   findAll() {
     return this.timetableService.findAll();

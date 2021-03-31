@@ -3,11 +3,11 @@ import { Injectable, Logger } from '@nestjs/common';
 import { SchedulerRegistry } from '@nestjs/schedule';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CronAction } from './entities/cron-action.entity';
-import { DeleteResult, InsertResult, Repository } from 'typeorm';
-import { MqttRequestDto } from '../action/dto/mqtt.dto';
+import { DeleteResult, Repository } from 'typeorm';
 import { ActionService } from '../action/action.service';
 import { CreateCronDto } from './dto/create-cron.dto';
 import { UpdateCronDto } from './dto/update-cron.dto';
+import { CreateCronDto } from './dto/create-cron.dto';
 
 type CronCallbackType = (args?: any[]) => void;
 
@@ -23,22 +23,44 @@ export class CronActionService {
     this.setInitialCronActions();
   }
 
-  async create(time: string, action: MqttRequestDto): Promise<InsertResult> {
-    const stringifiedAction = JSON.stringify(action);
-    const cronAction = await this.cronActionRepository.insert({ time, action: stringifiedAction });
-    const { id } = cronAction.identifiers[0];
+  async create(createCronDto: CreateCronDto): Promise<any> {
+    // Need to stringify action when saving to db, but return non stringified object to front end.
 
-    this.scheduleCronAction(id, time, action);
+    const initialAction = createCronDto.action;
+    const stringifiedAction = JSON.stringify(createCronDto.action);
 
-    return cronAction;
+    createCronDto.action = stringifiedAction;
+    const cronAction = await this.cronActionRepository.create(createCronDto);
+    const savedCronAction = await this.cronActionRepository.save(cronAction);
+
+    savedCronAction.action = initialAction;
+    const { id } = savedCronAction;
+
+    this.scheduleCronAction(id, createCronDto.time, initialAction);
+
+    //the fact that cron action is a string gave an error on the FE
+    //because the JSON parser cannot parse it for some apparent reason
+    return savedCronAction;
   }
 
-  findOne(id: string): Promise<CronAction | undefined> {
-    return this.cronActionRepository.findOne(id);
+  //TODO - save action as JSON
+  async findOne(id: string): Promise<CronAction | undefined> {
+    const cronAction = await this.cronActionRepository.findOne(id);
+
+    if (!cronAction) return undefined;
+
+    const action = JSON.parse(cronAction.action);
+
+    return { ...cronAction, action };
   }
 
-  findAll(): Promise<CronAction[]> {
-    return this.cronActionRepository.find({});
+  async findAll(): Promise<CronAction[]> {
+    const cronActions = await this.cronActionRepository.find();
+
+    return cronActions.map((cronAction) => {
+      const action = JSON.parse(cronAction.action);
+      return { ...cronAction, action };
+    });
   }
 
   update(id: string, updateCronDto: UpdateCronDto): Promise<CronAction> {
@@ -65,9 +87,8 @@ export class CronActionService {
       if (!cronAction.isActive) return;
 
       const { id, time, action } = cronAction;
-      const parsedAction = JSON.parse(action);
 
-      this.scheduleCronAction(id, time, parsedAction);
+      this.scheduleCronAction(id, time, action);
     });
   }
 
@@ -84,7 +105,8 @@ export class CronActionService {
     }
   }
 
-  private scheduleCronAction(id: string, time: string, action: MqttRequestDto): void {
+  //TODO - fix action any
+  private scheduleCronAction(id: string, time: string, action: any): void {
     const cb: CronCallbackType = () => this.actionService.publishActionToIOT(action);
 
     const job = new CronJob(time, () => {

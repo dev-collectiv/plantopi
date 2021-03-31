@@ -1,6 +1,6 @@
 import { Area } from '../../areas/entities/area.entity';
 import { CronAction } from '../../cron-action/entities/cron-action.entity';
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToOne, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToOne, OneToMany, BeforeInsert } from 'typeorm';
 import { Timetable } from '../../timetable/entities/timetable.entity';
 
 @Entity()
@@ -11,6 +11,9 @@ export class Controller {
   @ManyToOne(() => Area, (area) => area.controllers, {onDelete: 'CASCADE'})
   area: Area;
 
+  @Column()
+  areaId: string;
+
   @OneToMany(() => Timetable, timetable => timetable.controller)
   timetables: Timetable[];
 
@@ -20,12 +23,21 @@ export class Controller {
   @Column({ default: true })
   isActive: boolean;
 
-  @OneToOne(() => CronAction, (cronAction) => cronAction.controller)
+  @Column()
+  iotId?: string;
+
+  @OneToOne(() => CronAction)
   cronAction?: CronAction;
 
-  constructor(id: number, area: Area, timetables: Timetable[], type: string, isActive: boolean, cronAction: CronAction) {
+  @BeforeInsert()
+  generateIotId () {
+    this.iotId = 'pump' + this.areaId;
+  }
+
+  constructor(id: number, area: Area, areaId: string, iotId: string, timetables: Timetable[], type: string, isActive: boolean, cronAction: CronAction) {
     this.id = id;
     this.area = area;
+    this.areaId = areaId;
     this.type = type;
     this.timetables = timetables;
     this.isActive = isActive;

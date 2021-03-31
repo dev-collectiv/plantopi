@@ -6,7 +6,9 @@ export const mockControllers = {
             "id": 1,
             "area": {
                 "id": 1,
-                "isActive": true
+                "isActive": true,
+                "latitude": "41.3851",
+                "longitude": "2.1734",
             },
             "type": "TestiePump",
             "isActive": true
@@ -15,7 +17,9 @@ export const mockControllers = {
             "id": 2,
             "area": {
                 "id": 1,
-                "isActive": true
+                "isActive": true,
+                "latitude": "41.3851",
+                "longitude": "2.1734",
             },
             "type": "TestieMusic",
             "isActive": true
@@ -24,7 +28,9 @@ export const mockControllers = {
             "id": 3,
             "area": {
                 "id": 2,
-                "isActive": true
+                "isActive": true,
+                "latitude": "41.3851",
+                "longitude": "2.1734",
             },
             "type": "TestieDoor",
             "isActive": true
@@ -33,7 +39,9 @@ export const mockControllers = {
             "id": 4,
             "area": {
                 "id": 3,
-                "isActive": true
+                "isActive": true,
+                "latitude": "41.3851",
+                "longitude": "2.1734",
             },
             "type": "RemovePump",
             "isActive": true
@@ -42,7 +50,9 @@ export const mockControllers = {
             "id": 5,
             "area": {
                 "id": 4,
-                "isActive": true
+                "isActive": true,
+                "latitude": "41.3851",
+                "longitude": "2.1734",
             },
             "type": "DarthDoor",
             "isActive": true
@@ -51,7 +61,9 @@ export const mockControllers = {
             "id": 6,
             "area": {
                 "id": 4,
-                "isActive": true
+                "isActive": true,
+                "latitude": "41.3851",
+                "longitude": "2.1734",
             },
             "type": "DarthPump",
             "isActive": true
@@ -67,7 +79,9 @@ export const mockControllers = {
         "id": 3,
         "area": {
             "id": 4,
-            "isActive": true
+            "isActive": true,
+            "latitude": "41.3851",
+            "longitude": "2.1734",
         },
         "type": "NowLatersDoor",
         "isActive": true
@@ -77,7 +91,9 @@ export const mockControllers = {
         "id": 7,
         "area": {
             "id": 2,
-            "isActive": true
+            "isActive": true,
+            "latitude": "41.3851",
+            "longitude": "2.1734",
         },
         "type": "TestiesNewDoor",
         "isActive": true
