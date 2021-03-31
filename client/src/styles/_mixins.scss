@@ -34,17 +34,6 @@
   font-weight: 700;
 }
 
-// @mixin panel-title {
-//   text-transform: uppercase;
-//   font-family: $titleFont;
-//   color: rgb(44, 44, 44);
-//   position: absolute;
-//   font-size: 1.25rem;
-//   font-weight: 600;
-//   left: 10px;
-//   top: 10px;
-// }
-
 @mixin svg-icon {
   max-width: 25px;
   max-height: 25px;
@@ -68,9 +57,9 @@
   position: relative;
   display: flex;
   flex-flow: column nowrap;
-  height: 150px;
+  min-height: 150px;
   max-height: 150px;
-  width: 75%;
+  min-width: 75%;
   max-width: 75%;
 
   background-color: $bg;
@@ -82,43 +71,6 @@
   & > * {
     font-family: $main-font;
     font-weight: 400;
-    margin-top: 0.25rem;
-  }
-
-  button {
-    @include main-button;
-    background-color: $highlights;
-    color: $highlights-font-color;
-    margin: 0 5px;
-
-    border-radius: 5px;
-  }
-}
-
-@mixin update-area-container {
-  display: flex;
-  flex-flow: column nowrap;
-  height: 250px;
-  max-height: 300px;
-  background-color: $bg;
-  margin-top: 0.5rem;
-  border-radius: 5px;
-  justify-content: center;
-  align-items: center;
-  width: 75%;
-
-  & > * {
-    font-family: $main-font;
-    font-weight: 400;
-    margin-top: 0.25rem;
-  }
-
-  button {
-    @include main-button;
-    margin: 0 5px;
-    background-color: $highlights;
-    color: $highlights-font-color;
-    border-radius: 5px;
   }
 }
 
@@ -151,4 +103,23 @@
   &:hover {
     background-color: rgba($bg-illustration, 0.1);
   }
+}
+
+@mixin area-card-title {
+  width: 100%;
+
+  padding: 0.5rem 0;
+  margin-bottom: 0.25rem;
+  position: absolute;
+  top: 0;
+
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: 500;
+  outline: none;
+
+  background-color: $secondary;
+  color: $highlights-font-color;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
