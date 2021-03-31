@@ -16,10 +16,6 @@ const DashboardInfo: React.FC<{ selectedArea: IGetArea | undefined }> = ({ selec
   let [currentWeather, setCurrentWeather] = useState<ICurrentWeather>();
   let [currentHumidity, setCurrentHumidity] = useState<number>(0);
 
-  socket.on('sensors', (sensorData: ISensorReading) => {
-    sensorDataHandler(sensorData);
-  });
-
   // AREA ID HARDCODED IN CURRENT WEATHER FETCH BELOW - SWAP WITH AREAID LATER
   useEffect(() => {
     const initializeWeather = async () => {
@@ -34,11 +30,24 @@ const DashboardInfo: React.FC<{ selectedArea: IGetArea | undefined }> = ({ selec
     initializeWeather();
   }, []);
 
-  function sensorDataHandler (sensorData: ISensorReading) {
-    // console.log(selectedArea);
-    if (!selectedArea) return;
+  useEffect(() => {
+    socket.on('sensors', listener);
+    function listener (sensorData: ISensorReading) {
+      let currentArea = selectedArea;
+      sensorDataHandler(sensorData, currentArea);
+    }
 
+    return (() => {socket.removeEventListener('sensors', listener);});
 
+  }, [selectedArea]);
+
+  console.log('selected area outside handler');
+  console.log(selectedArea);
+
+  function sensorDataHandler (sensorData: ISensorReading, currentArea: IGetArea |undefined) {
+    console.log('selected area inside handler');
+    console.log(currentArea);
+    if (!currentArea) return;
 
     // console.log('id from server:');
     // console.log(sensorData.sensorId);
@@ -46,11 +55,11 @@ const DashboardInfo: React.FC<{ selectedArea: IGetArea | undefined }> = ({ selec
     // console.log(selectedArea);
     // console.log(sensorData.sensorId === selectedArea.sensors[0].iotId);
 
-    if (sensorData.sensorId[6] === selectedArea.id.toString()) {
+    if (sensorData.sensorId[6] === currentArea.id.toString()) {
       console.log('sensordata id:');
       console.log(sensorData.sensorId[6]);
       console.log('selectedarea id:');
-      console.log(selectedArea.id);
+      console.log(currentArea.id);
       setCurrentHumidity(sensorData.value);
     }
   }
