@@ -12,7 +12,7 @@ import { ICurrentWeather } from 'types/weatherInterfaces';
 import { socket } from 'context/socket';
 import { ISensorReading } from 'types/sensorsInterfaces';
 
-const DashboardInfo: React.FC<{ selectedArea: IGetArea }> = ({ selectedArea }) => {
+const DashboardInfo: React.FC<{ selectedArea: IGetArea | undefined }> = ({ selectedArea }) => {
   let [currentWeather, setCurrentWeather] = useState<ICurrentWeather>();
   let [currentHumidity, setCurrentHumidity] = useState<number>(0);
 
@@ -35,7 +35,7 @@ const DashboardInfo: React.FC<{ selectedArea: IGetArea }> = ({ selectedArea }) =
 
   return (
     <div className={styles.container}>
-      <TopCard title={selectedArea && selectedArea.name}>
+      <TopCard title={selectedArea ? selectedArea.name : ''}>
         {/*TODO <SensorCard id={area.sensors[0].id} name={area.sensors[0].name} type={area.sensors[0].type} reading={area.sensors[0].value} /> */}
         <SensorCard id="1" name="Humidity" type="humidity" reading={currentHumidity} />
         {/*TODO <SensorCard id={area.sensors[1].id} name={area.sensors[1].name} type={area.sensors[1].type} reading={area.sensors[1].value} /> */}
