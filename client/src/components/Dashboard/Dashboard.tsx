@@ -32,6 +32,7 @@ const Dashboard = () => {
     apiArea.getAreas().then((area) => {
       if (area) {
         setAreas(area);
+
         setSelectedArea(area[0]);
       }
     });

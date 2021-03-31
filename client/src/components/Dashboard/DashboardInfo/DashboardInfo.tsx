@@ -27,11 +27,42 @@ const DashboardInfo: React.FC<{ selectedArea: IGetArea | undefined }> = ({ selec
         console.log('Could not initialize current weather.');
       }
     };
-
-    socket.on('sensors', (sensorData: ISensorReading) => setCurrentHumidity(sensorData.value));
-
     initializeWeather();
   }, []);
+
+  useEffect(() => {
+    socket.on('sensors', listener);
+    function listener (sensorData: ISensorReading) {
+      let currentArea = selectedArea;
+      sensorDataHandler(sensorData, currentArea);
+    }
+
+    return (() => {socket.removeEventListener('sensors', listener);});
+
+  }, [selectedArea]);
+
+  console.log('selected area outside handler');
+  console.log(selectedArea);
+
+  function sensorDataHandler (sensorData: ISensorReading, currentArea: IGetArea |undefined) {
+    console.log('selected area inside handler');
+    console.log(currentArea);
+    if (!currentArea) return;
+
+    // console.log('id from server:');
+    // console.log(sensorData.sensorId);
+    // console.log('id from selected');
+    // console.log(selectedArea);
+    // console.log(sensorData.sensorId === selectedArea.sensors[0].iotId);
+
+    if (sensorData.sensorId[6] === currentArea.id.toString()) {
+      console.log('sensordata id:');
+      console.log(sensorData.sensorId[6]);
+      console.log('selectedarea id:');
+      console.log(currentArea.id);
+      setCurrentHumidity(sensorData.value);
+    }
+  }
 
   return (
     <div className={styles.container}>
