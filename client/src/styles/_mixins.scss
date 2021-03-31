@@ -57,10 +57,10 @@
   position: relative;
   display: flex;
   flex-flow: column nowrap;
-  min-height: 150px;
-  max-height: 150px;
-  min-width: 75%;
-  max-width: 75%;
+  min-height: 175px;
+  max-height: 175px;
+  min-width: 80%;
+  max-width: 80%;
 
   background-color: $bg;
   margin-top: 0.5rem;
@@ -122,4 +122,14 @@
   color: $highlights-font-color;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+}
+
+@mixin card-button {
+  @include button-hover;
+  border: none;
+  background-color: $highlights;
+  color: $highlights-font-color;
+  margin: 0 5px;
+  border-radius: 5px;
+  padding: 0.5rem 0.75rem;
 }
