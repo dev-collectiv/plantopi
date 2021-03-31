@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import { gsap } from 'gsap';
+import { gsap, Back } from 'gsap';
 import Day from '../Days/Days';
 import Select from 'components/Select/Select';
 
@@ -64,7 +64,8 @@ const CronForm: React.FC<Props> = ({
       tl.to(checkRef.current, {
         opacity: 1,
         scale: 1,
-        duration: 1
+        duration: 0.75,
+        ease: Back.easeOut.config(2.5)
       });
 
       tl.to(checkRef.current, {
@@ -75,7 +76,7 @@ const CronForm: React.FC<Props> = ({
 
       tl.to(checkRef.current, {
         scale: 0,
-        duration: 1,
+        duration: 0.5,
         opacity: 0,
         onComplete: handleCompleteAnimation
       });
