@@ -25,11 +25,11 @@ const AddArea: React.FC<{ addArea: Function; cancelCreateArea: Function }> = ({ 
       </label>
       <label className={styles.inputContainer}>
         <h3> Longitude</h3>
-        <input value={newArea.longitude} name="longitude" type="text" onChange={handleEvent} />
+        <input value={newArea.longitude} placeholder={'2.1734'} name="longitude" type="text" onChange={handleEvent} />
       </label>
       <label className={styles.inputContainer}>
         <h3> Latitude</h3>
-        <input value={newArea.latitude} name="latitude" type="text" onChange={handleEvent} />
+        <input value={newArea.latitude} name="latitude" placeholder={'41.3851'} type="text" onChange={handleEvent} />
       </label>
 
       <div className={styles.buttonContainer}>
