@@ -48,8 +48,7 @@ On the server-side, you will need two new files:
   HTTP_PORT="HTTP or Nest.js Port"
   ```
 
-- **server/ormconfig.json**
-contains the variables related to the database, you have to change this file to suit the needs of your postgreSQL setup, if you don't have postgreSQL installed, you can leave the file with the following options and use docker-compose to run the setup in **server/docker-compose.yaml**
+- **server/ormconfig.json** - contains the variables related to the database, you have to change this file to suit the needs of your postgreSQL setup, if you don't have postgreSQL installed, you can leave the file with the following options and use docker-compose to run the setup in **server/docker-compose.yaml**
 
   ```json
   [
@@ -89,9 +88,9 @@ On the client-side, you will need one new file:
 
   ```bash
   REACT_APP_SOCKET_HOST="URL base where the socket will send information, we used http://localhost" 
-    REACT_APP_SOCKET_PORT=""Socket Port, we used 3002"
-    REACT_APP_API_HOST="URL base where  Nest.js  will send information, we used http://localhost" 
-    REACT_APP_API_PORT="PORT where react will work, by default its 3001 but it can be changed"
+  REACT_APP_SOCKET_PORT=""Socket Port, we used 3002"
+  REACT_APP_API_HOST="URL base where  Nest.js  will send information, we used http://localhost" 
+  REACT_APP_API_PORT="PORT where react will work, by default its 3001 but it can be changed"
   ```
 
 Now let's run the database:
