@@ -48,7 +48,8 @@ On the server-side, you will need two new files:
   HTTP_PORT="HTTP or Nest.js Port"
   ```
 
-- **server/ormconfig.json** contains the variables related to the database, you have to change this file to suit the needs of your postgreSQL setup, if you don't have postgreSQL installed, you can leave the file with the following options and use docker-compose to run the setup in **server/docker-compose.yaml**
+- **server/ormconfig.json**
+contains the variables related to the database, you have to change this file to suit the needs of your postgreSQL setup, if you don't have postgreSQL installed, you can leave the file with the following options and use docker-compose to run the setup in **server/docker-compose.yaml**
 
   ```json
   [
