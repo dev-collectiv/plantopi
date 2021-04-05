@@ -3,8 +3,6 @@ import { User } from '../../users/entities/user.entity';
 import { Controller } from '../../controllers/entities/controller.entity';
 import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToMany } from 'typeorm';
 
-// Area ties to users with ManyToOne, users tie to area with OneToMany
-
 @Entity()
 export class Area {
   @PrimaryGeneratedColumn()
@@ -25,10 +23,10 @@ export class Area {
   @Column()
   name: string;
 
-  @Column({ default: '41.3851' })
+  @Column({ default: '41.3851' }) // Barcelona's lat by default
   latitude: string;
 
-  @Column({ default: '2.1734' })
+  @Column({ default: '2.1734' }) // Barcelona's lon by default
   longitude: string;
 
   constructor(id: number, name: string, user: User, sensors: Sensor[], controllers: Controller[], longitude: string, latitude: string, isActive: boolean) {

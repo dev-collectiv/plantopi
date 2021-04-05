@@ -30,7 +30,6 @@ export class TimetableService {
 
   createDurationTable(timetable: CreateTimetableDto[]): DurationEntry[] {
     const durationTable = timetable.map((timeEntry) => {
-      // TODO: HANDLE IF START & END DAYS ARE DIFFERENT - for now treating start date as the date of irrigation
       const duration = timeEntry.endTime.valueOf() - timeEntry.startTime.valueOf();
       const date = timeEntry.startTime.toISOString().split('T')[0];
       return {controllerId: timeEntry.controllerId.toString(), date, duration};

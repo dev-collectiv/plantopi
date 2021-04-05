@@ -1,4 +1,3 @@
-import { EventEmitter2 } from 'eventemitter2';
 import { createSensorReadingHandler } from './action.service.helpers';
 
 describe ('Sensor Reading Handler', () => {
@@ -17,7 +16,7 @@ describe ('Sensor Reading Handler', () => {
     const mockDbRequest1 = {sensorId: '1', value: 11};
     const mockDbRequest2 = {sensorId: '1', value: 12};
 
-    const sensorReadingHandler = createSensorReadingHandler(mockHandler, trackedSensor, readingCountToRecord, mockEmitter);
+    const sensorReadingHandler = createSensorReadingHandler(mockHandler, mockEmitter);
 
     // CALL HANDLER ONCE
     sensorReadingHandler(mockReading1);

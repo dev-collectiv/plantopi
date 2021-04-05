@@ -1,5 +1,3 @@
-//TODO - refactor into MqttActionDto
-
 export interface MqttRequestDto {
   id: string,
   action: string,
