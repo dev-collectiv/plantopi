@@ -8,7 +8,7 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=thesisdb
+      - POSTGRES_DB=db
 
   db_test:
     image: postgres
@@ -17,4 +17,4 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=thesistestdb
+      - POSTGRES_DB=testdb
