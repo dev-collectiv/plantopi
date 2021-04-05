@@ -19,7 +19,6 @@ export class ActionGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
   handleConnection(client: Socket) {
     this.logger.log(`Client connected: ${client.id}`);
-    client.emit('testTopic', 'hi client, this is server');
 
     this.actionService.sensorEventEmitter.on('readingReceived', (sensorData: any) => {
       client.emit('sensors', sensorData);
@@ -32,13 +31,11 @@ export class ActionGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
   handleDisconnect(client: Socket) {
     this.logger.log(`Client disconnected: ${client.id}`);
-    // TODO: REMOVE EVENT LISTENERS
   }
 
   @SubscribeMessage('action')
   handleActionMessage(client: Socket, payload: MqttRequestDto): void {
-    this.logger.log('Duration received: ' + payload.duration);
-    client.emit('action', 'Server received duration: ' + payload.duration); // send feedback to front end
+    client.emit('action', 'Server received duration: ' + payload.duration);
 
     this.actionService.publishActionToIOT(payload);
   }

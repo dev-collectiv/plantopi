@@ -37,8 +37,6 @@ export class CronActionService {
 
     this.scheduleCronAction(id, createCronDto.time, initialAction);
 
-    //the fact that cron action is a string gave an error on the FE
-    //because the JSON parser cannot parse it for some apparent reason
     return savedCronAction;
   }
 
@@ -66,7 +64,6 @@ export class CronActionService {
     const { action, time, isActive } = updateCronDto;
     const stringifiedAction = JSON.stringify(action);
 
-    //delete scheduledCronAction and create a new one
     this.deleteScheduledCronAction(id);
     if (isActive) this.scheduleCronAction(id, time, action);
 
@@ -78,7 +75,7 @@ export class CronActionService {
     return this.cronActionRepository.delete(id);
   }
 
-  //if server restarts, this method reschedule the saved cronActions
+  //if server restarts, this method reschedules the saved cronActions
   private async setInitialCronActions(): Promise<void> {
     const cronActions = await this.findAll();
 
@@ -91,11 +88,6 @@ export class CronActionService {
     });
   }
 
-  //Will keep this commented since it might be useful in the future
-  // private getScheduledCronJob(id: string): CronJob {
-  //   return this.schedulerRegistry.getCronJob(id);
-  // }
-
   private deleteScheduledCronAction(id: string): void {
     try {
       this.schedulerRegistry.deleteCronJob(id);
@@ -104,7 +96,6 @@ export class CronActionService {
     }
   }
 
-  //TODO - fix action any
   private scheduleCronAction(id: string, time: string, action: any): void {
     const cb: CronCallbackType = () => this.actionService.publishActionToIOT(action);
 
