@@ -1,0 +1,27 @@
+[
+ {
+    "type": "postgres",
+    "host": "##DB_SERVER_HOST##",
+    "name": "development",
+    "port": ##DB_PORT##,
+    "username": "##DB_USER##",
+    "password": "##DB_PASS##",
+    "database": "##DB_NAME##",
+    "dropSchema": true,
+    "entities": ["dist/**/*.entity.js"],
+    "synchronize": true
+  },
+  {
+    "type": "postgres",
+    "host": "##DB_SERVER_HOST##",
+    "name": "test",
+    "port": ##TEST_DB_PORT##,
+    "username": "##TEST_DB_USER##",
+    "password": "##TEST_DB_PASS##",
+    "database": "##TEST_DB_NAME##",
+    "dropSchema": true,
+
+    "entities": ["dist/**/*.entity.js"],
+    "synchronize": true
+  }
+]
