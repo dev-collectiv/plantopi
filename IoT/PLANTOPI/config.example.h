@@ -4,7 +4,7 @@ const int digitalOutputPin1 = 5;
 
 //WIFI SETTINGS
 const char *wifiSsid = "Codeworks";
-const char *wifiPassword = "codinginthesun";
+const char *wifiPassword = "####";
 
 //MQTT SETTINGS
 const char *mqttBroker = "nanopim4v2";
