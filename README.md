@@ -1,9 +1,16 @@
-# Plantopi
+<p align="center"><img alt="Plantopi Logo" title="Plantopi Smart Garden" src="./resources/Plantopi-Logo.png" width="200px"></p>
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## About
-> Designed to keep your greens alive, you can schedule an automatic irrigation based on your needs, or with the click of a button, no matter where you are.
+**Designed to keep your greens alive, you can schedule an automatic irrigation based on your needs, or with the click of a button, no matter where you are**
 
 Plantopi is an irrigation system that allows remote control and monitoring, as well as scheduling for automation. Users can create multiple areas, each with their own set of humidity sensors and controllers (water pumps, electrovalves, lights, etc.), and setup irrigation schedules based on their plants' needs. The application communicates with Arduinos and a Raspberry Pi for IoT control and makes use of Open Weather API for weather data. An overview schema of these various components can be found below.
+
+## UI
+
+![plantopi-ui](https://github.com/dev-collectiv/plantopi/blob/main/resources/plantopiT.gif)
 
 ## Requirements
 
@@ -171,5 +178,25 @@ Once you have the set up ready, there are different ways to make the software wo
     npm start  
     ```
 
- 
+## Contributors ✨
 
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="http://cxgarcia.com"><img src="https://avatars.githubusercontent.com/u/57994942?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Cristobal Schlaubitz Garcia</b></sub></a><br /><a href="#design-CxGarcia" title="Design">🎨</a> <a href="#infra-CxGarcia" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#ideas-CxGarcia" title="Ideas, Planning, & Feedback">🤔</a> <a href="#projectManagement-CxGarcia" title="Project Management">📆</a> <a href="https://github.com/dev-collectiv/plantopi/commits?author=CxGarcia" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/hussedev"><img src="https://avatars.githubusercontent.com/u/22710836?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Hussein  Abdeljabbar Ismail Martínez</b></sub></a><br /><a href="#platform-hussedev" title="Packaging/porting to new platform">📦</a> <a href="#infra-hussedev" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#ideas-hussedev" title="Ideas, Planning, & Feedback">🤔</a> <a href="#projectManagement-hussedev" title="Project Management">📆</a> <a href="https://github.com/dev-collectiv/plantopi/commits?author=hussedev" title="Code">💻</a></td>
+    <td align="center"><a href="http://mertascioglu.ninja"><img src="https://avatars.githubusercontent.com/u/65975591?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mert Ascioglu</b></sub></a><br /><a href="#infra-ascolm" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/dev-collectiv/plantopi/commits?author=ascolm" title="Tests">⚠️</a> <a href="#ideas-ascolm" title="Ideas, Planning, & Feedback">🤔</a> <a href="#projectManagement-ascolm" title="Project Management">📆</a> <a href="https://github.com/dev-collectiv/plantopi/commits?author=ascolm" title="Code">💻</a></td>
+    <td align="center"><a href="http://www.linkedin.com/in/jose-lamas"><img src="https://avatars.githubusercontent.com/u/69245960?v=4?s=100" width="100px;" alt=""/><br /><sub><b>jose luis lamas</b></sub></a><br /><a href="#infra-JoseLLamasT" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#ideas-JoseLLamasT" title="Ideas, Planning, & Feedback">🤔</a> <a href="#projectManagement-JoseLLamasT" title="Project Management">📆</a> <a href="https://github.com/dev-collectiv/plantopi/commits?author=JoseLLamasT" title="Documentation">📖</a> <a href="https://github.com/dev-collectiv/plantopi/commits?author=JoseLLamasT" title="Code">💻</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
