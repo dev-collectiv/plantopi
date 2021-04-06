@@ -1,0 +1,27 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "hussedev",
+      "name": "Hussein  Abdeljabbar Ismail Martínez",
+      "avatar_url": "https://avatars.githubusercontent.com/u/22710836?v=4",
+      "profile": "https://github.com/hussedev",
+      "contributions": [
+        "infra",
+        "ideas",
+        "projectManagement",
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "plantopi",
+  "projectOwner": "dev-collectiv",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
