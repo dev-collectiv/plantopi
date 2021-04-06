@@ -16,9 +16,9 @@
         "ideas",
         "projectManagement",
         "code"
-        ]
-      },
-      {
+      ]
+    },
+    {
       "login": "hussedev",
       "name": "Hussein  Abdeljabbar Ismail Martínez",
       "avatar_url": "https://avatars.githubusercontent.com/u/22710836?v=4",
@@ -41,6 +41,19 @@
         "test",
         "ideas",
         "projectManagement",
+        "code"
+      ]
+    },
+    {
+      "login": "JoseLLamasT",
+      "name": "jose luis lamas",
+      "avatar_url": "https://avatars.githubusercontent.com/u/69245960?v=4",
+      "profile": "http://www.linkedin.com/in/jose-lamas",
+      "contributions": [
+        "infra",
+        "ideas",
+        "projectManagement",
+        "doc",
         "code"
       ]
     }
