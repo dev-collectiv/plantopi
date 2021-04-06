@@ -187,6 +187,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
+    <td align="center"><a href="http://cxgarcia.com"><img src="https://avatars.githubusercontent.com/u/57994942?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Cristobal Schlaubitz Garcia</b></sub></a><br /><a href="#infra-CxGarcia" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#design-CxGarcia" title="Design">🎨</a> <a href="#ideas-CxGarcia" title="Ideas, Planning, & Feedback">🤔</a> <a href="#projectManagement-CxGarcia" title="Project Management">📆</a> <a href="https://github.com/dev-collectiv/plantopi/commits?author=CxGarcia" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/hussedev"><img src="https://avatars.githubusercontent.com/u/22710836?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Hussein  Abdeljabbar Ismail Martínez</b></sub></a><br /><a href="#infra-hussedev" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#ideas-hussedev" title="Ideas, Planning, & Feedback">🤔</a> <a href="#projectManagement-hussedev" title="Project Management">📆</a> <a href="https://github.com/dev-collectiv/plantopi/commits?author=hussedev" title="Code">💻</a></td>
   </tr>
 </table>

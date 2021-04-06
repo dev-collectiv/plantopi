@@ -6,11 +6,25 @@
   "commit": false,
   "contributors": [
     {
+      "login": "CxGarcia",
+      "name": "Cristobal Schlaubitz Garcia",
+      "avatar_url": "https://avatars.githubusercontent.com/u/57994942?v=4",
+      "profile": "http://cxgarcia.com",
+      "contributions": [
+        "design",
+        "infra",
+        "ideas",
+        "projectManagement",
+        "code"
+        ]
+      },
+      {
       "login": "hussedev",
       "name": "Hussein  Abdeljabbar Ismail Martínez",
       "avatar_url": "https://avatars.githubusercontent.com/u/22710836?v=4",
       "profile": "https://github.com/hussedev",
       "contributions": [
+        "platform",
         "infra",
         "ideas",
         "projectManagement",
