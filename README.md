@@ -1,4 +1,7 @@
 <p align="center"><img alt="Plantopi Logo" title="Plantopi Smart Garden" src="./resources/Plantopi-Logo.png" width="200px"></p>
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## About
 **Designed to keep your greens alive, you can schedule an automatic irrigation based on your needs, or with the click of a button, no matter where you are**
@@ -174,3 +177,23 @@ Once you have the set up ready, there are different ways to make the software wo
     cd server
     npm start  
     ```
+
+## Contributors ✨
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/hussedev"><img src="https://avatars.githubusercontent.com/u/22710836?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Hussein  Abdeljabbar Ismail Martínez</b></sub></a><br /><a href="#infra-hussedev" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#ideas-hussedev" title="Ideas, Planning, & Feedback">🤔</a> <a href="#projectManagement-hussedev" title="Project Management">📆</a> <a href="https://github.com/dev-collectiv/plantopi/commits?author=hussedev" title="Code">💻</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
