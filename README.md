@@ -1,3 +1,5 @@
+<p align="center"><img alt="Plantopi Logo" title="Plantopi Smart Garden" src="./resources/Plantopi-Logo.png" width="200px"></p>
+
 # Plantopi
 
 ![synthesis-ui](https://github.com/dev-collectiv/plantopi/blob/main/resources/plantopi.gif)
