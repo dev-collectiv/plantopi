@@ -1,5 +1,7 @@
 # Plantopi
 
+![synthesis-ui](https://github.com/dev-collectiv/plantopi/blob/main/resources/plantopi.gif)
+
 ## About
 > Designed to keep your greens alive, you can schedule an automatic irrigation based on your needs, or with the click of a button, no matter where you are.
 
