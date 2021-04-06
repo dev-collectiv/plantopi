@@ -1,0 +1,28 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "CxGarcia",
+      "name": "Cristobal Schlaubitz Garcia",
+      "avatar_url": "https://avatars.githubusercontent.com/u/57994942?v=4",
+      "profile": "http://cxgarcia.com",
+      "contributions": [
+        "infra",
+        "design",
+        "ideas",
+        "projectManagement",
+        "code"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "plantopi",
+  "projectOwner": "dev-collectiv",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
