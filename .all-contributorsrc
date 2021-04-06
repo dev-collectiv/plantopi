@@ -16,6 +16,19 @@
         "projectManagement",
         "code"
       ]
+    },
+    {
+      "login": "ascolm",
+      "name": "Mert Ascioglu",
+      "avatar_url": "https://avatars.githubusercontent.com/u/65975591?v=4",
+      "profile": "http://mertascioglu.ninja",
+      "contributions": [
+        "infra",
+        "test",
+        "ideas",
+        "projectManagement",
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7,
