@@ -1,15 +1,17 @@
 # Plantopi
 
+## About
 > Designed to keep your greens alive, you can schedule an automatic irrigation based on your needs, or with the click of a button, no matter where you are.
 
-
+Plantopi is an irrigation system that allows remote control and monitoring, as well as scheduling for automation. Users can create multiple areas, each with their own set of humidity sensors and controllers (water pumps, electrovalves, lights, etc.), and setup irrigation schedules based on their plants' needs. The application communicates with Arduinos and a Raspberry Pi for IoT control and makes use of Open Weather API for weather data. An overview schema of these various components can be found below.
 
 ## Requirements
 
+Let's first start with what is required to run the app.
+
 - A **PostgreSQL** server running and with a database already created with the same name as the one you set on **server/ormconfig.json**.
   - An alternative would be to use **docker-compose**, if you have it installed, more instructions below.
-- A **MQTT Broker** running.
-
+- A **MQTT Broker** running. We used a **Raspberry Pi** running **Mosquitto** as the broker. You can follow this link for more info on how to get this setup: (mosquitto-setup)[https://www.instructables.com/Installing-MQTT-BrokerMosquitto-on-Raspberry-Pi/].
 - A **NodeMCU** or another **ESP8266** microcontroller.
 - A **relay** connected to a water pump or electrovalve.
 
@@ -43,12 +45,12 @@ On the server-side, you will need two new files:
 
   ```bash
   MQTT_BROKER_IP= "Broker IP"
-  MQTT_PORT= "MQTT o mosquito PORT"
-  WS_PORT= "Web socekt PORT"
-  HTTP_PORT="HTTP or Nest.js Port"
+  MQTT_PORT= "MQTT or mosquito PORT (default 1883)"
+  WS_PORT= "Web socekt PORT (default 3002)"
+  HTTP_PORT="HTTP or Nest.js Port (default 3001)"
   ```
 
-- **server/ormconfig.json** - contains the variables related to the database, you have to change this file to suit the needs of your postgreSQL setup, if you don't have postgreSQL installed, you can leave the file with the following options and use docker-compose to run the setup in **server/docker-compose.yaml**
+- **server/ormconfig.json** - contains the variables related to the database, you have to change this file to suit the needs of your PostgreSQL setup, if you don't have PostgreSQL installed, and would rather use Docker, please refere to the next section.
 
   ```json
   [
@@ -78,7 +80,7 @@ On the server-side, you will need two new files:
   ]
   ```
 
-
+- **server/ormconfig.json** - Assuming you already have Docker up and running, there is a script already setup to run the DB along with the whole application. Make sure you are in the root of the app and run `npm run devUnix` which will compose the container with the predefined configs and run the backend along with the frontend.
 
 ### Client
 
