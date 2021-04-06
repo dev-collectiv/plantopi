@@ -1,6 +1,6 @@
 <p align="center"><img alt="Plantopi Logo" title="Plantopi Smart Garden" src="./resources/Plantopi-Logo.png" width="200px"></p>
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## About
@@ -188,6 +188,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <table>
   <tr>
     <td align="center"><a href="https://github.com/hussedev"><img src="https://avatars.githubusercontent.com/u/22710836?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Hussein  Abdeljabbar Ismail Martínez</b></sub></a><br /><a href="#infra-hussedev" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#ideas-hussedev" title="Ideas, Planning, & Feedback">🤔</a> <a href="#projectManagement-hussedev" title="Project Management">📆</a> <a href="https://github.com/dev-collectiv/plantopi/commits?author=hussedev" title="Code">💻</a></td>
+    <td align="center"><a href="http://mertascioglu.ninja"><img src="https://avatars.githubusercontent.com/u/65975591?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mert Ascioglu</b></sub></a><br /><a href="#infra-ascolm" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="https://github.com/dev-collectiv/plantopi/commits?author=ascolm" title="Tests">⚠️</a> <a href="#ideas-ascolm" title="Ideas, Planning, & Feedback">🤔</a> <a href="#projectManagement-ascolm" title="Project Management">📆</a> <a href="https://github.com/dev-collectiv/plantopi/commits?author=ascolm" title="Code">💻</a></td>
   </tr>
 </table>
 
