@@ -7,7 +7,7 @@ Plantopi is an irrigation system that allows remote control and monitoring, as w
 
 ## UI
 
-![synthesis-ui](https://github.com/dev-collectiv/plantopi/blob/main/resources/plantopi.gif)
+![plantopi-ui](https://github.com/dev-collectiv/plantopi/blob/main/resources/plantopi.gif)
 
 ## Requirements
 
