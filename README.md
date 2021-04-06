@@ -174,6 +174,3 @@ Once you have the set up ready, there are different ways to make the software wo
     cd server
     npm start  
     ```
-
- 
-
