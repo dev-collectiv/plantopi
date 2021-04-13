@@ -1,7 +1,4 @@
 <p align="center"><img alt="Plantopi Logo" title="Plantopi Smart Garden" src="./resources/Plantopi-Logo.png" width="200px"></p>
-<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
-<!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 ## About
 **Designed to keep your greens alive, you can schedule an automatic irrigation based on your needs, or with the click of a button, no matter where you are**
@@ -187,6 +184,9 @@ Once you have the set up ready, there are different ways to make the software wo
     ```
 
 ## Contributors ✨
+[logo]: https://img.shields.io/badge/all_contributors-4-orange.svg 'Number of contributors on All-Contributors'
+
+[![All Contributors][logo]](#link)
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
 
