@@ -15,7 +15,7 @@ The diagram below illustrates the app's architecture. The app is engineered to w
 
 ## UI
 
-![plantopi-ui](https://github.com/dev-collectiv/plantopi/blob/main/resources/plantopiT.gif)
+![plantopi-ui](https://github.com/dev-collectiv/plantopi/blob/main/resources/plantopi.gif)
 
 ## Requirements
 
