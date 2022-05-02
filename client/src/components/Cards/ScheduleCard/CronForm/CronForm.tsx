@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import { gsap, Back } from 'gsap';
 import Day from '../Days/Days';
-import Select from 'components/Select/Select';
+import Select from '@components/Select/Select';
 
 import { Check } from 'assets';
 import { ICurrentWeather } from 'types/weatherInterfaces';

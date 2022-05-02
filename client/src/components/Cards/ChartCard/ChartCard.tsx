@@ -1,4 +1,4 @@
-import Chart from 'components/Cards/ChartCard/Chart/Chart';
+import Chart from '@components/Cards/ChartCard/Chart/Chart';
 import React from 'react';
 import style from './ChartCardStyle.module.scss';
 import IChartProps from './Chart/IChartProps';

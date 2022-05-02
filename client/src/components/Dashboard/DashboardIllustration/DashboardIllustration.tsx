@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { SocketContext } from 'context/socket';
-import Select from 'components/Select/Select';
+import Select from '@components/Select/Select';
 import { gsap } from 'gsap';
 import { MqttStatusDto } from 'types/controllersInterfaces';
 

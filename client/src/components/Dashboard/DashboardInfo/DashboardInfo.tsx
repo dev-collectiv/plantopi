@@ -1,11 +1,11 @@
 import React, { useCallback } from 'react';
 import { IGetArea } from 'types/areaInterfaces';
 
-import TopCard from 'components/Cards/TopCard/TopCard';
-import BottomCard from 'components/Cards/BottomCard/BottomCard';
-import SensorCard from 'components/Cards/SensorCard/SensorCard';
+import TopCard from '@components/Cards/TopCard/TopCard';
+import BottomCard from '@components/Cards/BottomCard/BottomCard';
+import SensorCard from '@components/Cards/SensorCard/SensorCard';
 import styles from './DashboardInfo.module.scss';
-import ScheduleCard from 'components/Cards/ScheduleCard/ScheduleCard';
+import ScheduleCard from '@components/Cards/ScheduleCard/ScheduleCard';
 import { fetchCurrentWeather } from 'services/apiWeather/apiWeather';
 import { useEffect, useState } from 'react';
 import { ICurrentWeather } from 'types/weatherInterfaces';

@@ -15,7 +15,7 @@ import { IGetSensors } from 'types/sensorsInterfaces';
 
 import DashboardIllustration from './DashboardIllustration/DashboardIllustration';
 import DashboardInfo from './DashboardInfo/DashboardInfo';
-import AreaPanel from 'components/AreaPanel/AreaPanel';
+import AreaPanel from '@components/AreaPanel/AreaPanel';
 
 const Dashboard = () => {
   const [users, setUsers] = useState<IGetUser[]>([]);

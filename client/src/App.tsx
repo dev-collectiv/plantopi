@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import NavBar from 'components/NavBar/NavBar';
-import Dashboard from 'components/Dashboard/Dashboard';
+import NavBar from './components/NavBar/NavBar';
+import Dashboard from './components/Dashboard/Dashboard';
 
 import styles from './App.module.scss';
-import IntroAnimation from 'components/IntroAnimation/IntroAnimation';
+import IntroAnimation from './components/IntroAnimation/IntroAnimation';
 
 const App: React.FC = () => {
   const [isEndOfIntroAnimation, setIsEndOfIntroAnimation] = useState<boolean>(false);
