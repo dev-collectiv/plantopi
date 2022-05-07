@@ -1,0 +1,100 @@
+datasource db {
+  url      = env("DATABASE_URL")
+  provider = "postgres"
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../../../../node_modules/.prisma/client"
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  email     String   @unique
+  name      String?
+  isActive  Boolean  @default(true)
+  role      Role     @default(USER)
+  posts     Post[]
+  Area      Area[]
+}
+
+model Area {
+  id          Int          @id @default(autoincrement())
+  user        User         @relation(fields: [userId], references: [id])
+  userId      Int          @unique
+  name        String       @unique
+  settings    AreaSettings @relation(fields: [areaSettingsId], references: [areaId])
+  sensors     Sensor[]
+  controllers Controller[]
+
+  areaSettingsId Int @unique
+}
+
+model AreaSettings {
+  id          Int     @id @default(autoincrement())
+  areaId      Int     @unique
+  isActive    Boolean @default(true)
+  description String
+  longitude   Float
+  latitude    Float
+
+  Area Area[]
+}
+
+model Settings {
+  id       Int     @id @default(autoincrement())
+  isActive Boolean @default(true)
+}
+
+model Sensor {
+  id       Int       @id @default(autoincrement())
+  area     Area      @relation(fields: [areaId], references: [id])
+  areaId   Int       @unique
+  name     String    @unique
+  isActive Boolean   @default(true)
+  readings Reading[]
+}
+
+model Controller {
+  id          Int         @id @default(autoincrement())
+  area        Area        @relation(fields: [areaId], references: [id])
+  areaId      Int         @unique
+  name        String      @unique
+  description String
+  cron        String
+  timetable   Timetable[]
+}
+
+model Reading {
+  id        Int      @id @default(autoincrement())
+  sensor    Sensor   @relation(fields: [sensorId], references: [id])
+  sensorId  Int      @unique
+  value     Float
+  createdAt DateTime @default(now())
+}
+
+model Timetable {
+  id           Int        @id @default(autoincrement())
+  controller   Controller @relation(fields: [controllerId], references: [id])
+  controllerId Int        @unique
+  startTime    DateTime
+  endTime      DateTime
+  isActive     Boolean    @default(true)
+
+}
+
+model Post {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  published Boolean  @default(false)
+  title     String
+  author    User?    @relation(fields: [authorId], references: [id])
+  authorId  Int?
+}
+
+enum Role {
+  USER
+  ADMIN
+}
