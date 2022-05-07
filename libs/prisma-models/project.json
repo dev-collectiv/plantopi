@@ -1,6 +1,7 @@
 {
   "sourceRoot": "libs/prisma-models/src",
   "projectType": "library",
+  "tags": [],
   "targets": {
     "lint": {
       "executor": "@nrwl/linter:eslint",
@@ -32,7 +33,6 @@
         "command": "npx prisma generate --schema ./src/prisma/prisma.schema",
         "cwd": "libs/prisma-models"
       }
-    },
-    "tags": []
+    }
   }
 }

@@ -15,55 +15,82 @@ model User {
   name      String?
   isActive  Boolean  @default(true)
   role      Role     @default(USER)
-  posts     Post[]
-  Area      Area[]
+  Zone      Zone[]
 }
 
-model Area {
-  id          Int          @id @default(autoincrement())
-  user        User         @relation(fields: [userId], references: [id])
-  userId      Int          @unique
-  name        String       @unique
-  settings    AreaSettings @relation(fields: [areaSettingsId], references: [areaId])
-  sensors     Sensor[]
-  controllers Controller[]
-
-  areaSettingsId Int @unique
+model Zone {
+  id             Int          @id @default(autoincrement())
+  user           User         @relation(fields: [userId], references: [id])
+  userId         Int          @unique
+  name           String       @unique
+  settings       ZoneSettings @relation(fields: [zoneSettingsId], references: [zoneId])
+  controllers    Controller[]
+  zoneSettingsId Int          @unique
 }
 
-model AreaSettings {
+model ZoneSettings {
   id          Int     @id @default(autoincrement())
-  areaId      Int     @unique
+  zoneId      Int     @unique
   isActive    Boolean @default(true)
   description String
   longitude   Float
   latitude    Float
-
-  Area Area[]
-}
-
-model Settings {
-  id       Int     @id @default(autoincrement())
-  isActive Boolean @default(true)
-}
-
-model Sensor {
-  id       Int       @id @default(autoincrement())
-  area     Area      @relation(fields: [areaId], references: [id])
-  areaId   Int       @unique
-  name     String    @unique
-  isActive Boolean   @default(true)
-  readings Reading[]
+  Zone        Zone[]
 }
 
 model Controller {
-  id          Int         @id @default(autoincrement())
-  area        Area        @relation(fields: [areaId], references: [id])
-  areaId      Int         @unique
-  name        String      @unique
+  id          Int            @id @default(autoincrement())
+  zone        Zone           @relation(fields: [zoneId], references: [id])
+  zoneId      Int            @unique
+  name        String         @unique
   description String
-  cron        String
-  timetable   Timetable[]
+  type        ControllerType @default(ESP32)
+  sensors     Sensor[]
+  switches    Switch[]
+  pins        Pin[]
+}
+
+model ControllerSettings {
+  id           Int            @id @default(autoincrement())
+  controllerId Int            @unique
+  pins         String
+  type         ControllerType
+}
+
+model Pin {
+  id           Int        @id @default(autoincrement())
+  pin          Int        @unique
+  pinType      PinType    @default(DIGITAL_INPUT)
+  sensorId     Int?       @unique
+  sensor       Sensor?    @relation(fields: [sensorId], references: [id])
+  switchId     Int?       @unique
+  switch       Switch?    @relation(fields: [switchId], references: [id])
+  Controller   Controller @relation(fields: [controllerId], references: [id])
+  controllerId Int
+}
+
+model Sensor {
+  id           Int        @id @default(autoincrement())
+  controller   Controller @relation(fields: [controllerId], references: [id])
+  controllerId Int        @unique
+  name         String     @unique
+  isActive     Boolean    @default(true)
+  readings     Reading[]
+  type         SensorType
+  pin          Pin?
+  pinId        Int?       @unique
+}
+
+model Switch {
+  id           Int        @id @default(autoincrement())
+  controller   Controller @relation(fields: [controllerId], references: [id])
+  controllerId Int        @unique
+  cron         String
+  type         SwitchType
+  isActive     Boolean    @default(true)
+  name         String     @unique
+  pin          Pin?
+  pinId        Int?       @unique
 }
 
 model Reading {
@@ -74,24 +101,33 @@ model Reading {
   createdAt DateTime @default(now())
 }
 
-model Timetable {
-  id           Int        @id @default(autoincrement())
-  controller   Controller @relation(fields: [controllerId], references: [id])
-  controllerId Int        @unique
-  startTime    DateTime
-  endTime      DateTime
-  isActive     Boolean    @default(true)
-
+enum SensorType {
+  TEMPERATURE
+  HUMIDITY
+  LIGHT
+  WATER_LEVEL
+  WATER_PH
 }
 
-model Post {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  published Boolean  @default(false)
-  title     String
-  author    User?    @relation(fields: [authorId], references: [id])
-  authorId  Int?
+enum SwitchType {
+  FAN
+  LIGHT
+  HEATER
+  COOLER
+  WATER_PUMP
+  HUMIDIFIER
+}
+
+enum ControllerType {
+  ESP8266
+  ESP32
+}
+
+enum PinType {
+  DIGITAL_OUTPUT
+  DIGITAL_INPUT
+  ANALOG_OUTPUT
+  ANALOG_INPUT
 }
 
 enum Role {
