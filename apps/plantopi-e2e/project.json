@@ -1,0 +1,27 @@
+{
+  "sourceRoot": "apps/plantopi-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/plantopi-e2e/cypress.json",
+        "devServerTarget": "plantopi:serve:development"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "plantopi:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/plantopi-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["plantopi"]
+}

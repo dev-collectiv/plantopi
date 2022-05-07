@@ -6,7 +6,7 @@
 Plantopi is an irrigation system that allows remote control and monitoring, as well as scheduling for automation. Users can create multiple areas, each with their own set of humidity sensors and controllers (water pumps, electrovalves, lights, etc.), and setup irrigation schedules based on their plants' needs. The application communicates with Arduinos and a Raspberry Pi for IoT control and makes use of Open Weather API for weather data. An overview schema of these various components can be found below.
 ## Architecture
 The diagram below illustrates the app's architecture. The app is engineered to work with many different protocols, including HTTP, WebSockets, and MQTT. Each serves a particular purpose:
-1. MQTT is a prevalent messaging protocol in the IoT world because of its lightweight nature. We integrated it to be able to connect the backend server with the microcontrollers on site. MQTT is a pub/sub protocol in which clients can subscribe to topics or publish messages to that topic. If the client is subscribed to a particular topic, it will receive all messages published there and then process them accordingly. The broker serves as a man-in-the-middle and is in charge of relaying the messages to the appropriate clients. Coming back to the app, it was designed to have all microcontrollers subscribed to the "action" topic, where they receive instructions and publish to the status topic, where they send information back to the server. 
+1. MQTT is a prevalent messaging protocol in the IoT world because of its lightweight nature. We integrated it to be able to connect the backend server with the microcontrollers on site. MQTT is a pub/sub protocol in which clients can subscribe to topics or publish messages to that topic. If the client is subscribed to a particular topic, it will receive all messages published there and then process them accordingly. The broker serves as a man-in-the-middle and is in charge of relaying the messages to the appropriate clients. Coming back to the app, it was designed to have all microcontrollers subscribed to the "action" topic, where they receive instructions and publish to the status topic, where they send information back to the server.
 2. WebSockets allow for real-time messaging without initiating a request to the server each time information is required. For our case, it is particularly useful to display real-time sensors' readings in the frontend. The app is architected, so every 2 seconds, the sensors send the data, and it is updated in the frontend.
 3. The app uses HTTP to send the actions to the server, which are then relayed to the microcontrollers using MQTT. It is also used for all CRUD operations with the database.
 
@@ -101,9 +101,9 @@ On the client-side, you will need one new file:
 - **client/.env**
 
   ```bash
-  REACT_APP_SOCKET_HOST="URL base where the socket will send information, we used http://localhost" 
+  REACT_APP_SOCKET_HOST="URL base where the socket will send information, we used http://localhost"
   REACT_APP_SOCKET_PORT=""Socket Port, we used 3002"
-  REACT_APP_API_HOST="URL base where  Nest.js  will send information, we used http://localhost" 
+  REACT_APP_API_HOST="URL base where  Nest.js  will send information, we used http://localhost"
   REACT_APP_API_PORT="PORT where react will work, by default its 3001 but it can be changed"
   ```
 
@@ -131,11 +131,11 @@ On the IoT side you need one new file:
   //GENERAL SETTINGS
   const int uploadSpeed = 115200; //CHANGE: serial COM speed
   const int digitalOutputPin1 = 5; //CHANGE: pin connected to the relay (D1 pin is the GPIO pin 5)
-  
+
   //WIFI SETTINGS
   const char *wifiSsid = "####"; //CHANGE:
   const char *wifiPassword = "####"; //CHANGE:
-  
+
   //MQTT SETTINGS
   const char *mqttBroker = "####"; //CHANGE: MQTT broker hostname
   const int mqttPort = ####; //CHANGE: MQTT broker port
@@ -143,14 +143,14 @@ On the IoT side you need one new file:
   const char *mqttControllerInTopic = "action";
   const char *mqttControllerOutTopic = "status";
   const char *mqttControllerResTopic = "response";
-  
+
   unsigned long statusInterval = 2000;
-  
+
   bool sensorActive = true; //CHANGE: set to false if you are not using any sensor
   unsigned long sensorInterval = 1000;
   const char *sensorId = "sensor1";
   const char *mqttSensorTopic = "sensors";
-  
+
   ```
 
 Compile and write file **IoT/PLANTOPI/PLANTOPI.ino** in the NodeMCU.
@@ -180,7 +180,7 @@ Once you have the set up ready, there are different ways to make the software wo
 
     ```
     cd server
-    npm start  
+    npm start
     ```
 
 ## Contributors ✨

@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "projects": {
+    "components": "libs/components",
+    "plantopi": "apps/plantopi",
+    "plantopi-e2e": "apps/plantopi-e2e",
+    "prisma-models": "libs/prisma-models",
+    "server": "libs/server",
+    "state-machines": "libs/state-machines"
+  }
+}

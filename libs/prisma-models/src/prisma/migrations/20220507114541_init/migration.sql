@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "Zone" ALTER COLUMN "description" DROP NOT NULL,
+ALTER COLUMN "longitude" DROP NOT NULL,
+ALTER COLUMN "latitude" DROP NOT NULL;

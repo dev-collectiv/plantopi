@@ -1,0 +1,44 @@
+
+
+.areaContainer {
+  @include area-container;
+  color: $highlights;
+}
+
+.svg {
+  @include svg-icon-small;
+  stroke: $dark;
+  stroke-width: 1;
+}
+
+.settings {
+  @include button-hover;
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+}
+
+.cardTitle {
+  @include area-card-title;
+}
+
+.active {
+  background-color: $highlights;
+}
+
+.content {
+  @include button-hover;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  align-items: center;
+  width: 70%;
+
+  & h3 {
+    font-weight: 500;
+  }
+
+  & p {
+    font-size: 1rem;
+  }
+}

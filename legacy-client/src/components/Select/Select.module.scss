@@ -1,0 +1,31 @@
+.select {
+  -webkit-appearance: none;
+  font-family: $titleFont;
+  font-weight: 600;
+  text-transform: uppercase;
+  background: $bg-light;
+  border-radius: $border-radius;
+  border: none;
+  outline: none;
+  color: $font-color;
+  text-overflow: ellipsis;
+  text-align: center;
+
+  //TODO - fix
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.optionalStyle {
+  @include cron-select;
+  padding-left: 45px;
+}
+
+.select::-ms-expand {
+  display: none;
+}
+
+.error {
+  color: red;
+}

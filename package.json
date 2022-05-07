@@ -1,42 +1,63 @@
 {
-  "name": "Plantopi",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "plantopi-fix",
+  "version": "0.0.0",
+  "license": "MIT",
   "scripts": {
-    "dev": "npm run dev --prefix ./client & npm run dev --prefix ./server",
-    "docker": "npm run docker --prefix ./server",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "install:all": "npm install; npm install --prefix ./client; npm install --prefix ./server"
+    "start": "nx serve",
+    "build": "nx build",
+    "test": "nx test"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/CxGarcia/thesis-project.git"
+  "private": true,
+  "dependencies": {
+    "@nrwl/express": "^14.1.4",
+    "@nrwl/next": "14.1.4",
+    "core-js": "^3.6.5",
+    "next": "12.1.5",
+    "react": "18.1.0",
+    "react-dom": "18.1.0",
+    "regenerator-runtime": "0.13.7",
+    "tslib": "^2.3.0",
+    "xstate": "^4.32.0"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/CxGarcia/thesis-project/issues"
-  },
-  "homepage": "https://github.com/CxGarcia/thesis-project#readme",
   "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^4.18.0",
-    "@typescript-eslint/parser": "^4.18.0",
-    "cz-conventional-changelog": "^3.3.0",
-    "eslint": "^7.22.0",
-    "husky": "^4.3.8",
-    "typescript": "^4.2.3"
+    "@nrwl/cli": "14.1.4",
+    "@nrwl/cypress": "14.1.4",
+    "@nrwl/eslint-plugin-nx": "14.1.4",
+    "@nrwl/jest": "14.1.4",
+    "@nrwl/linter": "14.1.4",
+    "@nrwl/nx-cloud": "latest",
+    "@nrwl/react": "14.1.4",
+    "@nrwl/web": "14.1.4",
+    "@nrwl/workspace": "14.1.4",
+    "@prisma/client": "^3.13.0",
+    "@testing-library/react": "13.1.1",
+    "@types/jest": "27.4.1",
+    "@types/node": "16.11.7",
+    "@types/react": "18.0.8",
+    "@types/react-dom": "18.0.3",
+    "@typescript-eslint/eslint-plugin": "~5.18.0",
+    "@typescript-eslint/parser": "~5.18.0",
+    "babel-jest": "27.5.1",
+    "cypress": "^9.1.0",
+    "eslint": "~8.12.0",
+    "eslint-config-next": "12.1.5",
+    "eslint-config-prettier": "8.1.0",
+    "eslint-plugin-cypress": "^2.10.3",
+    "eslint-plugin-import": "2.26.0",
+    "eslint-plugin-jsx-a11y": "6.5.1",
+    "eslint-plugin-react": "7.29.4",
+    "eslint-plugin-react-hooks": "4.5.0",
+    "install": "^0.13.0",
+    "jest": "27.5.1",
+    "nx": "14.1.4",
+    "prettier": "^2.5.1",
+    "prisma": "^3.13.0",
+    "react-test-renderer": "18.1.0",
+    "ts-jest": "27.1.4",
+    "ts-node": "9.1.1",
+    "typescript": "~4.6.2"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "eslint ./",
-      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true"
-    }
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
+  "resolutions": {
+    "@types/react": "18.0.8"
   }
 }
