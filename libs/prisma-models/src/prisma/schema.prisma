@@ -19,23 +19,15 @@ model User {
 }
 
 model Zone {
-  id             Int          @id @default(autoincrement())
-  user           User         @relation(fields: [userId], references: [id])
-  userId         Int          @unique
-  name           String       @unique
-  settings       ZoneSettings @relation(fields: [zoneSettingsId], references: [zoneId])
-  controllers    Controller[]
-  zoneSettingsId Int          @unique
-}
-
-model ZoneSettings {
-  id          Int     @id @default(autoincrement())
-  zoneId      Int     @unique
-  isActive    Boolean @default(true)
-  description String
-  longitude   Float
-  latitude    Float
-  Zone        Zone[]
+  id          Int          @id @default(autoincrement())
+  user        User         @relation(fields: [userId], references: [id])
+  userId      Int          @unique
+  name        String       @unique
+  description String?
+  longitude   Float?
+  latitude    Float?
+  controllers Controller[]
+  isActive    Boolean      @default(true)
 }
 
 model Controller {
@@ -43,18 +35,11 @@ model Controller {
   zone        Zone           @relation(fields: [zoneId], references: [id])
   zoneId      Int            @unique
   name        String         @unique
-  description String
+  description String?
   type        ControllerType @default(ESP32)
   sensors     Sensor[]
   switches    Switch[]
   pins        Pin[]
-}
-
-model ControllerSettings {
-  id           Int            @id @default(autoincrement())
-  controllerId Int            @unique
-  pins         String
-  type         ControllerType
 }
 
 model Pin {
@@ -62,11 +47,11 @@ model Pin {
   pin          Int        @unique
   pinType      PinType    @default(DIGITAL_INPUT)
   sensorId     Int?       @unique
+  controllerId Int
+  controller   Controller @relation(fields: [controllerId], references: [id])
   sensor       Sensor?    @relation(fields: [sensorId], references: [id])
   switchId     Int?       @unique
   switch       Switch?    @relation(fields: [switchId], references: [id])
-  Controller   Controller @relation(fields: [controllerId], references: [id])
-  controllerId Int
 }
 
 model Sensor {
